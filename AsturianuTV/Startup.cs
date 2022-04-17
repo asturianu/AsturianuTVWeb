@@ -27,6 +27,10 @@ namespace AsturianuTV
             services.AddDbContext<AsturianuTVDbContext>(
                 options => options.UseSqlServer(connection));
             services.AddControllersWithViews();
+
+    #if DEBUG
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+    #endif
             services.AddScoped(typeof(IRepository<>), typeof(EfCoreRepository<>));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>

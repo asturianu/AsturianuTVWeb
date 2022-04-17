@@ -15,19 +15,28 @@ namespace AsturianuTV.Controllers
     {
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Role> _roleRepository;
+        private AsturianuTVDbContext _context;
         private const string RoleName = "DefaultUser";
         public ClaimsPrincipal CookieAuthenticationDefault { get; private set; }
 
         public AccountController(
             IRepository<User> userRepository,
-            IRepository<Role> roleRepository)
+            IRepository<Role> roleRepository,
+            AsturianuTVDbContext context)
         {
             _userRepository = userRepository;
             _roleRepository = roleRepository;
+            _context = context;
         }
 
         [HttpGet]
         public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Register()
         {
             return View();
         }
@@ -49,20 +58,17 @@ namespace AsturianuTV.Controllers
                     {
                         Surname = model.Surname,
                         Name = model.Name,
-                        Years = model.Years,
                         Email = model.Email, 
                         Password = model.Password 
                     };
 
-                    Role userRole = await _roleRepository
-                        .Read()
-                        .AsNoTracking()
-                        .FirstOrDefaultAsync(r => r.Name == RoleName);
+                    Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == RoleName);
 
                     if (userRole != null)
                         user.Role = userRole;
 
-                    await _userRepository.AddAsync(user);
+                    await _context.Users.AddAsync(user);
+                     _context.SaveChanges();
 
                     await Authenticate(user); // аутентификация
 

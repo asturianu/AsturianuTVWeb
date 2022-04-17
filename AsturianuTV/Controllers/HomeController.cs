@@ -1,26 +1,31 @@
-﻿using AsturianuTV.ViewModels;
+﻿using AsturianuTV.Infrastructure.Data;
+using AsturianuTV.Infrastructure.Interfaces;
+using AsturianuTV.Roles.Extensions;
+using AsturianuTV.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace AsturianuTV.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
+        [Authorize(Roles = DefaultRole.DefaultUser)]
+        [Authorize(Roles = DefaultRole.Administrator)]
         public IActionResult Index()
         {
-            return View();
+            var role = User.FindFirst(x => x.Type == ClaimsIdentity.DefaultRoleClaimType).Value;
+            return Content($"ваша роль: {role}");
         }
 
         public IActionResult Privacy()
