@@ -1,12 +1,9 @@
-﻿using AsturianuTV.Infrastructure.Data;
-using AsturianuTV.Infrastructure.Interfaces;
-using AsturianuTV.Roles.Extensions;
+﻿using AsturianuTV.Roles.Extensions;
 using AsturianuTV.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Security.Claims;
 
 namespace AsturianuTV.Controllers
