@@ -4,14 +4,16 @@ using AsturianuTV.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AsturianuTV.Migrations
 {
     [DbContext(typeof(AsturianuTVDbContext))]
-    partial class AsturianuTVDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220514132935_NewsTagItem")]
+    partial class NewsTagItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

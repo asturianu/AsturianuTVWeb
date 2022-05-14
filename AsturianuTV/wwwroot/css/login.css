@@ -16,18 +16,18 @@ body, html {
 }
 
 #particles-js {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 .container{
   margin: 0;
-  top: 50px;
+  top: 50%;
   left: 50%;
   position: absolute;
   text-align: center;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   background-color: rgb( 33, 41, 66 );
   border-radius: 9px;
   border-top: 10px solid #79a6fe;
@@ -167,4 +167,23 @@ label span {
   left: 7.2%;
   color: white;
   display: none;
+}
+
+body {
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.particule {
+    position: absolute;
 }

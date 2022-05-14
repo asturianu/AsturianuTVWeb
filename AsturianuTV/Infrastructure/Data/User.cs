@@ -1,4 +1,4 @@
-﻿using AsturianuTV.Infrastructure.Models;
+﻿using AsturianuTV.Infrastructure.Data.Models;
 
 namespace AsturianuTV.Infrastructure.Data
 {
@@ -10,5 +10,7 @@ namespace AsturianuTV.Infrastructure.Data
         public string Password { get; set; }
         public int? RoleId { get; set; }
         public Role Role { get; set; }
+        public int? SubscriptionId { get; set; }
+        public Subscription Subscription { get; set; }
     }
 }

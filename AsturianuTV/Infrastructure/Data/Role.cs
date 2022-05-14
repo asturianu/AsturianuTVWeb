@@ -1,5 +1,5 @@
-﻿using AsturianuTV.Infrastructure.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AsturianuTV.Infrastructure.Data.Models;
 
 namespace AsturianuTV.Infrastructure.Data
 {

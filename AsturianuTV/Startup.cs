@@ -1,3 +1,5 @@
+
+using System;
 using AsturianuTV.Infrastructure.Data;
 using AsturianuTV.Infrastructure.Interfaces;
 using AsturianuTV.Infrastructure.Repository;
@@ -27,6 +29,7 @@ namespace AsturianuTV
             services.AddDbContext<AsturianuTVDbContext>(
                 options => options.UseSqlServer(connection));
             services.AddControllersWithViews();
+            services.AddAutoMapper(typeof(Startup));
 
     #if DEBUG
             services.AddControllersWithViews().AddRazorRuntimeCompilation();

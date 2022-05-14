@@ -15,31 +15,21 @@ namespace AsturianuTV.Controllers
     {
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Role> _roleRepository;
-        private AsturianuTVDbContext _context;
         private const string RoleName = "DefaultUser";
-        public ClaimsPrincipal CookieAuthenticationDefault { get; private set; }
 
         public AccountController(
             IRepository<User> userRepository,
-            IRepository<Role> roleRepository,
-            AsturianuTVDbContext context)
+            IRepository<Role> roleRepository)
         {
             _userRepository = userRepository;
             _roleRepository = roleRepository;
-            _context = context;
         }
 
         [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
+        public IActionResult Login() => View();
 
         [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
+        public IActionResult Register() => View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -62,15 +52,15 @@ namespace AsturianuTV.Controllers
                         Password = model.Password 
                     };
 
-                    Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == RoleName);
+                    Role userRole = await _roleRepository.Read()
+                        .FirstOrDefaultAsync(r => r.Name == RoleName);
 
                     if (userRole != null)
                         user.Role = userRole;
 
-                    await _context.Users.AddAsync(user);
-                     _context.SaveChanges();
+                    await _userRepository.AddAsync(user);
 
-                    await Authenticate(user); // аутентификация
+                    await Authenticate(user);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -113,8 +103,7 @@ namespace AsturianuTV.Controllers
                     claims, 
                     "ApplicationCookie", 
                     ClaimsIdentity.DefaultNameClaimType, 
-                    ClaimsIdentity.DefaultRoleClaimType
-                );
+                    ClaimsIdentity.DefaultRoleClaimType);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdentity));
         }

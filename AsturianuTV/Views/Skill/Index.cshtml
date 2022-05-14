@@ -1,0 +1,19 @@
+﻿@model IEnumerable<AsturianuTV.Infrastructure.Data.Models.Skill>
+@{
+    ViewBag.Title = "Все пользователи";
+}
+<a asp-action="Create" asp-controller="Skill">Добавить пользователя</a>
+<table class="table">
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>
+                    <a asp-action="Details" asp-controller="Skill" asp-route-id="@item.Id">Подробнее</a> |
+                    <a asp-action="Edit" asp-controller="Skill" asp-route-id="@item.Id">Изменить</a> |
+                    <a asp-action="Delete" asp-controller="Skill" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+</table>

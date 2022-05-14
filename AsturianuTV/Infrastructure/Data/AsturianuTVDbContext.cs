@@ -1,4 +1,4 @@
-﻿using AsturianuTV.Infrastructure.Data.SystemModels;
+﻿using AsturianuTV.Infrastructure.Data.Models;
 using AsturianuTV.Infrastructure.ModelsConfiguration;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,12 +10,12 @@ namespace AsturianuTV.Infrastructure.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<Match> Matches { get; set; }
-        public DbSet<Player> Players { get; set; }
         public DbSet<Skill> Skills { get; set; }
-        public DbSet<Team> Teams { get; set; }
-        public DbSet<TeamMatch> TeamMatches { get; set; }
-        public DbSet<Tournament> Tournaments { get; set; }
+        public DbSet<News> News { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<NewsTag> NewsTags { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
 
         public AsturianuTVDbContext(DbContextOptions<AsturianuTVDbContext> options)
             : base(options) { }
@@ -36,11 +36,14 @@ namespace AsturianuTV.Infrastructure.Data
             modelBuilder.Entity<User>().HasData(new User[] { adminUser });
 
             modelBuilder.ApplyConfiguration(new CharacterConfiguration());
-            modelBuilder.ApplyConfiguration(new MatchConfguration());
-            modelBuilder.ApplyConfiguration(new PlayerConfiguration());
             modelBuilder.ApplyConfiguration(new SkillConfiguration());
-            modelBuilder.ApplyConfiguration(new TeamConfiguration());
-            modelBuilder.ApplyConfiguration(new TeamMatchConfiguration());
+            modelBuilder.ApplyConfiguration(new ItemConfiguration());
+            modelBuilder.ApplyConfiguration(new NewsConfiguration());
+            modelBuilder.ApplyConfiguration(new TagConfiguration());
+            modelBuilder.ApplyConfiguration(new NewsTagConfiguration());
+            modelBuilder.ApplyConfiguration(new CommentConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new SubscriptionConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

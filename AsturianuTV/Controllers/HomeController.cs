@@ -1,10 +1,8 @@
-﻿using AsturianuTV.Roles.Extensions;
-using AsturianuTV.ViewModels;
+﻿using AsturianuTV.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
-using System.Security.Claims;
 
 namespace AsturianuTV.Controllers
 {
@@ -17,13 +15,8 @@ namespace AsturianuTV.Controllers
             _logger = logger;
         }
 
-        [Authorize(Roles = DefaultRole.DefaultUser)]
-        [Authorize(Roles = DefaultRole.Administrator)]
-        public IActionResult Index()
-        {
-            var role = User.FindFirst(x => x.Type == ClaimsIdentity.DefaultRoleClaimType).Value;
-            return Content($"ваша роль: {role}");
-        }
+        [Authorize(Roles = "Administrator, DefaultUser")]
+        public IActionResult Index() => View();
 
         public IActionResult Privacy()
         {

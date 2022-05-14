@@ -1,4 +1,4 @@
-﻿using AsturianuTV.Infrastructure.Models;
+﻿using AsturianuTV.Infrastructure.Data.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -12,8 +12,8 @@ namespace AsturianuTV.Infrastructure.Interfaces
         Task DeleteAsync(T entity);
         Task DeleteRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken);
         Task UpdateAsync(T entity);
-        IEnumerable<T> UpdateRange(IEnumerable<T> entities);
-        T Add(T entity);
+        Task<IEnumerable<T>> UpdateRangeAsync(IEnumerable<T> entities);
+        Task<T> AddAsync(T entity);
         Task AddRangeAsync(IList<T> entities);
         Task<List<T>> ListAsync(CancellationToken cancellationToken);
         IQueryable<T> Read();

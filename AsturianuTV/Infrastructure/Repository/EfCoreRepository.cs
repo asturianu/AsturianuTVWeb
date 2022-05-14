@@ -1,8 +1,9 @@
 ﻿using AsturianuTV.Infrastructure.Data;
 using AsturianuTV.Infrastructure.Interfaces;
-using AsturianuTV.Infrastructure.Models;
+using AsturianuTV.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -16,10 +17,10 @@ namespace AsturianuTV.Infrastructure.Repository
 
         public EfCoreRepository(AsturianuTVDbContext context) => _context = context;
 
-        public T Add(T entity)
+        public async Task<T> AddAsync(T entity)
         {
-            _context.Set<T>().Add(entity);
-            _context.SaveChanges();
+            await _context.Set<T>().AddAsync(entity);
+            await _context.SaveChangesAsync();
             return entity;
         }
 
@@ -69,10 +70,10 @@ namespace AsturianuTV.Infrastructure.Repository
             await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<T> UpdateRange(IEnumerable<T> entities)
+        public async Task<IEnumerable<T>> UpdateRangeAsync(IEnumerable<T> entities)
         {
             _context.Set<T>().UpdateRange(entities);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return entities;
         }
     }

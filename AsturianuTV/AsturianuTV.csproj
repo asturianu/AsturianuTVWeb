@@ -5,6 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Account\Login\**" />
+    <Compile Remove="Views\Account\Register\**" />
+    <Content Remove="Views\Account\Login\**" />
+    <Content Remove="Views\Account\Register\**" />
+    <EmbeddedResource Remove="Views\Account\Login\**" />
+    <EmbeddedResource Remove="Views\Account\Register\**" />
+    <None Remove="Views\Account\Login\**" />
+    <None Remove="Views\Account\Register\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20220508130634_HeroeSkill.cs" />
+    <Compile Remove="Migrations\20220508130634_HeroeSkill.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
@@ -13,11 +31,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Account\Login\" />
-    <Folder Include="Views\Account\Register\" />
   </ItemGroup>
 
 </Project>
