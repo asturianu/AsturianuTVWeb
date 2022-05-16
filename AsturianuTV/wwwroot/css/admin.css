@@ -401,17 +401,7 @@ li.workspaceLi .nested .nested .nested .nested .cell {
         border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     }
 
-        .asset-grid h1::after {
-            content: "";
-            position: absolute;
-            width: 530px;
-            height: 24px;
-            background: url("/assets/options.png") no-repeat;
-            background-size: 100%;
-            bottom: -44px;
-        }
-
-    .asset-grid #back {
+.asset-grid #back {
         display: inline-block;
         width: 24px;
         height: 24px;
@@ -422,9 +412,8 @@ li.workspaceLi .nested .nested .nested .nested .cell {
 .content {
     padding: 16px;
     display: grid;
-    margin-top: 46px;
-    gap: 16px;
-    grid-template-columns: repeat(auto-fit, minmax(236px, 236px));
+    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 220px));
 }
 
 .folder-grid {

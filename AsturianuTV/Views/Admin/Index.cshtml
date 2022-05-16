@@ -2,15 +2,26 @@
     Layout = "_AdminLayout";
 }
 <section>
-    <h1><a href="" id="back"></a><span id="title"></span></h1>
+    <h1><a href="" id="back"></a></h1>
+    <h2 class="page-title">Dota Setting</h2>
     <div class="content" id="content">
-        <div class="folder">
+        <a class="folder-link" asp-action="Index" asp-controller="Character">
+            <h3 class="title-card">Heroes setting</h3>
             <img class="folder" src="~/assets/folder.png" alt="Alternate Text"/>
-        </div>
+        </a>
+        <a class="folder-link" asp-action="Index" asp-controller="Skill">
+            <h3 class="title-card">Skills setting</h3>
+            <img class="folder" src="~/assets/folder.png" alt="Alternate Text"/>
+        </a>
+        <a class="folder-link" asp-action="Index" asp-controller="Skill">
+            <h3 class="title-card">Items setting</h3>
+            <img class="folder" src="~/assets/folder.png" alt="Alternate Text"/>
+        </a>
     </div>
     <div id="breadcrumbs" class="breadcrumbs"></div>
 </section>
 
-@section AdminMainPage{
+@section AdminMainPageStyles
+{
     <link href="~/css/admin-main.css" rel="stylesheet" />
 }

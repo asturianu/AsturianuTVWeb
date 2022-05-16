@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AsturianuTV.Infrastructure.Data.Models;
 using AsturianuTV.Infrastructure.Interfaces;
@@ -107,7 +108,7 @@ namespace AsturianuTV.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int? id, CancellationToken cancellationToken)
+        public async Task<IActionResult> Delete([FromRoute]int? id, CancellationToken cancellationToken)
         {
             if (id != null)
             {
