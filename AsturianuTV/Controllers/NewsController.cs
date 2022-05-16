@@ -2,8 +2,7 @@
 using System.Threading.Tasks;
 using AsturianuTV.Infrastructure.Data.Models;
 using AsturianuTV.Infrastructure.Interfaces;
-using AsturianuTV.ViewModels.System;
-using AsturianuTV.ViewModels.System.SkillViewModels;
+using AsturianuTV.ViewModels.System.NewsViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,51 +11,53 @@ using Microsoft.EntityFrameworkCore;
 namespace AsturianuTV.Controllers
 {
     [Authorize(Roles = "Administrator")]
-    public class SkillController : Controller
+    public class NewsController : Controller
     {
-        private readonly IRepository<Skill> _skillRepository;
+        private readonly IRepository<News> _newsRepository;
         private readonly IMapper _mapper;
-        public SkillController(
-            IRepository<Skill> skillRepository,
+
+        public NewsController(
+            IRepository<News> newsRepository,
             IMapper mapper)
         {
-            _skillRepository = skillRepository;
+            _newsRepository = newsRepository;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(CancellationToken cancellation) => 
-            View(await _skillRepository.ListAsync(cancellation));
+        public async Task<IActionResult> Index(CancellationToken cancellation) =>
+            View(await _newsRepository.ListAsync(cancellation));
 
         [HttpGet]
         public IActionResult Create() => View();
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateSkillViewModel createSkillViewModel)
-        {
-            if (createSkillViewModel != null)
-            {
-                var skill = _mapper.Map<Skill>(createSkillViewModel);
-                await _skillRepository.AddAsync(skill);
-            }
-            else
-                NotFound();
-
-            return RedirectToAction("Index", "Skill");
-        }
 
         [HttpGet]
         public async Task<IActionResult> Details(int? id, CancellationToken cancellationToken)
         {
             if (id != null)
             {
-                var skill = await _skillRepository.Read()
+                var news = await _newsRepository.Read()
                     .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
-                if (skill != null)
-                    return View(skill);
+                if (news != null)
+                    return View(news);
             }
+
             return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateNewsViewModel newsViewModel)
+        {
+            if (newsViewModel != null)
+            {
+                var news = _mapper.Map<News>(newsViewModel);
+                await _newsRepository.AddAsync(news);
+            }
+            else
+                NotFound();
+
+            return RedirectToAction("Index", "News");
         }
 
         [HttpGet]
@@ -64,26 +65,27 @@ namespace AsturianuTV.Controllers
         {
             if (id != null)
             {
-                var skill = await _skillRepository.Read()
+                var news = await _newsRepository.Read()
                     .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
-                if (skill != null)
-                    return View(skill);
+                if (news != null)
+                    return View(news);
             }
+
             return NotFound();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UpdateSkillViewModel updateSkillViewModel, CancellationToken cancellationToken)
+        public async Task<IActionResult> Edit(UpdateNewsViewModel newsViewModel, CancellationToken cancellationToken)
         {
-            if (updateSkillViewModel != null)
+            if (newsViewModel != null)
             {
-                var skill = _mapper.Map<Skill>(updateSkillViewModel);
-                await _skillRepository.UpdateAsync(skill);
+                var skill = _mapper.Map<News>(newsViewModel);
+                await _newsRepository.UpdateAsync(skill);
             }
             else
                 NotFound();
-            
-            return RedirectToAction("Index", "Skill");
+
+            return RedirectToAction("Index", "News");
         }
 
         [HttpGet]
@@ -92,12 +94,12 @@ namespace AsturianuTV.Controllers
         {
             if (id != null)
             {
-                var skill = await _skillRepository
+                var news = await _newsRepository
                     .Read()
                     .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
-                if (skill != null)
-                    return View(skill);
+                if (news != null)
+                    return View(news);
             }
             return NotFound();
         }
@@ -107,14 +109,14 @@ namespace AsturianuTV.Controllers
         {
             if (id != null)
             {
-                var skill = await _skillRepository
+                var news = await _newsRepository
                     .Read()
                     .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
-                if (skill != null)
+                if (news != null)
                 {
-                    await _skillRepository.DeleteAsync(skill);
-                    return RedirectToAction("Index", "Skill");
+                    await _newsRepository.DeleteAsync(news);
+                    return RedirectToAction("Index", "News");
                 }
             }
             return NotFound();

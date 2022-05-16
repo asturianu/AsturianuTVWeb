@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Dota Helper Admin</title>
+    <link rel="preload" href="~/assets/chevron-active.svg" as="image" />
+    <link rel="preload" href="~/assets/chevron.svg" as="image" />
+    <link rel="preload" href="~/assets/folder-close.svg" as="image" />
+    <link rel="preload" href="~/assets/folder-open.svg" as="image" />
+    <link rel="preload" href="~/assets/project.svg" as="image" />
+    <link rel="preload" href="~/assets/project-open.svg" as="image" />
+    <link rel="preload" href="~/assets/close.svg" as="image" />
+    <link rel="preload" href="~/assets/plan.png" as="image" />
+    <link rel="preload" href="~/assets/project-others.png" as="image" />
+    <link rel="preload" href="~/assets/folder-selected.png" as="image" />
+    <link rel="stylesheet" href="~/css/admin.css">
+    @RenderSection("AdminMainPage", required: false)
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap"
+          rel="stylesheet" />
+    <meta charset="UTF-8" />
+</head>
+    <body>
+        <div id="app">
+            <div class="primary-nav">
+                <a href="/">
+                    <img class="logo" src="~/assets/icon-dota.svg" alt="">
+                </a>
+                <a class="logo-link tooltip-right" href="/" data-tooltip="Dota settings">
+                    <img class="logo-settings" src="~/assets/dota-settings.svg" alt="">
+                </a>
+                <a class="logo-link tooltip-right" href="/" data-tooltip="Subscripe settings">
+                    <img class="logo-settings" src="~/assets/icon-subscriptions.svg" alt="">
+                </a>
+                <a class="logo-link tooltip-right" href="/" data-tooltip="News settings">
+                    <img class="logo-settings" src="~/assets/icon-news.svg" alt="">
+                </a>
+                <a class="logo-link tooltip-right" href="/" data-tooltip="User settings">
+                    <img class="logo-settings" src="~/assets/icon-settings.svg" alt="">
+                </a>
+            </div>
+            <div class="nav" id="nav">
+                <h2 id="navHeader">
+                    <span href="" id="menu"></span>
+                    <span id="workspace"></span><span class="divider">/</span>
+                    <span id="project"></span>
+                </h2>
+
+                <div id="navContent">
+                    <input type="text" class="filter" placeholder="Filter…" />
+                </div>
+            </div>
+            <div class="asset-grid" id="grid">
+                @RenderBody()
+            </div>
+        </div>
+    </body>
+</html>

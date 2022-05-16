@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using AsturianuTV.Infrastructure.Data.Models;
 
-namespace AsturianuTV.Infrastructure.Data.Models
+namespace AsturianuTV.ViewModels.System.NewsViewModels
 {
-    public class News : BaseEntity
+    public class CreateNewsViewModel
     {
         public string Title { get; set; }
         public string Description { get; set; }
@@ -14,6 +15,5 @@ namespace AsturianuTV.Infrastructure.Data.Models
         public bool IsBlog { get; set; }
         public bool IsReady { get; set; }
         public ICollection<NewsTag> NewsTags { get; set; }
-        public ICollection<Comment> Comments { get; set; }
     }
 }

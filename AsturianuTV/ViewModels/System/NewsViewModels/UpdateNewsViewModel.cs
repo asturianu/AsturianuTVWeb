@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using AsturianuTV.Infrastructure.Data.Models;
 
-namespace AsturianuTV.Infrastructure.Data.Models
+namespace AsturianuTV.ViewModels.System.NewsViewModels
 {
-    public class News : BaseEntity
+    public class UpdateNewsViewModel
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime? LastModifiedAt { get; set; }

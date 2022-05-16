@@ -21,7 +21,7 @@ namespace AsturianuTV.Controllers
         public IActionResult Index()
         {
             string role = User.FindFirst(x => x.Type == ClaimsIdentity.DefaultNameClaimType).Value;
-            return Content(role);
+            return View();
         }
     }
 }
