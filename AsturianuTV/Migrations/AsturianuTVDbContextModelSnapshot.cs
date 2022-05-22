@@ -44,6 +44,9 @@ namespace AsturianuTV.Migrations
                     b.Property<string>("History")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("MagicResist")
                         .HasColumnType("int");
 
@@ -119,6 +122,9 @@ namespace AsturianuTV.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ItemCategory")
@@ -218,6 +224,9 @@ namespace AsturianuTV.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ManaCost")

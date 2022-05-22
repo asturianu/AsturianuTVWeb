@@ -1,0 +1,121 @@
+﻿@using AsturianuTV.Infrastructure.Data.Enums
+@model AsturianuTV.Infrastructure.Data.Models.Item
+@{
+    Layout = "_AdminLayout";
+}
+<form class="form" asp-action="Create" asp-controller="Item">
+    <h2 class="form-title">Добавление предмета</h2>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Название: </label>
+        <input class="field" type="text" asp-for="Name" class="form-control"/>
+    </div>
+    <div class="form-group file">
+        <div class="left">
+            <div class="image-file file">
+                <div id="img-preview"><img id="output" /></div>
+                <div class="file-btn">
+                    <input type="file" id="choose-file" name="Image" accept="image/*" onchange="loadFile(event)" />
+                    <label for="choose-file">Выбрать</label>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <label asp-for="Description" class="control-label">Описание: </label>
+            <textarea class="field textarea" type="text" asp-for="Description"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="ItemCategory" class="control-label category">Категория: </label>
+        <div class="form-radio">
+            <div class="form_radio_btn item">
+                <input id="radio-2" type="radio" asp-for="ItemCategory" value="@ItemCategory.None" checked>
+                <label for="radio-2">None</label>
+            </div>
+            <div class="form_radio_btn item">
+                <input id="radio-3" type="radio" asp-for="ItemCategory" value="@ItemCategory.Consumable">
+                <label for="radio-3">Consumable</label>
+            </div>
+            <div class="form_radio_btn item">
+                <input id="radio-4" type="radio" asp-for="ItemCategory" value="@ItemCategory.Attribute">
+                <label for="radio-4">Attribute</label>
+            </div>
+            <div class="form_radio_btn item">
+                <input id="radio-5" type="radio" asp-for="ItemCategory" value="@ItemCategory.Equipment">
+                <label for="radio-5">Equipment</label>
+            </div>
+            <div class="form_radio_btn item">
+                <input id="radio-6" type="radio" asp-for="ItemCategory" value="@ItemCategory.Different">
+                <label for="radio-6">Different</label>
+            </div>
+            <div class="form_radio_btn item">
+                <input id="radio-7" type="radio" asp-for="ItemCategory" value="@ItemCategory.SecretShop">
+                <label for="radio-7">SecretShop</label>
+            </div>
+            <div class="form_radio_btn item">
+                <input id="radio-8" type="radio" asp-for="ItemCategory" value="@ItemCategory.Accessory">
+                <label for="radio-8">Accessory</label>
+            </div>
+            <div class="form_radio_btn item">
+                <input id="radio-9" type="radio" asp-for="ItemCategory" value="@ItemCategory.Support">
+                <label for="radio-9">Support</label>
+            </div>
+            <div class="form_radio_btn item">
+                <input id="radio-11" type="radio" asp-for="ItemCategory" value="@ItemCategory.Magic">
+                <label for="radio-11">Magic</label>
+            </div>
+            <div class="form_radio_btn item">
+                <input id="radio-12" type="radio" asp-for="ItemCategory" value="@ItemCategory.Armor">
+                <label for="radio-12">Armor</label>
+            </div>
+            <div class="form_radio_btn item">
+                <input id="radio-13" type="radio" asp-for="ItemCategory" value="@ItemCategory.Weapon">
+                <label for="radio-13">Weapon</label>
+            </div>
+            <div class="form_radio_btn item">
+                <input id="radio-14" type="radio" asp-for="ItemCategory" value="@ItemCategory.Artifact">
+                <label for="radio-14">Intelligence</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="ItemType" class="control-label">Тип: </label>
+        <div class="form-radio">
+            <div class="form_radio_btn">
+                <input id="radio-15" type="radio" asp-for="ItemType" value="@ItemType.None" checked>
+                <label for="radio-15">None</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-16" type="radio" asp-for="ItemType" value="@ItemType.Active" checked>
+                <label for="radio-16">Active</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-17" type="radio" asp-for="ItemType" value="@ItemType.Neutral" checked>
+                <label for="radio-17">Neutral</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="left">
+            <label asp-for="CoolDown" class="control-label">Перезарядка: </label>
+            <input class="field" type="text" asp-for="CoolDown" class="form-control"/>
+        </div>
+        <div class="right">
+            <label asp-for="Price" class="control-label">Стоимость: </label>
+            <input class="field" type="text" asp-for="Price" class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Отправить" class="btn submit"/>
+    </div>
+</form>
+
+<script>
+    var loadFile = function (event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+</script>

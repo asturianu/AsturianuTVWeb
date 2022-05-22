@@ -1,10 +1,12 @@
 ﻿using AsturianuTV.Infrastructure.Data.Enums;
+using Microsoft.AspNetCore.Http;
 
 namespace AsturianuTV.ViewModels.System.CharacterViewModels
 {
     public class CreateCharacterViewModel
     {
         public string Name { get; set; }
+        public IFormFile CharacterImage { get; set; }
         public string ShortDescription { get; set; }
         public string History { get; set; }
         public CharacterAttribute Attribute { get; set; }

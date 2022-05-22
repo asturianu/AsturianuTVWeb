@@ -1,11 +1,13 @@
-﻿using System.Threading;
+﻿using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
+using AsturianuTV.Dto;
 using AsturianuTV.Infrastructure.Data.Models;
 using AsturianuTV.Infrastructure.Interfaces;
-using AsturianuTV.ViewModels.System;
 using AsturianuTV.ViewModels.System.SkillViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,28 +17,48 @@ namespace AsturianuTV.Controllers
     public class SkillController : Controller
     {
         private readonly IRepository<Skill> _skillRepository;
+        private readonly IRepository<Character> _characterRepository;
+        private readonly IWebHostEnvironment _appEnvironment;
         private readonly IMapper _mapper;
         public SkillController(
             IRepository<Skill> skillRepository,
+            IRepository<Character> characterRepository,
+            IWebHostEnvironment appEnvironment,
             IMapper mapper)
         {
             _skillRepository = skillRepository;
+            _characterRepository = characterRepository;
+            _appEnvironment = appEnvironment;
             _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index(CancellationToken cancellation) => 
-            View(await _skillRepository.ListAsync(cancellation));
+            View(await _skillRepository.Read().AsNoTracking().Include(x => x.Character).ToListAsync(cancellation));
 
         [HttpGet]
-        public IActionResult Create() => View();
+        public async Task<ActionResult<SkillDto>> Create(CancellationToken cancellationToken)
+        {
+            var characters = await _characterRepository.ListAsync(cancellationToken);
+            return View(new SkillDto { Characters = characters });
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateSkillViewModel createSkillViewModel)
         {
             if (createSkillViewModel != null)
             {
+                string path = null;
+                if (createSkillViewModel.Image != null)
+                {
+                    path = "/Files/Skills/" + createSkillViewModel.Image.FileName;
+                    var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create);
+                    {
+                        await createSkillViewModel.Image.CopyToAsync(fileStream);
+                    }
+                }
                 var skill = _mapper.Map<Skill>(createSkillViewModel);
+                skill.ImagePath = path;
                 await _skillRepository.AddAsync(skill);
             }
             else
@@ -50,7 +72,10 @@ namespace AsturianuTV.Controllers
         {
             if (id != null)
             {
-                var skill = await _skillRepository.Read()
+                var skill = await _skillRepository
+                    .Read()
+                    .AsNoTracking()
+                    .Include(x => x.Character)
                     .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
                 if (skill != null)
@@ -64,10 +89,23 @@ namespace AsturianuTV.Controllers
         {
             if (id != null)
             {
-                var skill = await _skillRepository.Read()
+                var skill = await _skillRepository
+                    .Read()
+                    .AsNoTracking()
+                    .Include(x => x.Character)
                     .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+
                 if (skill != null)
-                    return View(skill);
+                {
+                    var skillDto = _mapper.Map<SkillDto>(skill);
+
+                    skillDto.Characters = await _characterRepository
+                        .Read()
+                        .AsNoTracking()
+                        .ToListAsync(cancellationToken);
+
+                    return View(skillDto);
+                }
             }
             return NotFound();
         }

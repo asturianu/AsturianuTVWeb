@@ -6,6 +6,7 @@ namespace AsturianuTV.Infrastructure.Data.Models
     public class Character : BaseEntity
     {
         public string Name { get; set; }
+        public string ImagePath { get; set; }
         public string ShortDescription { get; set; }
         public string History { get; set; }
         public CharacterAttribute Attribute { get; set; }

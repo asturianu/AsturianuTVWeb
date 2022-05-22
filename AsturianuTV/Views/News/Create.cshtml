@@ -1,0 +1,49 @@
+﻿@model AsturianuTV.Infrastructure.Data.Models.Skill
+@{
+    Layout = "_AdminLayout";
+}
+<form asp-action="Create" asp-controller="Skill">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Name</label>
+        <input type="text" asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Имя</label>
+        <input type="text" asp-for="Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Damage" class="control-label">ИмDamageя</label>
+        <input type="text" asp-for="Damage" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CoolDown" class="control-label">CoolDown</label>
+        <input type="text" asp-for="CoolDown" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="TimeDuration" class="control-label">TimeDuration</label>
+        <input type="text" asp-for="TimeDuration" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ManaCost" class="control-label">Имя</label>
+        <input type="text" asp-for="ManaCost" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ManaCost" class="control-label">Имя</label>
+        <input type="text" asp-for="ManaCost" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="DamageType" class="control-label">DamageType</label>
+        <input type="text" asp-for="DamageType" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="SkillType" class="control-label">SkillType</label>
+        <input type="text" asp-for="SkillType" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CharacterId" class="control-label">CharacterId</label>
+        <input type="text" asp-for="CharacterId" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Отправить" class="btn btn-default" />
+    </div>
+</form>

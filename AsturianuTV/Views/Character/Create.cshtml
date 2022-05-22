@@ -1,0 +1,109 @@
+﻿@using AsturianuTV.Infrastructure.Data.Enums
+@model AsturianuTV.Infrastructure.Data.Models.Character
+@{
+    Layout = "_AdminLayout";
+}
+<h1><a href="" id="back"></a></h1>
+<form class="form" asp-action="Create" asp-controller="Character">
+    <h2 class="form-title">Добавление героя</h2>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Название: </label>
+        <input class="field" type="text" asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ShortDescription" class="control-label">Описание: </label>
+        <textarea class="field textarea" type="text" asp-for="ShortDescription"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="History" class="control-label">История: </label>
+        <textarea class="field textarea" type="text" asp-for="History"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="Attribute" class="control-label">Аттрибут: </label>
+        <div class="form-radio">
+            <div class="form_radio_btn">
+                <input id="radio-2" type="radio" asp-for="Attribute" value="@CharacterAttribute.Strength" checked>
+                <label for="radio-2">Strength</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-3" type="radio" asp-for="Attribute" value="@CharacterAttribute.Agility">
+                <label for="radio-3">Agility</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-4" type="radio" asp-for="Attribute" value="@CharacterAttribute.Intelligence">
+                <label for="radio-4">Intelligence</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="RangeType" class="control-label">Дальность атаки: </label>
+        <div class="form-radio">
+            <div class="form_radio_btn">
+                <input id="radio-5" type="radio" asp-for="RangeType" value="@RangeType.None" checked>
+                <label for="radio-5">None</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-6" type="radio" asp-for="RangeType" value="@RangeType.Melee">
+                <label for="radio-6">Melee</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-7" type="radio" asp-for="RangeType" value="@RangeType.Range">
+                <label for="radio-7">Range</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="left">
+            <label asp-for="Damage" class="control-label">Урон: </label>
+            <input class="field" type="text" asp-for="Damage" class="form-control"/>
+        </div>
+        <div class="right">
+            <label asp-for="Armor" class="control-label">Броня: </label>
+            <input class="field" type="text" asp-for="Armor" class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="left">
+            <label asp-for="Health" class="control-label">Здоровье: </label>
+            <input class="field" type="text" asp-for="Health" class="form-control"/>
+        </div>
+        <div class="right">
+            <label asp-for="HealthRegeneration" class="control-label">Регенерация здоровья: </label>
+            <input class="field" type="text" asp-for="HealthRegeneration" class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="left">
+            <label asp-for="Mana" class="control-label">Мана: </label>
+            <input class="field" type="text" asp-for="Mana" class="form-control" />
+        </div>
+        <div class="right">
+            <label asp-for="ManaRegeneration" class="control-label">Регенерация маны: </label>
+            <input class="field" type="text" asp-for="ManaRegeneration" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="left">
+            <label asp-for="MoveSpeed" class="control-label">Скорость передвижения: </label>
+            <input class="field" type="text" asp-for="MoveSpeed" class="form-control" />
+        </div>
+        <div class="right">
+            <label asp-for="MagicResist" class="control-label">Сопротивление магии: </label>
+            <input class="field" type="text" asp-for="MagicResist" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <input class="btn submit" type="submit" value="Отправить" />
+    </div>
+</form>
+
+<script>
+    var loadFile = function(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('output');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+</script>

@@ -1,10 +1,11 @@
-﻿using System.Threading;
+﻿using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using AsturianuTV.Infrastructure.Data.Models;
 using AsturianuTV.Infrastructure.Interfaces;
-using AsturianuTV.ViewModels.System.CharacterViewModels;
 using AsturianuTV.ViewModels.System.ItemViewModels;
 using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,13 +14,16 @@ namespace AsturianuTV.Controllers
     public class ItemController : Controller
     {
         private readonly IRepository<Item> _itemRepository;
+        private readonly IWebHostEnvironment _appEnvironment;
         private readonly IMapper _mapper;
 
         public ItemController(
             IRepository<Item> itemRepository,
+            IWebHostEnvironment appEnvironment,
             IMapper mapper)
         {
             _itemRepository = itemRepository;
+            _appEnvironment = appEnvironment;
             _mapper = mapper;
         }
 
@@ -35,7 +39,13 @@ namespace AsturianuTV.Controllers
         {
             if (itemViewModel != null)
             {
+                string path = "/Files/Item/" + itemViewModel.ItemImage.FileName;
+                await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await itemViewModel.ItemImage.CopyToAsync(fileStream);
+                }
                 var item = _mapper.Map<Item>(itemViewModel);
+                item.ImagePath = path;
                 await _itemRepository.AddAsync(item);
             }
             else

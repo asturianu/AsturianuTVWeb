@@ -1,0 +1,46 @@
+﻿@model IEnumerable<AsturianuTV.Infrastructure.Data.Models.Item>
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="information-index">
+    <div class="crud">
+        <div class="crud-content top">
+            <div class="crud-info">
+                <p class="info">Название</p>
+                <p class="info">Описание</p>
+                <p class="info">Типа</p>
+                <p class="info">Категория</p>
+            </div>
+            <div class="crud-action">
+                <p>Действия</p>
+            </div>
+        </div>
+    </div>
+
+    @foreach (var item in Model)
+    {
+        <section class="crud">
+            <div class="crud-content">
+                <div class="crud-info">
+                    <p class="info">@item.Name</p>
+                    <p class="info">@item.Description</p>
+                    <p class="info">@item.ItemType</p>
+                    <p class="info">@item.ItemCategory</p>
+                </div>
+                <div class="crud-action">
+                    <a class="link-crud" asp-action="Details" asp-controller="Item" asp-route-id="@item.Id">
+                        <img class="icon-crud" src="~/assets/icons8-информация.svg" alt="Alternate Text"/>
+                    </a>
+                    <a class="link-crud" asp-action="Edit" asp-controller="Item" asp-route-id="@item.Id">
+                        <img class="icon-crud" src="~/assets/icons8-редактировать.svg" alt="Alternate Text"/>
+                    </a>
+                    <a class="link-crud" asp-action="Delete" asp-controller="Item" asp-route-id="@item.Id">
+                        <img class="icon-crud" src="~/assets/icons8-удалить.svg" alt="Alternate Text"/>
+                    </a>
+                </div>
+            </div>
+        </section>
+    }
+
+</div>

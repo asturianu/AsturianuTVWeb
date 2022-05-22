@@ -1,15 +1,87 @@
-﻿@model AsturianuTV.Infrastructure.Data.Models.Skill
-
-<form asp-action="Edit" asp-controller="Skill" asp-route-id="@Model.Id">
+﻿@using AsturianuTV.Infrastructure.Data.Enums
+@model AsturianuTV.Dto.SkillDto
+@{
+    Layout = "_AdminLayout";
+}
+<form class="form" asp-action="Edit" asp-controller="Skill" asp-route-id="@Model.Id">
+    <h2 class="form-title">Обновление скилла</h2>
     <div class="form-group">
-        <label asp-for="Name" class="control-label">Имя</label>
-        <input type="text" asp-for="Name" class="form-control" />
+        <label asp-for="Name" class="control-label">Название: </label>
+        <input class="field" type="text" asp-for="Name" />
     </div>
     <div class="form-group">
-        <label asp-for="Description" class="control-label">описание</label>
-        <input type="text" asp-for="Description" class="form-control" />
+        <label asp-for="Description" class="control-label">Описание: </label>
+        <textarea class="field textarea" type="text" asp-for="Description"></textarea>
     </div>
     <div class="form-group">
-        <input type="submit" value="Сохранить" class="btn btn-default" />
+        <label asp-for="Damage" class="control-label">Урон: </label>
+        <input class="field" type="text" asp-for="Damage" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CoolDown" class="control-label">Перезарядка: </label>
+        <input class="field" type="text" asp-for="CoolDown" />
+    </div>
+    <div class="form-group">
+        <label asp-for="TimeDuration" class="control-label">Длительность: </label>
+        <input class="field" type="text" asp-for="TimeDuration" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ManaCost" class="control-label">Стоиость маны: </label>
+        <input class="field" type="text" asp-for="ManaCost" />
+    </div>
+    <div class="form-group">
+        <label asp-for="DamageType" class="control-label">Тип урона: </label>
+        <div class="form-radio">
+            <div class="form_radio_btn">
+                <input id="radio-1" type="radio" asp-for="DamageType" value="@DamageType.None" checked>
+                <label for="radio-1">None</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-2" type="radio" asp-for="DamageType" value="@DamageType.Magic">
+                <label for="radio-2">Magic</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-3" type="radio" asp-for="DamageType" value="@DamageType.Pure">
+                <label for="radio-3">Pure</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-4" type="radio" asp-for="DamageType" value="@DamageType.Physical">
+                <label for="radio-4">Physical</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="SkillType" class="control-label">Тип скилла: </label>
+        <div class="form-radio">
+            <div class="form_radio_btn">
+                <input id="radio-5" type="radio" asp-for="SkillType" value="@SkillType.None" checked>
+                <label for="radio-5">None</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-6" type="radio" asp-for="SkillType" value="@SkillType.Active">
+                <label for="radio-6">Active</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-7" type="radio" asp-for="SkillType" value="@SkillType.Passive">
+                <label for="radio-7">Passive</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="CharacterId" class="control-label">Выберите героя</label>
+        <select class="select" asp-for="CharacterId">
+            <option disabled>Выбрать героя</option>
+            @foreach (var character in Model.Characters)
+            {
+                <option value="@character.Id">@character.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <div class="none"></div>
+        <div class="btn-wrapper">
+            <input class="btn reset" type="reset" value="Очистить"/>
+            <input class="btn submit" type="submit" value="Отправить"/>
+        </div>
     </div>
 </form>
