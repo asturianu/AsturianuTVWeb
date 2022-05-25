@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace AsturianuTV.ViewModels.System.CharacterViewModels
 {
-    public class UpdateCharacterViewModel
+    public class UpdateMaterialViewModel
     {
         public int Id { get; set; } 
         public string Name { get; set; }

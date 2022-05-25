@@ -12,6 +12,11 @@ namespace AsturianuTV.Infrastructure.ModelsConfiguration
                 .WithOne(p => p.Character)
                 .HasForeignKey(p => p.CharacterId);
 
+
+            builder.HasMany(b => b.Skills)
+                .WithOne(a => a.Character)
+                .OnDelete(DeleteBehavior.SetNull);
+
             builder.Property(x => x.Attribute)
                 .HasColumnType("int")
                 .IsRequired();

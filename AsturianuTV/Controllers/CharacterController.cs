@@ -36,7 +36,7 @@ namespace AsturianuTV.Controllers
         public IActionResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCharacterViewModel characterViewModel)
+        public async Task<IActionResult> Create(CreateBlogViewModel characterViewModel)
         {
             if (characterViewModel != null)
             {
@@ -73,7 +73,7 @@ namespace AsturianuTV.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UpdateCharacterViewModel characterViewModel)
+        public async Task<IActionResult> Edit(UpdateMaterialViewModel characterViewModel)
         {
             if (characterViewModel != null)
             {

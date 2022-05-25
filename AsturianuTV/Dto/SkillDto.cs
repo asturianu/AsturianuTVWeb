@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AsturianuTV.Infrastructure.Data.Enums;
 using AsturianuTV.Infrastructure.Data.Models;
 

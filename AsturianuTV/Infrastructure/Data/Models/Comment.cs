@@ -5,7 +5,7 @@ namespace AsturianuTV.Infrastructure.Data.Models
     public class Comment : BaseEntity
     {
         public string Description { get; set; }
-        public int NewsId { get; set; }
+        public int? NewsId { get; set; }
         public News News { get; set; }
         public DateTime CreatedAt { get; set; }
         public int CreatedBy { get; set; }

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace AsturianuTV.ViewModels.System.CharacterViewModels
 {
-    public class CreateCharacterViewModel
+    public class CreateBlogViewModel
     {
         public string Name { get; set; }
         public IFormFile CharacterImage { get; set; }

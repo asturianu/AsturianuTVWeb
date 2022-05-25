@@ -8,7 +8,7 @@ namespace AsturianuTV.Infrastructure.Data.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public ICollection<Material> Materials { get; set; }
-        public int PlanId { get; set; }
+        public int? PlanId { get; set; }
         public Plan Plan { get; set; }
     }
 }

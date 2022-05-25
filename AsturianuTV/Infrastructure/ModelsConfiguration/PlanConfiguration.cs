@@ -15,6 +15,14 @@ namespace AsturianuTV.Infrastructure.ModelsConfiguration
             builder.HasMany(x => x.Blogs)
                 .WithOne(x => x.Plan)
                 .HasForeignKey(x => x.PlanId);
+
+            builder.HasOne(b => b.Subscription)
+                .WithMany(a => a.Plans)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            builder.HasMany(b => b.Blogs)
+                .WithOne(a => a.Plan)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

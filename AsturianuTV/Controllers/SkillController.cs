@@ -37,11 +37,8 @@ namespace AsturianuTV.Controllers
             View(await _skillRepository.Read().AsNoTracking().Include(x => x.Character).ToListAsync(cancellation));
 
         [HttpGet]
-        public async Task<ActionResult<SkillDto>> Create(CancellationToken cancellationToken)
-        {
-            var characters = await _characterRepository.ListAsync(cancellationToken);
-            return View(new SkillDto { Characters = characters });
-        }
+        public async Task<ActionResult<SkillDto>> Create(CancellationToken cancellationToken) =>
+             View(new SkillDto { Characters = await _characterRepository.ListAsync(cancellationToken) });
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateSkillViewModel createSkillViewModel)
@@ -93,16 +90,12 @@ namespace AsturianuTV.Controllers
                     .Read()
                     .AsNoTracking()
                     .Include(x => x.Character)
-                    .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+                    .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
 
                 if (skill != null)
                 {
                     var skillDto = _mapper.Map<SkillDto>(skill);
-
-                    skillDto.Characters = await _characterRepository
-                        .Read()
-                        .AsNoTracking()
-                        .ToListAsync(cancellationToken);
+                    skillDto.Characters = await _characterRepository.ListAsync(cancellationToken);
 
                     return View(skillDto);
                 }

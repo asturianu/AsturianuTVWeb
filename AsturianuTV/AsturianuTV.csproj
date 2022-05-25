@@ -18,6 +18,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20220508130634_HeroeSkill.cs" />
     <Compile Remove="Migrations\20220508130634_HeroeSkill.Designer.cs" />
+    <Compile Remove="Migrations\20220525135033_CascadeDelete.cs" />
+    <Compile Remove="Migrations\20220525135033_CascadeDelete.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
