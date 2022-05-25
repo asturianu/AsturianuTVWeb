@@ -3,18 +3,6 @@
     Layout = "_AdminLayout";
 }
 <div>
-    <dl class="dl-horizontal">
-        <dt>Имя</dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>Возраст</dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
-
     <div>
         <form asp-controller="Skill" asp-action="Delete">
             <div class="form-group">

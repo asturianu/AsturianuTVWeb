@@ -66,10 +66,10 @@ namespace AsturianuTV.Controllers
                     .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
                 if (character != null)
-                    return RedirectToAction("Index", "Character");
+                    return View(character);
             }
-
             return NotFound();
+            
         }
 
         [HttpPost]

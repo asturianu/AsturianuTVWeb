@@ -39,10 +39,14 @@ namespace AsturianuTV.Controllers
         {
             if (itemViewModel != null)
             {
-                string path = "/Files/Item/" + itemViewModel.ItemImage.FileName;
-                await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                string path = null;
+                if (itemViewModel.ItemImage != null)
                 {
-                    await itemViewModel.ItemImage.CopyToAsync(fileStream);
+                    path = "/Files/Item/" + itemViewModel.ItemImage.FileName;
+                    var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create);
+                    {
+                        await itemViewModel.ItemImage.CopyToAsync(fileStream);
+                    }
                 }
                 var item = _mapper.Map<Item>(itemViewModel);
                 item.ImagePath = path;
@@ -64,7 +68,7 @@ namespace AsturianuTV.Controllers
                     .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
                 if (item != null)
-                    return RedirectToAction("Index", "Item");
+                    return View(item);
             }
 
             return NotFound();

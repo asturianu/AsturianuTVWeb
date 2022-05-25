@@ -1,21 +1,51 @@
-﻿<!DOCTYPE html>
+﻿@model AsturianuTV.Infrastructure.Data.User
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AsturianuTV</title>
-
+    <link href="~/css/header.css" rel="stylesheet" />
+    <link href="~/css/footer.css" rel="stylesheet" />
+    @RenderSection("MainPageStyles", required: false)
 </head>
 <body>
-    <header>
+    <header class="header">
+        <div class="container">
+            @if (User.Identity.IsAuthenticated)
+            {
+
+                <div class="navigation">
+                    <div class="user-box">
+                        <div class="image-box">
+                            <img src="https://i.pravatar.cc/150?img=49" alt="avatar">
+                        </div>
+                        <p class="username">@User.Identity.Name</p>
+                    </div>
+                    <div class="menu-toggle"></div>
+                    <ul class="menu">
+                        <li><a asp-controller="Home" asp-action="Profile" asp-route-id="@Model.Id">Профиль</a></li>
+                        <li><a asp-controller="Home" asp-action="SettingsProfile" asp-route-id="@Model.Id">Настройки</a></li>
+                        <li><a asp-controller="Home" asp-action="Subscriptions" asp-route-id="@Model.Id">Мои подписки</a></li>
+                        <li><a asp-controller="Home" asp-action="News" asp-route-id="@Model.Id">Мои новости</a></li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <a href="#">Log In</a>
+            }
+
+        </div>
     </header>
-    <div>
-        <main>
-            @RenderBody()
-        </main>
-    </div>
-    <footer>
+    <main>
+        @RenderBody()
+    </main>
+    <footer class="footer">
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/header.js"></script>
+    <script src="~/js/footer.js"></script>
+    @RenderSection("MainPageScripts", required: false)
 </body>
 </html>

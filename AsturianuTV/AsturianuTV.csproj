@@ -34,6 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Blog\" />
+    <Folder Include="Views\Materials\" />
+    <Folder Include="Views\Plan\" />
     <Folder Include="wwwroot\Files\Skills\" />
   </ItemGroup>
 

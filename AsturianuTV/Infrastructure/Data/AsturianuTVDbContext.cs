@@ -16,6 +16,9 @@ namespace AsturianuTV.Infrastructure.Data
         public DbSet<NewsTag> NewsTags { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Plan> Plans { get; set; }
+        public DbSet<Material> Materials { get; set; }
 
         public AsturianuTVDbContext(DbContextOptions<AsturianuTVDbContext> options)
             : base(options) { }
@@ -44,6 +47,9 @@ namespace AsturianuTV.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new SubscriptionConfiguration());
+            modelBuilder.ApplyConfiguration(new BlogConfiguration());
+            modelBuilder.ApplyConfiguration(new PlanConfiguration());
+            modelBuilder.ApplyConfiguration(new MaterialConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

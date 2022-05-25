@@ -2,14 +2,24 @@
 @{
     Layout = "_AdminLayout";
 }
-
-<h2>Пользователь @Model.Name</h2>
-<div>
-    <dl class="dl-horizontal">
-        <dt>Идентификатор</dt>
-        <dd>@Model.Name</dd>
-
-        <dt>Возраст</dt>
-        <dd>@Model.Description</dd>
-    </dl>
-</div>
+<section>
+    <div class="form">
+        <p>@Model.Name</p>
+        <p>
+        </p>
+        <div class="secondary-info">
+            <p>
+                @if (@Model.ImagePath == null)
+                {
+                    <span>No Image</span>
+                }
+                else
+                {
+                    <img class="content-img" src="@Model.ImagePath" alt="Alternate Text" />
+                }
+            </p>
+            <p>@Model.Description</p>
+            <p>@Model.CoolDown</p>
+        </div>
+    </div>
+</section>
