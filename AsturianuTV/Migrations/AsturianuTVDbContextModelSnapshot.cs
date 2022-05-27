@@ -179,12 +179,20 @@ namespace AsturianuTV.Migrations
                     b.Property<int?>("BlogId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ContentType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FilePath")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("NewsId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BlogId");
+
+                    b.HasIndex("NewsId");
 
                     b.ToTable("Materials");
                 });
@@ -446,6 +454,11 @@ namespace AsturianuTV.Migrations
                     b.HasOne("AsturianuTV.Infrastructure.Data.Models.Blog", "Blog")
                         .WithMany("Materials")
                         .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.News", "News")
+                        .WithMany("Materials")
+                        .HasForeignKey("NewsId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 

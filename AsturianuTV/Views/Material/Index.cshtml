@@ -1,0 +1,66 @@
+﻿@using Microsoft.CodeAnalysis.CSharp.Syntax
+@model IEnumerable<AsturianuTV.Infrastructure.Data.Models.Material>
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="crud">
+    <div class="crud-content top">
+        <div class="crud-info">
+            <p class="info">Блог: </p>
+            <p class="info">Картинка: </p>
+        </div>
+        <div class="crud-action">
+            <p>Действия</p>
+        </div>
+    </div>
+</div>
+
+@foreach (var item in Model)
+{
+    <section class="crud">
+        <div class="accordion">
+            <div class="crud-content">
+                <div class="crud-info">
+                    @if (@item.Blog != null)
+                    {
+                        <p class="info">@item.Blog.Title</p>
+                    }
+                    else if (@item.News != null)
+                    {
+                        <p class="info">@item.News.Title</p>
+                    }
+                    else
+                    {
+                        <p class="info">Не определено</p>
+                    }
+
+                    <p class="info">
+                        <img style="width: 50px" src="@item.FilePath" alt="Alternate Text" />
+                    </p>
+                    <p class="info"></p>
+                    <p class="info"></p>
+                </div>
+                <div class="crud-action">
+                    <a class="link-crud" asp-action="Details" asp-controller="Material" asp-route-id="@item.Id">
+                        <img class="icon-crud" src="~/assets/icons8-информация.svg" alt="Alternate Text"/>
+                    </a>
+                    <a class="link-crud" asp-action="Edit" asp-controller="Material" asp-route-id="@item.Id">
+                        <img class="icon-crud" src="~/assets/icons8-редактировать.svg" alt="Alternate Text"/>
+                    </a>
+                    <a class="link-crud" asp-action="Delete" asp-controller="Material" asp-route-id="@item.Id">
+                        <img class="icon-crud" src="~/assets/icons8-удалить.svg" alt="Alternate Text"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<a class="create-title" asp-action="Create" asp-controller="Material">Create</a>
+@section CharacterStyles{
+    <link href="~/css/character.css" rel="stylesheet" />
+}
+
+@section CharacterScripts{
+    <script src="~/js/character.js"></script>
+}

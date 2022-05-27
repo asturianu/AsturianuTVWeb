@@ -1,47 +1,54 @@
-﻿@model AsturianuTV.Infrastructure.Data.Models.Skill
+﻿@using AsturianuTV.Infrastructure.Data.Enums
+@model AsturianuTV.Infrastructure.Data.Models.Subscription
 @{
     Layout = "_AdminLayout";
 }
-<form asp-action="Create" asp-controller="Skill">
+<form class="form" asp-action="Create" asp-controller="Subscription">
     <div class="form-group">
-        <label asp-for="Name" class="control-label">Name</label>
+        <label asp-for="Name" class="control-label">Название</label>
         <input type="text" asp-for="Name" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Description" class="control-label">Имя</label>
+        <label asp-for="Description" class="control-label">Описание</label>
         <input type="text" asp-for="Description" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Damage" class="control-label">ИмDamageя</label>
-        <input type="text" asp-for="Damage" class="form-control" />
+        <label asp-for="Level" class="control-label">Аттрибут: </label>
+        <div class="form-radio">
+            <div class="form_radio_btn">
+                <input id="radio-1" type="radio" asp-for="Level" value="@SubscriptionLevel.Low" checked>
+                <label for="radio-1">Low</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-2" type="radio" asp-for="Level" value="@SubscriptionLevel.Medium">
+                <label for="radio-2">Medium</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-3" type="radio" asp-for="Level" value="@SubscriptionLevel.High">
+                <label for="radio-3">High</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-4" type="radio" asp-for="Level" value="@SubscriptionLevel.Premium">
+                <label for="radio-4">Premium</label>
+            </div>
+        </div>
     </div>
     <div class="form-group">
-        <label asp-for="CoolDown" class="control-label">CoolDown</label>
-        <input type="text" asp-for="CoolDown" class="form-control" />
+        <label asp-for="Price" class="control-label">Цена</label>
+        <input type="text" asp-for="Price" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="TimeDuration" class="control-label">TimeDuration</label>
-        <input type="text" asp-for="TimeDuration" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="ManaCost" class="control-label">Имя</label>
-        <input type="text" asp-for="ManaCost" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="ManaCost" class="control-label">Имя</label>
-        <input type="text" asp-for="ManaCost" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="DamageType" class="control-label">DamageType</label>
-        <input type="text" asp-for="DamageType" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="SkillType" class="control-label">SkillType</label>
-        <input type="text" asp-for="SkillType" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="CharacterId" class="control-label">CharacterId</label>
-        <input type="text" asp-for="CharacterId" class="form-control" />
+        <label asp-for="Level" class="control-label">Готовность: </label>
+        <div class="form-radio">
+            <div class="form_radio_btn">
+                <input id="radio-5" type="radio" asp-for="Level" value="@false" checked>
+                <label for="radio-5">False</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-6" type="radio" asp-for="Level" value="@true">
+                <label for="radio-6">True</label>
+            </div>
+        </div>
     </div>
     <div class="form-group">
         <input type="submit" value="Отправить" class="btn btn-default" />

@@ -1,4 +1,5 @@
-﻿using AsturianuTV.Infrastructure.Data.Models;
+﻿using AsturianuTV.Dto;
+using AsturianuTV.Infrastructure.Data.Models;
 using AsturianuTV.ViewModels.System.BlogViewModels;
 using AutoMapper;
 
@@ -10,6 +11,8 @@ namespace AsturianuTV.MapperProfile
         {
             CreateMap<CreateBlogViewModel, Blog>();
             CreateMap<UpdateBlogViewModel, Blog>();
+            CreateMap<Blog, BlogDto>()
+                .ForMember(dest => dest.Plans, opt => opt.Ignore());
         }
     }
 }

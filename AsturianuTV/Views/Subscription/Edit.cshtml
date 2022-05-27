@@ -1,17 +1,54 @@
-﻿@model AsturianuTV.Infrastructure.Data.Models.Skill
+﻿@using AsturianuTV.Infrastructure.Data.Enums
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model AsturianuTV.Infrastructure.Data.Models.Subscription
 @{
     Layout = "_AdminLayout";
 }
-<form asp-action="Edit" asp-controller="Skill" asp-route-id="@Model.Id">
+<form asp-action="Edit" asp-controller="Subscription" asp-route-id="@Model.Id">
     <div class="form-group">
-        <label asp-for="Name" class="control-label">Имя</label>
+        <label asp-for="Name" class="control-label">Название</label>
         <input type="text" asp-for="Name" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Description" class="control-label">описание</label>
+        <label asp-for="Description" class="control-label">Описание</label>
         <input type="text" asp-for="Description" class="form-control" />
     </div>
     <div class="form-group">
-        <input type="submit" value="Сохранить" class="btn btn-default" />
+        <label asp-for="Level" class="control-label">Аттрибут: </label>
+        <div class="form-radio">
+            <div class="form_radio_btn">
+                <input id="radio-1" type="radio" asp-for="Level" value="@SubscriptionLevel.Low" checked>
+                <label for="radio-1">Low</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-2" type="radio" asp-for="Level" value="@SubscriptionLevel.Medium">
+                <label for="radio-2">Medium</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-3" type="radio" asp-for="Level" value="@SubscriptionLevel.High">
+                <label for="radio-3">High</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-4" type="radio" asp-for="Level" value="@SubscriptionLevel.Premium">
+                <label for="radio-4">Premium</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price" class="control-label">Цена</label>
+        <input type="text" asp-for="Price" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Level" class="control-label">Готовность: </label>
+        <div class="form-radio">
+            <div class="form_radio_btn">
+                <input id="radio-5" type="radio" asp-for="Level" value="@false" checked>
+                <label for="radio-5">False</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-6" type="radio" asp-for="Level" value="@true">
+                <label for="radio-6">True</label>
+            </div>
+        </div>
     </div>
 </form>

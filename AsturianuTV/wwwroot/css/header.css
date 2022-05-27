@@ -1,148 +1,191 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap');
+﻿@font-face {
+    font-family: 'Gilroy-SemiBold';
+    src: url(../lib/fonts/Gilroy-SemiBold.ttf);
+}
+
+@font-face {
+    font-family: 'Gilroy-Bold';
+    src: url(../lib/fonts/Gilroy-Bold.ttf);
+}
+
+@font-face {
+    font-family: 'Gilroy-Regular';
+    src: url(../lib/fonts/Gilroy-Regular.ttf);
+}
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Gilroy-Bold';
+    text-decoration: none;
 }
-
-.navigation {
+.menu {
     position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 90px;
-    height: 40px;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 5px;
-    background: rgba(56, 57, 77, 0.35);
-    box-shadow: 0 25px 35px rgb(0 0 0 / 10%);
-    overflow: hidden;
-    transition: height 0.5s, width 0.5s;
-    transition-delay: 0s, 0.75s;
+    right: -240px;
+    width: 250px;
+    height: 100%;
+    top: 0;
+    z-index: 10;
+    text-align: left;
 }
 
-.navigation .user-box {
-    position: relative;
-    width: 50px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    transition: 0.5s;
-    transition-delay: 0.5s;
+.menu.menu-open {
+    right: 0;
 }
 
-    .navigation .user-box .username {
-        font-size: .8rem;
-        white-space: nowrap;
-        padding-left: 20px;
-        color: gray;
-    }
-
-.navigation .user-box .image-box {
-    position: relative;
-    min-width: 30px;
-    height: 30px;
-    background: white;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-left: 10px;
-}
-
-.navigation .user-box .image-box img {
+.menu-wrap {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    left: 10px;
+    background: #1a1a1a;
+    width: 250px;
+    height: 100%
 }
 
-.navigation .menu-toggle {
-    position: relative;
+.menu h1.logo a {
+    font-family: Raleway, Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: .15em;
+    line-height: 40px;
+    text-transform: uppercase;
+    color: rgba(153, 239, 208, 1);
+    margin-top: 20px;
+    transition: .3s all ease-in-out;
+}
+
+.menu h1.logo a:hover {
+    color: #1abc9c;
+}
+
+.menu img.logo {
+    margin: 20px 0;
+    max-width: 160px;
+}
+
+.menu a {
+    margin-left: 20px;
+    color: gray;
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 30px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    transition: .3s all ease-in-out;
+    margin-top: 5px;
+}
+
+.menu a:hover {
+    color: rgba(153, 239, 208, 1);
+}
+
+.menu a:active {
+    color: #fff;
+}
+
+.menu a > i {
+    float: left;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: left;
+    width: 25px;
+    font-size: 14px;
+    line-height: 40px;
+    margin: 2px;
+}
+
+.menu-close {
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    font-size: 14px;
+    color: gray;
     width: 40px;
     height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    line-height: 40px;
+    top: 33px;
+    right: 5px;
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -ms-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+}
+
+.menu-close:hover {
+    color: #fff;
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -ms-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+}
+
+#menuToggle {
+    position: absolute;
+    top: 55px;
+    left: -50px;
+    z-index: 11;
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
     cursor: pointer;
+    background: rgba(0, 0, 0, .25);
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -ms-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
 }
 
-.navigation .menu-toggle::before {
-    content: "";
-    position: absolute;
-    width: 20px;
-    height: 2px;
-    background: gray;
-    transform: translateY(-7px);
-    box-shadow: 0 7px gray;
-    transition: 0.5s;
+#menuToggle:hover {
+    color: #fff;
+    background: rgba(0, 0, 0, .2);
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -ms-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
 }
 
-.navigation .menu-toggle::after {
-    content: "";
-    position: absolute;
-    width: 20px;
-    height: 2px;
-    background: gray;
-    transform: translateY(7px);
-    transition: 0.5s;
+.body-push {
+    overflow-x: hidden;
+    position: relative;
+    left: 0;
 }
 
-.menu {
-    position: absolute;
-    width: 100%;
-    height: calc(100% - 60px);
-    margin-top: 40px;
-    padding: 5px 20px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+.body-push-toright {
+    left: 200px;
 }
 
-.menu li {
-    list-style: none;
+.body-push-toleft {
+    left: -200px;
 }
 
-    .menu li a {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: .8rem;
-        padding: 5px 0;
-        text-decoration: none;
-        color: gray;
-    }
-
-.menu li a ion-icon {
-    font-size: 1.5rem;
+.menu,
+.body-push {
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
 }
 
-.menu li a:hover {
-    color: purple;
+.logo {
+    margin: 0;
 }
 
-.navigation.active .menu-toggle::before {
-    transform: translateY(0px) rotate(45deg);
-    box-shadow: none;
+.logo-link {
+    width: 50px;
+    height: 50px;
 }
 
-.navigation.active .menu-toggle::after {
-    transform: translateY(0px) rotate(-45deg);
-}
-
-.navigation.active {
-    width: 200px;
-    height: 170px;
-    transition: width 0.5s, height 0.5s;
-    transition-delay: 0s, 0.75s;
-}
-
-.navigation.active .user-box {
-    width: calc(100% - 20px);
-    transition-delay: 0s;
-}
-
-.navigation.active .user-box .username {
-    padding-left: 10px;
+.logo-link > img {
+    width: -webkit-fill-available;
 }

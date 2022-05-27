@@ -1,0 +1,37 @@
+﻿@using AsturianuTV.Infrastructure.Data.Enums
+@model AsturianuTV.Dto.MaterialDto
+@{
+    Layout = "_AdminLayout";
+}
+
+<form class="form" asp-action="Create" asp-controller="Material" enctype="multipart/form-data">
+    <h2 class="form-title">Добавление файла</h2>
+    <input class="material" type="file" name="FilePaths" />
+    <div class="form-group">
+        <label asp-for="BlogId" class="control-label">Выберите блог</label>
+        <select class="select" asp-for="BlogId">
+            <option disabled>Выберите блог</option>
+            @foreach (var blog in Model.Blogs)
+            {
+                <option value="@blog.Id">@blog.Title</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="BlogId" class="control-label">Выберите блог</label>
+        <select class="select-news" asp-for="NewsId">
+            <option disabled>Выберите новость</option>
+            @foreach (var news in Model.News)
+            {
+                <option value="@news.Id">@news.Title</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <input class="btn submit" type="submit" value="Отправить" />
+    </div>
+</form>
+
+<script>
+
+</script>

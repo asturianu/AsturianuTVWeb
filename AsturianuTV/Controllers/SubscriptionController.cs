@@ -36,8 +36,10 @@ namespace AsturianuTV.Controllers
         {
             if (id != null)
             {
-                var subscription = await _subscriptionRepository.Read()
-                    .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+                var subscription = await _subscriptionRepository
+                    .Read()
+                    .AsNoTracking()
+                    .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
 
                 if (subscription != null)
                     return View(subscription);

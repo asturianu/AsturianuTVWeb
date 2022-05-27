@@ -6,8 +6,8 @@ namespace AsturianuTV.ViewModels.System.MaterialViewModels
     public class UpdateMaterialViewModel
     {
         public int Id { get; set; }
-        public int BlogId { get; set; }
+        public int? BlogId { get; set; }
         public Blog Blog { get; set; }
-        public IFormFileCollection FilePathes { get; set; }
+        public IFormFileCollection FilePaths { get; set; }
     }
 }

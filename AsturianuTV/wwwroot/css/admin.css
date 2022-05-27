@@ -236,6 +236,12 @@ body {
     position: relative;
 }
 
+.select-news {
+    display: block;
+    width: 70%;
+    position: relative;
+}
+
 .new-select {
     position: relative;
     border-radius: 10px;
@@ -515,4 +521,9 @@ body {
 
 .control-label.category {
     align-self: flex-start;
+}
+
+.material {
+    height: 30px;
+    width: auto
 }

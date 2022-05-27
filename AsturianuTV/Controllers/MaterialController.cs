@@ -17,42 +17,59 @@ namespace AsturianuTV.Controllers
     {
         private readonly IRepository<Material> _materialRepository;
         private readonly IRepository<Blog> _blogRepository;
+        private readonly IRepository<News> _newsRepository;
         private readonly IWebHostEnvironment _appEnvironment;
         private readonly IMapper _mapper;
 
         public MaterialController(
             IRepository<Material> materialRepository,
             IRepository<Blog> blogRepository,
+            IRepository<News> newsRepository,
             IWebHostEnvironment appEnvironment,
             IMapper mapper)
         {
             _materialRepository = materialRepository;
             _blogRepository = blogRepository;
+            _newsRepository = newsRepository;
             _appEnvironment = appEnvironment;
             _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index(CancellationToken cancellationToken) =>
-             View(new MaterialDto { Blogs = await _blogRepository.ListAsync(cancellationToken) });
+             View(await _materialRepository
+                 .Read()
+                 .Include(x => x.Blog)
+                 .ToListAsync(cancellationToken));
 
         [HttpGet]
-        public IActionResult Create() => View();
+        public async Task<IActionResult> Create(CancellationToken cancellationToken) =>
+            View(new MaterialDto
+            {
+                Blogs = await _blogRepository.ListAsync(cancellationToken),
+                News = await _newsRepository.ListAsync(cancellationToken)
+            });
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateMaterialViewModel materialViewModel)
         {
             if (materialViewModel != null)
             {
-                foreach (var file in materialViewModel.FilePathes)
+                if (materialViewModel.FilePaths != null)
                 {
-                    var path = "/Files/Material/" + file.FileName;
-                    var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create);
-                    await file.CopyToAsync(fileStream);
+                    foreach (var file in materialViewModel.FilePaths)
+                    {
+                        var path = "/Files/Materials/" + file.FileName;
+                        await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                        {
+                            await file.CopyToAsync(fileStream);
+                        }
 
-                    var material = _mapper.Map<Material>(materialViewModel);
-                    material.FilePath = path;
-                    await _materialRepository.AddAsync(material);
+                        var material = _mapper.Map<Material>(materialViewModel);
+                        material.FilePath = path;
+                        material.ContentType = file.ContentType;
+                        await _materialRepository.AddAsync(material);
+                    }
                 }
             }
             else
@@ -88,7 +105,7 @@ namespace AsturianuTV.Controllers
         {
             if (materialViewModel != null)
             {
-                foreach (var file in materialViewModel.FilePathes)
+                foreach (var file in materialViewModel.FilePaths)
                 {
                     var path = "/Files/Material/" + file.FileName;
                     var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create);

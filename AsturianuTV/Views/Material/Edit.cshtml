@@ -1,0 +1,24 @@
+﻿@model AsturianuTV.Dto.MaterialDto
+@{
+    Layout = "_AdminLayout";
+}
+}
+<h1><a href="" id="back"></a></h1>
+<form asp-action="Edit" asp-controller="Material" asp-route-id="@Model.Id">
+    <div class="form-group">
+        <img src="@Model.FilePath" alt="Alternate Text" />
+    </div>
+    <div class="form-group">
+        <label asp-for="BlogId" class="control-label">Выберите блог</label>
+        <select class="select" asp-for="BlogId">
+            <option disabled>Выберите блог</option>
+            @foreach (var blog in Model.Blogs)
+            {
+                <option value="@blog.Id">@blog.Title</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Сохранить" class="btn btn-default"/>
+    </div>
+</form>

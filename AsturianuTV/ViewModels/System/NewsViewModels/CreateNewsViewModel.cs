@@ -15,5 +15,6 @@ namespace AsturianuTV.ViewModels.System.NewsViewModels
         public bool IsBlog { get; set; }
         public bool IsReady { get; set; }
         public ICollection<NewsTag> NewsTags { get; set; }
+        public ICollection<Material> Materials { get; set; }
     }
 }

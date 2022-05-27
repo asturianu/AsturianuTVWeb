@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using AsturianuTV.Dto;
 using AsturianuTV.Infrastructure.Data.Models;
 using AsturianuTV.Infrastructure.Interfaces;
 using AsturianuTV.ViewModels.System.PlanViewModels;
@@ -14,23 +15,31 @@ namespace AsturianuTV.Controllers
     public class PlanController : Controller
     {
         private readonly IRepository<Plan> _planRepository;
+        private readonly IRepository<Subscription> _subscriptionRepository;
         private readonly IMapper _mapper;
 
         public PlanController(
             IRepository<Plan> planRepository,
-            IWebHostEnvironment appEnvironment,
+            IRepository<Subscription> subscriptionRepository,
             IMapper mapper)
         {
             _planRepository = planRepository;
+            _subscriptionRepository = subscriptionRepository;
             _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index(CancellationToken cancellationToken) =>
-            View(await _planRepository.ListAsync(cancellationToken));
+            View(await _planRepository
+                .Read()
+                .AsNoTracking()
+                .Include(x => x.Subscription)
+                .Include(x => x.Blogs)
+                .ToListAsync(cancellationToken));
 
         [HttpGet]
-        public IActionResult Create() => View();
+        public async Task<IActionResult> Create(CancellationToken cancellationToken) => 
+            View(new PlanDto { Subscriptions = await _subscriptionRepository.ListAsync(cancellationToken)});
 
         [HttpPost]
         public async Task<IActionResult> Create(CreatePlanViewModel planViewModel)
@@ -56,7 +65,11 @@ namespace AsturianuTV.Controllers
                     .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
                 if (plan != null)
-                    return View(plan);
+                {
+                    var planDto = _mapper.Map<PlanDto>(plan);
+                    planDto.Subscriptions = await _subscriptionRepository.ListAsync(cancellationToken);
+                    return View(planDto);
+                }
             }
             return NotFound();
         }

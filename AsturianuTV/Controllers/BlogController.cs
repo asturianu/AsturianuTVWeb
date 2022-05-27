@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using AsturianuTV.Dto;
 using AsturianuTV.Infrastructure.Data.Models;
 using AsturianuTV.Infrastructure.Interfaces;
 using AsturianuTV.ViewModels.System.BlogViewModels;
@@ -15,22 +16,26 @@ namespace AsturianuTV.Controllers
     public class BlogController : Controller
     {
         private readonly IRepository<Blog> _blogRepository;
+        private readonly IRepository<Plan> _planRepository;
         private readonly IMapper _mapper;
 
         public BlogController(
             IRepository<Blog> blogRepository,
+            IRepository<Plan> planRepository,
             IMapper mapper)
         {
             _blogRepository = blogRepository;
+            _planRepository = planRepository;
             _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index(CancellationToken cancellationToken) =>
-            View(await _blogRepository.ListAsync(cancellationToken));
+            View(await _blogRepository.Read().AsNoTracking().Include(x=>x.Plan).ToListAsync(cancellationToken));
 
         [HttpGet]
-        public IActionResult Create() => View();
+        public async Task<IActionResult> Create(CancellationToken cancellationToken) => 
+            View(new BlogDto { Plans = await _planRepository.ListAsync(cancellationToken) });
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateBlogViewModel blogViewModel)
@@ -54,10 +59,15 @@ namespace AsturianuTV.Controllers
                 var blog = await _blogRepository
                     .Read()
                     .AsNoTracking()
+                    .Include(x => x.Plan)
                     .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
                 if (blog != null)
-                    return View(blog);
+                {
+                    var blogDto = _mapper.Map<BlogDto>(blog);
+                    blogDto.Plans = await _planRepository.ListAsync(cancellationToken);
+                    return View(blogDto);
+                }
             }
 
             return NotFound();
@@ -85,6 +95,7 @@ namespace AsturianuTV.Controllers
                 var blog = await _blogRepository
                     .Read()
                     .AsNoTracking()
+                    .Include(x => x.Plan)
                     .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
                 if (blog != null)
@@ -103,6 +114,7 @@ namespace AsturianuTV.Controllers
                 var blog = await _blogRepository
                     .Read()
                     .AsNoTracking()
+                    .Include(x => x.Plan)
                     .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
                 if (blog != null)

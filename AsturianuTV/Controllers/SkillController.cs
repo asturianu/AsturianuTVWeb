@@ -50,9 +50,7 @@ namespace AsturianuTV.Controllers
                 {
                     path = "/Files/Skills/" + createSkillViewModel.Image.FileName;
                     var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create);
-                    {
-                        await createSkillViewModel.Image.CopyToAsync(fileStream);
-                    }
+                    await createSkillViewModel.Image.CopyToAsync(fileStream);
                 }
                 var skill = _mapper.Map<Skill>(createSkillViewModel);
                 skill.ImagePath = path;
@@ -96,7 +94,6 @@ namespace AsturianuTV.Controllers
                 {
                     var skillDto = _mapper.Map<SkillDto>(skill);
                     skillDto.Characters = await _characterRepository.ListAsync(cancellationToken);
-
                     return View(skillDto);
                 }
             }

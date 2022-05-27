@@ -12,7 +12,8 @@ namespace AsturianuTV.MapperProfile
             CreateMap<CreateMaterialViewModel, Material>();
             CreateMap<UpdateMaterialViewModel, Material>();
             CreateMap<Material, MaterialDto>()
-                .ForMember(dest => dest.Blogs, opt => opt.Ignore());
+                .ForMember(dest => dest.Blogs, opt => opt.Ignore())
+                .ForMember(dest => dest.News, opt => opt.Ignore());
         }
     }
 }

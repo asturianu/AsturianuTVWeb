@@ -36,10 +36,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Blog\" />
-    <Folder Include="Views\Materials\" />
-    <Folder Include="Views\Plan\" />
+    <Folder Include="wwwroot\Files\Materials\" />
     <Folder Include="wwwroot\Files\Skills\" />
+    <Folder Include="wwwroot\lib\font-awesome\" />
   </ItemGroup>
 
 </Project>
