@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AsturianuTV.Infrastructure.Data.Models.Skill>
+﻿@model IEnumerable<AsturianuTV.Infrastructure.Data.Models.Tag>
 @{
     Layout = "_AdminLayout";
 }
@@ -6,10 +6,10 @@
 <div class="crud">
     <div class="crud-content top">
         <div class="crud-info">
-            <p class="info">Скилл</p>
-            <p class="info">Герой</p>
-            <p class="info">Описание</p>
-            <p class="info">Тип</p>
+            <p class="info">Тег</p>
+            <p class="info">Новость</p>
+            <p class="info"></p>
+            <p class="info"></p>
         </div>
         <div class="crud-action">
             <p>Действия</p>
@@ -17,27 +17,43 @@
     </div>
 </div>
 
-@foreach (var item in Model)
+@foreach (var tag in Model)
 {
     <section class="crud">
         <div class="crud-content">
             <div class="crud-info">
-                <p class="info">@item.Name</p>
-                <p class="info">@item.Character</p>
-                <p class="info">@item.Description</p>
-                <p class="info">@item.SkillType</p>
+                <p class="info">@tag.Name</p>
+                @if (tag.NewsTags != null)
+                {
+                    foreach (var news in tag.NewsTags)
+                    {
+                        if (news != null)
+                        {
+                            <p class="info">@news.News.Title</p>
+                        }
+                        else
+                        {
+                            <p class="info">Новость не создана</p>
+                        }
+                    }
+                }
+                <p class="info"></p>
+                <p class="info"></p>
             </div>
-            <div class="crud-action">
-                <a class="link-crud" asp-action="Details" asp-controller="Skill" asp-route-id="@item.Id">
-                    <img class="icon-crud" src="~/assets/icons8-информация.svg" alt="Alternate Text"/>
-                </a>
-                <a class="link-crud" asp-action="Edit" asp-controller="Skill" asp-route-id="@item.Id">
-                    <img class="icon-crud" src="~/assets/icons8-редактировать.svg" alt="Alternate Text"/>
-                </a>
-                <a class="link-crud" asp-action="Delete" asp-controller="Skill" asp-route-id="@item.Id">
-                    <img class="icon-crud" src="~/assets/icons8-удалить.svg" alt="Alternate Text"/>
-                </a>
-            </div>
+                <div class="crud-action">
+                    <a class="link-crud" asp-action="Details" asp-controller="Tag" asp-route-id="@tag.Id">
+                        <img class="icon-crud" src="~/assets/icons8-информация.svg" alt="Alternate Text" />
+                    </a>
+                    <a class="link-crud" asp-action="Edit" asp-controller="Tag" asp-route-id="@tag.Id">
+                        <img class="icon-crud" src="~/assets/icons8-редактировать.svg" alt="Alternate Text" />
+                    </a>
+                    <a class="link-crud" asp-action="Delete" asp-controller="Tag" asp-route-id="@tag.Id">
+                        <img class="icon-crud" src="~/assets/icons8-удалить.svg" alt="Alternate Text" />
+                    </a>
+                </div>
+
         </div>
     </section>
 }
+
+<a asp-controller="Tag" asp-action="Create">Create</a>

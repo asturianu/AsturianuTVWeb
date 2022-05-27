@@ -14,18 +14,27 @@ namespace AsturianuTV.Controllers
     public class TagController : Controller
     {
         private readonly IRepository<Tag> _tagRepository;
+        private readonly IRepository<NewsTag> _newsTagRepository;
         private readonly IMapper _mapper;
 
         public TagController(
             IRepository<Tag> tagRepository,
+            IRepository<NewsTag> newsTagRepository,
             IMapper mapper)
         {
             _tagRepository = tagRepository;
+            _newsTagRepository = newsTagRepository;
             _mapper = mapper;
         }
+
         [HttpGet]
         public async Task<IActionResult> Index(CancellationToken cancellation) =>
-            View(await _tagRepository.ListAsync(cancellation));
+            View(await _tagRepository
+                .Read()
+                .AsNoTracking()
+                .Include(x => x.NewsTags)
+                    .ThenInclude(x => x.News)
+                .ToListAsync(cancellation));
 
         [HttpGet]
         public IActionResult Create() => View();

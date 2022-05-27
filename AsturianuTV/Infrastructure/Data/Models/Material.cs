@@ -1,12 +1,14 @@
-﻿namespace AsturianuTV.Infrastructure.Data.Models
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace AsturianuTV.Infrastructure.Data.Models
 {
     public class Material : BaseEntity
     {
-        public int? BlogId { get; set; }
-        public Blog Blog { get; set; }
-        public int? NewsId { get; set; }
-        public News News { get; set; }
+        public bool IsNewsMaterial { get; set; }
         public string FilePath { get; set; }
         public string ContentType { get; set; }
+        public ICollection<NewsMaterial> NewsMaterials { get; set; }
+        public ICollection<BlogMaterial> BlogMaterials { get; set; }
     }
 }

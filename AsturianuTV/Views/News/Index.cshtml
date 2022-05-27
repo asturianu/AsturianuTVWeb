@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AsturianuTV.Infrastructure.Data.Models.Skill>
+﻿@model IEnumerable<AsturianuTV.Infrastructure.Data.Models.News>
 @{
     Layout = "_AdminLayout";
 }
@@ -22,10 +22,10 @@
     <section class="crud">
         <div class="crud-content">
             <div class="crud-info">
-                <p class="info">@item.Name</p>
-                <p class="info">@item.Character</p>
+                <p class="info">@item.Title</p>
+                <p class="info">@item.IsBlog</p>
                 <p class="info">@item.Description</p>
-                <p class="info">@item.SkillType</p>
+                <p class="info">@item.IsReady</p>
             </div>
             <div class="crud-action">
                 <a class="link-crud" asp-action="Details" asp-controller="Skill" asp-route-id="@item.Id">

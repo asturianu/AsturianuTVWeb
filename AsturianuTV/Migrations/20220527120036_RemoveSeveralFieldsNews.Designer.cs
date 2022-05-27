@@ -4,14 +4,16 @@ using AsturianuTV.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AsturianuTV.Migrations
 {
     [DbContext(typeof(AsturianuTVDbContext))]
-    partial class AsturianuTVDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220527120036_RemoveSeveralFieldsNews")]
+    partial class RemoveSeveralFieldsNews
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,28 +42,6 @@ namespace AsturianuTV.Migrations
                     b.HasIndex("PlanId");
 
                     b.ToTable("Blogs");
-                });
-
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.BlogMaterial", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("BlogId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MaterialId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BlogId");
-
-                    b.HasIndex("MaterialId");
-
-                    b.ToTable("BlogMaterial");
                 });
 
             modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Character", b =>
@@ -198,16 +178,23 @@ namespace AsturianuTV.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BlogId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ContentType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FilePath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsNewsMaterial")
-                        .HasColumnType("bit");
+                    b.Property<int?>("NewsId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BlogId");
+
+                    b.HasIndex("NewsId");
 
                     b.ToTable("Materials");
                 });
@@ -234,28 +221,6 @@ namespace AsturianuTV.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("News");
-                });
-
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.NewsMaterial", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("MaterialId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("NewsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MaterialId");
-
-                    b.HasIndex("NewsId");
-
-                    b.ToTable("NewsMaterial");
                 });
 
             modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.NewsTag", b =>
@@ -466,18 +431,6 @@ namespace AsturianuTV.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.BlogMaterial", b =>
-                {
-                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Blog", "Blog")
-                        .WithMany("BlogMaterials")
-                        .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Material", "Material")
-                        .WithMany("BlogMaterials")
-                        .HasForeignKey("MaterialId");
-                });
-
             modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Comment", b =>
                 {
                     b.HasOne("AsturianuTV.Infrastructure.Data.Models.News", "News")
@@ -486,14 +439,15 @@ namespace AsturianuTV.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.NewsMaterial", b =>
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Material", b =>
                 {
-                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Material", "Material")
-                        .WithMany("NewsMaterials")
-                        .HasForeignKey("MaterialId");
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Blog", "Blog")
+                        .WithMany("Materials")
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("AsturianuTV.Infrastructure.Data.Models.News", "News")
-                        .WithMany("NewsMaterials")
+                        .WithMany("Materials")
                         .HasForeignKey("NewsId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });

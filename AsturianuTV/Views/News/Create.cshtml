@@ -1,49 +1,66 @@
-﻿@model AsturianuTV.Infrastructure.Data.Models.Skill
+﻿@model AsturianuTV.Dto.NewsDto
 @{
     Layout = "_AdminLayout";
 }
-<form asp-action="Create" asp-controller="Skill">
+<form class="form" asp-action="Create" asp-controller="News">
     <div class="form-group">
-        <label asp-for="Name" class="control-label">Name</label>
-        <input type="text" asp-for="Name" class="form-control" />
+        <label asp-for="Title" class="control-label">Title: </label>
+        <input class="field" type="text" asp-for="Title" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Description" class="control-label">Имя</label>
-        <input type="text" asp-for="Description" class="form-control" />
+        <label asp-for="Description" class="control-label">Description: </label>
+        <input class="field" type="text" asp-for="Description" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Damage" class="control-label">ИмDamageя</label>
-        <input type="text" asp-for="Damage" class="form-control" />
+        <label asp-for="IsBlog" class="control-label">IsBlog: </label>
+        <input class="field" type="text" asp-for="IsBlog" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="CoolDown" class="control-label">CoolDown</label>
-        <input type="text" asp-for="CoolDown" class="form-control" />
+        <label asp-for="IsReady" class="control-label">IsReady: </label>
+        <input class="field" type="text" asp-for="IsReady" class="form-control" />
     </div>
-    <div class="form-group">
-        <label asp-for="TimeDuration" class="control-label">TimeDuration</label>
-        <input type="text" asp-for="TimeDuration" class="form-control" />
+
+    <div class="form_label">
+        <div class="multiselect_block">
+            <label for="select-1" class="field_multiselect">Tags</label>
+
+            <input id="checkbox-1" class="multiselect_checkbox" type="checkbox">
+            <label for="checkbox-1" class="multiselect_label"></label>
+
+            <select id="select-1" class="field_select" asp-for="Tags" name="Tags" multiple>
+                @foreach (var tag in Model.Tags)
+                {
+                    <option value="@tag.Id">@tag.Name</option>
+                }
+            </select>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="ManaCost" class="control-label">Имя</label>
-        <input type="text" asp-for="ManaCost" class="form-control" />
+
+    <div class="form_label">
+        <div class="multiselect_block">
+            <label for="select-2" class="field_multiselect">Frameworks</label>
+
+            <input id="checkbox-2" class="multiselect_checkbox" type="checkbox">
+            <label for="checkbox-2" class="multiselect_label"></label>
+
+            <select id="select-2" class="field_select" asp-for="Materials" name="Materials" multiple>
+                @foreach (var tag in Model.Materials)
+                {
+                    <option value="@tag.Id">@tag.FilePath</option>
+                }
+            </select>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="ManaCost" class="control-label">Имя</label>
-        <input type="text" asp-for="ManaCost" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="DamageType" class="control-label">DamageType</label>
-        <input type="text" asp-for="DamageType" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="SkillType" class="control-label">SkillType</label>
-        <input type="text" asp-for="SkillType" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="CharacterId" class="control-label">CharacterId</label>
-        <input type="text" asp-for="CharacterId" class="form-control" />
-    </div>
+
     <div class="form-group">
         <input type="submit" value="Отправить" class="btn btn-default" />
     </div>
 </form>
+
+@section NewsStyles { 
+    <link href="~/css/news.css" rel="stylesheet" />
+}
+
+@section NewsScripts {
+    <script src="~/js/news.js"></script>
+}

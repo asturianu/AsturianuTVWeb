@@ -16,19 +16,19 @@ namespace AsturianuTV.Infrastructure.ModelsConfiguration
                 .WithOne(x => x.News)
                 .HasForeignKey(x => x.NewsId);
 
-            builder.HasMany(x => x.Materials)
-                .WithOne(x => x.News)
-                .HasForeignKey(x => x.NewsId);
-
-            builder.HasMany(x => x.Materials)
-                .WithOne(x => x.News)
-                .OnDelete(DeleteBehavior.SetNull);
-
             builder.HasMany(b => b.NewsTags)
                 .WithOne(a => a.News)
                 .OnDelete(DeleteBehavior.SetNull);
 
             builder.HasMany(x => x.Comments)
+                .WithOne(x => x.News)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            builder.HasMany(x => x.NewsMaterials)
+                .WithOne(x => x.News)
+                .HasForeignKey(x => x.NewsId);
+
+            builder.HasMany(x => x.NewsMaterials)
                 .WithOne(x => x.News)
                 .OnDelete(DeleteBehavior.SetNull);
         }

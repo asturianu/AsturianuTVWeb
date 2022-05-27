@@ -8,21 +8,13 @@ namespace AsturianuTV.Infrastructure.ModelsConfiguration
     {
         public void Configure(EntityTypeBuilder<Material> builder)
         {
-            builder.HasOne(x => x.Blog)
-                .WithMany(x => x.Materials)
-                .HasForeignKey(x => x.BlogId);
+            builder.HasMany(x => x.NewsMaterials)
+                .WithOne(x => x.Material)
+                .HasForeignKey(x => x.MaterialId);
 
-            builder.HasOne(x => x.News)
-                .WithMany(x => x.Materials)
-                .HasForeignKey(x => x.NewsId);
-
-            builder.HasOne(x => x.News)
-                .WithMany(x => x.Materials)
-                .OnDelete(DeleteBehavior.SetNull);
-
-            builder.HasOne(b => b.Blog)
-                .WithMany(a => a.Materials)
-                .OnDelete(DeleteBehavior.SetNull);
+            builder.HasMany(x => x.BlogMaterials)
+                .WithOne(x => x.Material)
+                .HasForeignKey(x => x.MaterialId);
         }
     }
 }

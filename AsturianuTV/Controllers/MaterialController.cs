@@ -39,7 +39,6 @@ namespace AsturianuTV.Controllers
         public async Task<IActionResult> Index(CancellationToken cancellationToken) =>
              View(await _materialRepository
                  .Read()
-                 .Include(x => x.Blog)
                  .ToListAsync(cancellationToken));
 
         [HttpGet]
@@ -86,7 +85,6 @@ namespace AsturianuTV.Controllers
                 var material = await _materialRepository
                     .Read()
                     .AsNoTracking()
-                    .Include(x => x.Blog)
                     .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
                 if (material != null)
@@ -130,7 +128,6 @@ namespace AsturianuTV.Controllers
                 var material = await _materialRepository
                     .Read()
                     .AsNoTracking()
-                    .Include(x => x.Blog)
                     .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
                 if (material != null)
@@ -149,7 +146,6 @@ namespace AsturianuTV.Controllers
                 var material = await _materialRepository
                     .Read()
                     .AsNoTracking()
-                    .Include(x => x.Blog)
                     .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
                 if (material != null)

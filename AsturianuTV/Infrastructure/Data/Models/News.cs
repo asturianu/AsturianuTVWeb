@@ -7,14 +7,10 @@ namespace AsturianuTV.Infrastructure.Data.Models
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public DateTime? LastModifiedAt { get; set; }
-        public int? LastModifiedBy { get; set; }
-        public DateTime? CreateAt { get; set; }
-        public int? CreatedBy { get; set; }
         public bool IsBlog { get; set; }
         public bool IsReady { get; set; }
         public ICollection<NewsTag> NewsTags { get; set; }
-        public ICollection<Material> Materials { get; set; }
+        public ICollection<NewsMaterial> NewsMaterials { get; set; }
         public ICollection<Comment> Comments { get; set; }
     }
 }

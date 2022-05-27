@@ -12,11 +12,11 @@ namespace AsturianuTV.Infrastructure.ModelsConfiguration
                 .WithMany(x => x.Blogs)
                 .HasForeignKey(x => x.PlanId);
 
-            builder.HasMany(x => x.Materials)
+            builder.HasMany(x => x.BlogMaterials)
                 .WithOne(x => x.Blog)
                 .HasForeignKey(x => x.BlogId);
 
-            builder.HasMany(b => b.Materials)
+            builder.HasMany(b => b.BlogMaterials)
                 .WithOne(a => a.Blog)
                 .OnDelete(DeleteBehavior.SetNull);
 
