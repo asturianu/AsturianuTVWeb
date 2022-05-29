@@ -18,6 +18,7 @@ namespace AsturianuTV.Controllers
         private readonly IRepository<News> _newsRepository;
         private readonly IRepository<Tag> _tagRepository;
         private readonly IRepository<Material> _materialRepository;
+        private readonly IRepository<NewsMaterial> _newsMaterialRepository;
         private readonly IRepository<NewsTag> _newsTagRepository;
         private readonly IMapper _mapper;
 
@@ -25,12 +26,14 @@ namespace AsturianuTV.Controllers
             IRepository<News> newsRepository,
             IRepository<Tag> tagRepository,
             IRepository<Material> materialRepository,
+            IRepository<NewsMaterial> newsMaterialRepository,
             IRepository<NewsTag> newsTagRepository,
             IMapper mapper)
         {
             _newsRepository = newsRepository;
             _tagRepository = tagRepository;
             _materialRepository = materialRepository;
+            _newsMaterialRepository = newsMaterialRepository;
             _newsTagRepository = newsTagRepository;
             _mapper = mapper;
         }
@@ -48,8 +51,9 @@ namespace AsturianuTV.Controllers
                     .Read()
                     .AsNoTracking()
                     .Include(x => x.NewsMaterials)
+                        .ThenInclude(x => x.Material)
                     .Include(x => x.NewsTags)
-                    .ThenInclude(x => x.Tag)
+                        .ThenInclude(x => x.Tag)
                     .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
 
                 if (news != null)
@@ -64,7 +68,7 @@ namespace AsturianuTV.Controllers
             View(new NewsDto
             {
                 Tags = await _tagRepository.ListAsync(cancellationToken),
-                Materials = await _materialRepository.Read().AsNoTracking().Where(x => x.IsNewsMaterial).ToListAsync(cancellationToken)
+                Materials = await _materialRepository.Read().AsNoTracking().Where(x => x.IsNewsMaterial).Distinct().ToListAsync(cancellationToken)
             });
 
         [HttpPost]
@@ -87,9 +91,10 @@ namespace AsturianuTV.Controllers
                 {
                     foreach (var material in newsViewModel.Materials)
                     {
-                        await _materialRepository.UpdateAsync(new Material
+                        await _newsMaterialRepository.AddAsync(new NewsMaterial
                         {
-
+                            MaterialId = material, 
+                            NewsId = news.Id
                         });
                     }
                 }
@@ -105,10 +110,24 @@ namespace AsturianuTV.Controllers
         {
             if (id != null)
             {
-                var news = await _newsRepository.Read()
-                    .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+                var news = await _newsRepository
+                    .Read()
+                    .AsNoTracking()
+                    .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
+
                 if (news != null)
-                    return View(news);
+                {
+                    var newsDto = new UpdateNewsDto
+                    {
+                        Id = news.Id,
+                        Title = news.Title,
+                        Description = news.Description,
+                        IsReady = news.IsReady,
+                        Tags = await _tagRepository.ListAsync(cancellationToken),
+                        Materials = await _materialRepository.Read().AsNoTracking().Where(x => x.IsNewsMaterial).ToListAsync(cancellationToken)
+                    };
+                    return View(newsDto);
+                }
             }
 
             return NotFound();
@@ -119,8 +138,40 @@ namespace AsturianuTV.Controllers
         {
             if (newsViewModel != null)
             {
-                var skill = _mapper.Map<News>(newsViewModel);
-                await _newsRepository.UpdateAsync(skill);
+                var news = _mapper.Map<News>(newsViewModel);
+                await _newsRepository.UpdateAsync(news);
+
+                if (newsViewModel.Tags != null)
+                {
+                    var removeTags = await _newsTagRepository
+                        .Read()
+                        .AsNoTracking()
+                        .Where(x => x.NewsId == newsViewModel.Id)
+                        .ToListAsync(cancellationToken);
+
+                    await _newsTagRepository.DeleteRangeAsync(removeTags, cancellationToken);
+
+                    foreach (var tag in newsViewModel.Tags)
+                    {
+                        await _newsTagRepository.AddAsync(new NewsTag { TagId = tag, NewsId = news.Id });
+                    }
+                }
+
+                if (newsViewModel.Materials != null)
+                {
+                    var removeMaterials = await _newsMaterialRepository
+                        .Read()
+                        .AsNoTracking()
+                        .Where(x => x.NewsId == newsViewModel.Id)
+                        .ToListAsync(cancellationToken);
+
+                    await _newsMaterialRepository.DeleteRangeAsync(removeMaterials, cancellationToken);
+
+                    foreach (var material in newsViewModel.Materials)
+                    {
+                        await _newsMaterialRepository.AddAsync(new NewsMaterial { MaterialId = material, NewsId = news.Id });
+                    }
+                }
             }
             else
                 NotFound();
@@ -136,7 +187,8 @@ namespace AsturianuTV.Controllers
             {
                 var news = await _newsRepository
                     .Read()
-                    .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+                    .AsNoTracking()
+                    .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
 
                 if (news != null)
                     return View(news);
@@ -151,7 +203,8 @@ namespace AsturianuTV.Controllers
             {
                 var news = await _newsRepository
                     .Read()
-                    .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+                    .AsNoTracking()
+                    .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
 
                 if (news != null)
                 {

@@ -8,8 +8,7 @@ namespace AsturianuTV.ViewModels.System.BlogViewModels
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public ICollection<Material> Materials { get; set; }
+        public ICollection<int?> Materials { get; set; }
         public int PlanId { get; set; }
-        public Plan Plan { get; set; }
     }
 }

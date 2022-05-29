@@ -1,13 +1,12 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AsturianuTV.Dto;
 using AsturianuTV.Infrastructure.Data.Models;
 using AsturianuTV.Infrastructure.Interfaces;
 using AsturianuTV.ViewModels.System.BlogViewModels;
-using AsturianuTV.ViewModels.System.ItemViewModels;
 using AutoMapper;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,15 +16,21 @@ namespace AsturianuTV.Controllers
     {
         private readonly IRepository<Blog> _blogRepository;
         private readonly IRepository<Plan> _planRepository;
+        private readonly IRepository<Material> _materialRepository;
+        private readonly IRepository<BlogMaterial> _blogMaterialRepository;
         private readonly IMapper _mapper;
 
         public BlogController(
             IRepository<Blog> blogRepository,
             IRepository<Plan> planRepository,
+            IRepository<Material> materialRepository,
+            IRepository<BlogMaterial> blogMaterialRepository,
             IMapper mapper)
         {
             _blogRepository = blogRepository;
             _planRepository = planRepository;
+            _materialRepository = materialRepository;
+            _blogMaterialRepository = blogMaterialRepository;
             _mapper = mapper;
         }
 
@@ -35,7 +40,11 @@ namespace AsturianuTV.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Create(CancellationToken cancellationToken) => 
-            View(new BlogDto { Plans = await _planRepository.ListAsync(cancellationToken) });
+            View(new BlogDto
+            {
+                Plans = await _planRepository.ListAsync(cancellationToken),
+                Materials = await _materialRepository.Read().AsNoTracking().Where(x => !x.IsNewsMaterial).Distinct().ToListAsync(cancellationToken)
+            });
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateBlogViewModel blogViewModel)
@@ -44,6 +53,18 @@ namespace AsturianuTV.Controllers
             {
                 var blog = _mapper.Map<Blog>(blogViewModel);
                 await _blogRepository.AddAsync(blog);
+
+                if (blogViewModel.Materials != null)
+                {
+                    foreach (var material in blogViewModel.Materials)
+                    {
+                        await _blogMaterialRepository.AddAsync(new BlogMaterial
+                        {
+                            MaterialId = material,
+                            BlogId = blog.Id
+                        });
+                    }
+                }
             }
             else
                 NotFound();
@@ -64,8 +85,15 @@ namespace AsturianuTV.Controllers
 
                 if (blog != null)
                 {
-                    var blogDto = _mapper.Map<BlogDto>(blog);
-                    blogDto.Plans = await _planRepository.ListAsync(cancellationToken);
+                    var blogDto = new BlogDto
+                    {
+                        Id = blog.Id,
+                        Title = blog.Title,
+                        Description = blog.Description,
+                        Materials = await _materialRepository.ListAsync(cancellationToken),
+                        PlanId = blog.PlanId,
+                        Plans = await _planRepository.ListAsync(cancellationToken)
+                    };
                     return View(blogDto);
                 }
             }
@@ -74,12 +102,28 @@ namespace AsturianuTV.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UpdateBlogViewModel blogViewModel)
+        public async Task<IActionResult> Edit(UpdateBlogViewModel blogViewModel, CancellationToken cancellationToken)
         {
             if (blogViewModel != null)
             {
                 var blog = _mapper.Map<Blog>(blogViewModel);
                 await _blogRepository.UpdateAsync(blog);
+
+                if (blogViewModel.Materials != null)
+                {
+                    var removeMaterials = await _blogMaterialRepository
+                        .Read()
+                        .AsNoTracking()
+                        .Where(x => x.BlogId == blogViewModel.Id)
+                        .ToListAsync(cancellationToken);
+
+                    await _blogMaterialRepository.DeleteRangeAsync(removeMaterials, cancellationToken);
+
+                    foreach (var material in blogViewModel.Materials)
+                    {
+                        await _blogMaterialRepository.AddAsync(new BlogMaterial { MaterialId = material, BlogId = blog.Id });
+                    }
+                }
             }
             else
                 NotFound();

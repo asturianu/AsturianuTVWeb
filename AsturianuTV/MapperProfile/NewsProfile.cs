@@ -12,7 +12,8 @@ namespace AsturianuTV.MapperProfile
             CreateMap<CreateNewsViewModel, News>();
             CreateMap<UpdateNewsViewModel, News>();
             CreateMap<News, NewsDto>()
-                .ForMember(dest => dest.Tags, opt => opt.Ignore());
+                .ForMember(dest => dest.Tags, opt => opt.Ignore())
+                .ForMember(dest => dest.Materials, opt => opt.Ignore());
         }
     }
 }

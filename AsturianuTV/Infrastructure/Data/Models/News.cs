@@ -7,7 +7,6 @@ namespace AsturianuTV.Infrastructure.Data.Models
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public bool IsBlog { get; set; }
         public bool IsReady { get; set; }
         public ICollection<NewsTag> NewsTags { get; set; }
         public ICollection<NewsMaterial> NewsMaterials { get; set; }

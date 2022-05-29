@@ -9,9 +9,20 @@
         <label asp-for="Name" class="control-label">Название: </label>
         <input class="field" type="text" asp-for="Name" />
     </div>
-    <div class="form-group">
-        <label asp-for="Description" class="control-label">Описание: </label>
-        <textarea class="field textarea" type="text" asp-for="Description"></textarea>
+    <div class="form-group file">
+        <div class="left">
+            <div class="image-file file">
+                <div id="img-preview"><img id="output" /></div>
+                <div class="file-btn">
+                    <input type="file" id="choose-file" name="Image" accept="image/*" onchange="loadFile(event)" />
+                    <label for="choose-file">Выбрать</label>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <label asp-for="Description" class="control-label">Описание: </label>
+            <textarea class="field textarea" type="text" asp-for="Description"></textarea>
+        </div>
     </div>
     <div class="form-group">
         <label asp-for="Damage" class="control-label">Урон: </label>
@@ -85,3 +96,14 @@
         </div>
     </div>
 </form>
+
+<script>
+    var loadFile = function (event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+</script>

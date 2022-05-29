@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -20,6 +20,10 @@
     <Compile Remove="Migrations\20220508130634_HeroeSkill.Designer.cs" />
     <Compile Remove="Migrations\20220525135033_CascadeDelete.cs" />
     <Compile Remove="Migrations\20220525135033_CascadeDelete.Designer.cs" />
+    <Compile Remove="Migrations\20220527191630_OnDeleteMaterialNews.cs" />
+    <Compile Remove="Migrations\20220527191630_OnDeleteMaterialNews.Designer.cs" />
+    <Compile Remove="Migrations\20220527192239_OnDeleteMaterial.cs" />
+    <Compile Remove="Migrations\20220527192239_OnDeleteMaterial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,7 +32,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -36,9 +40,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Files\Materials\" />
-    <Folder Include="wwwroot\Files\Skills\" />
-    <Folder Include="wwwroot\lib\font-awesome\" />
+	  <Folder Include="wwwroot\Files\Characters\" />
+	  <Folder Include="wwwroot\Files\Skills\" />
+	  <Folder Include="wwwroot\lib\font-awesome\" />
   </ItemGroup>
 
 </Project>

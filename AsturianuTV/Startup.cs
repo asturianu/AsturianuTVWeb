@@ -56,6 +56,7 @@ namespace AsturianuTV
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            
 
             app.UseRouting();
 

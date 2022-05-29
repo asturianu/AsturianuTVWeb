@@ -2,7 +2,7 @@
 @{
     Layout = "_AdminLayout";
 }
-<h1><a href="" id="back"></a></h1>
+
 <form class="form" asp-action="Create" asp-controller="Blog">
     <h2 class="form-title">Добавление блога</h2>
     <div class="form-group">
@@ -12,6 +12,21 @@
     <div class="form-group">
         <label asp-for="Description" class="control-label">Название: </label>
         <input class="field" type="text" asp-for="Description" class="form-control" />
+    </div>
+    <div class="form_label">
+        <div class="multiselect_block">
+            <label for="select-2" class="field_multiselect">Frameworks</label>
+
+            <input id="checkbox-2" class="multiselect_checkbox" type="checkbox">
+            <label for="checkbox-2" class="multiselect_label"></label>
+
+            <select id="select-2" class="field_select" asp-for="Materials" name="Materials" multiple>
+                @foreach (var material in Model.Materials)
+                {
+                    <option value="@material.Id">@material.FilePath</option>
+                }
+            </select>
+        </div>
     </div>
     <div class="form-group">
         <label asp-for="PlanId" class="control-label">Выберите подписку</label>
@@ -28,6 +43,10 @@
     </div>
 </form>
 
-<script>
-  
-</script>
+@section NewsStyles {
+    <link href="~/css/news.css" rel="stylesheet" />
+}
+
+@section NewsScripts {
+    <script src="~/js/news.js"></script>
+}

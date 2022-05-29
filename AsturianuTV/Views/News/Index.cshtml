@@ -6,10 +6,10 @@
 <div class="crud">
     <div class="crud-content top">
         <div class="crud-info">
-            <p class="info">Скилл</p>
-            <p class="info">Герой</p>
-            <p class="info">Описание</p>
-            <p class="info">Тип</p>
+            <p class="info">Title</p>
+            <p class="info">Description</p>
+            <p class="info">IsReady</p>
+            <p class="info"></p>
         </div>
         <div class="crud-action">
             <p>Действия</p>
@@ -20,25 +20,44 @@
 @foreach (var item in Model)
 {
     <section class="crud">
-        <div class="crud-content">
-            <div class="crud-info">
-                <p class="info">@item.Title</p>
-                <p class="info">@item.IsBlog</p>
-                <p class="info">@item.Description</p>
-                <p class="info">@item.IsReady</p>
+        <div class="accordion">
+            <div class="crud-content">
+                <div class="crud-info">
+                    <p class="info">@item.Title</p>
+                    <p class="info">@item.Description</p>
+                    <p class="info">@item.IsReady</p>
+                    <p class="info"></p>
+                </div>
+                <div class="crud-action">
+                    <a class="link-crud" asp-action="Details" asp-controller="News" asp-route-id="@item.Id">
+                        <img class="icon-crud" src="~/assets/icons8-информация.svg" alt="Alternate Text" />
+                    </a>
+                    <a class="link-crud" asp-action="Edit" asp-controller="News" asp-route-id="@item.Id">
+                        <img class="icon-crud" src="~/assets/icons8-редактировать.svg" alt="Alternate Text" />
+                    </a>
+                    <a class="link-crud" asp-action="Delete" asp-controller="News" asp-route-id="@item.Id">
+                        <img class="icon-crud" src="~/assets/icons8-удалить.svg" alt="Alternate Text" />
+                    </a>
+                </div>
             </div>
-            <div class="crud-action">
-                <a class="link-crud" asp-action="Details" asp-controller="Skill" asp-route-id="@item.Id">
-                    <img class="icon-crud" src="~/assets/icons8-информация.svg" alt="Alternate Text"/>
-                </a>
-                <a class="link-crud" asp-action="Edit" asp-controller="Skill" asp-route-id="@item.Id">
-                    <img class="icon-crud" src="~/assets/icons8-редактировать.svg" alt="Alternate Text"/>
-                </a>
-                <a class="link-crud" asp-action="Delete" asp-controller="Skill" asp-route-id="@item.Id">
-                    <img class="icon-crud" src="~/assets/icons8-удалить.svg" alt="Alternate Text"/>
-                </a>
-            </div>
+        </div>
+        <div class="panel character-skill">
+            @if (item.NewsTags != null)
+            {
+                foreach (var skill in item.NewsTags)
+                {
+                    <p>@skill.Tag.Name</p>
+                }
+            }
+
         </div>
     </section>
 }
 <a class="create-title" asp-action="Create" asp-controller="News">Create</a>
+@section CharacterStyles{
+    <link href="~/css/character.css" rel="stylesheet" />
+}
+
+@section CharacterScripts{
+    <script src="~/js/character.js"></script>
+}

@@ -4,14 +4,16 @@ using AsturianuTV.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AsturianuTV.Migrations
 {
     [DbContext(typeof(AsturianuTVDbContext))]
-    partial class AsturianuTVDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220527172418_RemoveFieldNews")]
+    partial class RemoveFieldNews
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -428,9 +430,6 @@ namespace AsturianuTV.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("RoleId")
                         .HasColumnType("int");
 
@@ -475,8 +474,7 @@ namespace AsturianuTV.Migrations
 
                     b.HasOne("AsturianuTV.Infrastructure.Data.Models.Material", "Material")
                         .WithMany("BlogMaterials")
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("MaterialId");
                 });
 
             modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Comment", b =>
@@ -491,13 +489,12 @@ namespace AsturianuTV.Migrations
                 {
                     b.HasOne("AsturianuTV.Infrastructure.Data.Models.Material", "Material")
                         .WithMany("NewsMaterials")
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("MaterialId");
 
                     b.HasOne("AsturianuTV.Infrastructure.Data.Models.News", "News")
                         .WithMany("NewsMaterials")
                         .HasForeignKey("NewsId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.NewsTag", b =>

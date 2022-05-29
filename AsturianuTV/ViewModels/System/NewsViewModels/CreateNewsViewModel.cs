@@ -8,7 +8,6 @@ namespace AsturianuTV.ViewModels.System.NewsViewModels
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public bool IsBlog { get; set; }
         public bool IsReady { get; set; }
         public ICollection<int?> Tags { get; set; }
         public ICollection<int?> Materials { get; set; }

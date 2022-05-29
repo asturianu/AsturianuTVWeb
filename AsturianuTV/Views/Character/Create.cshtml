@@ -11,8 +11,19 @@
         <input class="field" type="text" asp-for="Name" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="ShortDescription" class="control-label">Описание: </label>
-        <textarea class="field textarea" type="text" asp-for="ShortDescription"></textarea>
+        <div class="left">
+            <div class="image-file file">
+                <div id="img-preview"><img id="output" /></div>
+                <div class="file-btn">
+                    <input type="file" id="choose-file" name="CharacterImage" accept="image/*" onchange="loadFile(event)" />
+                    <label for="choose-file">Выбрать</label>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <label asp-for="ShortDescription" class="control-label">Описание: </label>
+            <textarea class="field textarea" type="text" asp-for="ShortDescription"></textarea>
+        </div>
     </div>
     <div class="form-group">
         <label asp-for="History" class="control-label">История: </label>

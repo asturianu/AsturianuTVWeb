@@ -30,7 +30,7 @@ namespace AsturianuTV.Infrastructure.ModelsConfiguration
 
             builder.HasMany(x => x.NewsMaterials)
                 .WithOne(x => x.News)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

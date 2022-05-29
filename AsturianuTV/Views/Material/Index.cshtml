@@ -9,6 +9,8 @@
         <div class="crud-info">
             <p class="info">Блог: </p>
             <p class="info">Картинка: </p>
+            <p class="info"></p>
+            <p class="info"></p>
         </div>
         <div class="crud-action">
             <p>Действия</p>
@@ -22,23 +24,11 @@
         <div class="accordion">
             <div class="crud-content">
                 <div class="crud-info">
-                    @*@if (@item.Blog != null)
-                    {
-                        <p class="info">@item.Blog.Title</p>
-                    }
-                    else if (@item.News != null)
-                    {
-                        <p class="info">@item.News.Title</p>
-                    }
-                    else
-                    {
-                        <p class="info">Не определено</p>
-                    }*@
-
+                    <p class="info">@item.FilePath</p>
+                    <p class="info">@item.ContentType</p>
                     <p class="info">
                         <img style="width: 50px" src="@item.FilePath" alt="Alternate Text" />
                     </p>
-                    <p class="info"></p>
                     <p class="info"></p>
                 </div>
                 <div class="crud-action">

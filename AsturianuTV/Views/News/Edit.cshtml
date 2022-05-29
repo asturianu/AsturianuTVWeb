@@ -1,17 +1,61 @@
-﻿@model AsturianuTV.Infrastructure.Data.Models.Skill
+﻿@model AsturianuTV.Dto.UpdateNewsDto
 @{
     Layout = "_AdminLayout";
 }
-<form asp-action="Edit" asp-controller="Skill" asp-route-id="@Model.Id">
+<form class="form" asp-action="Edit" asp-controller="News" asp-route-id="@Model.Id">
     <div class="form-group">
-        <label asp-for="Name" class="control-label">Имя</label>
-        <input type="text" asp-for="Name" class="form-control" />
+        <label asp-for="Title" class="control-label">Title</label>
+        <input type="text" asp-for="Title" class="form-control" />
     </div>
     <div class="form-group">
         <label asp-for="Description" class="control-label">описание</label>
         <input type="text" asp-for="Description" class="form-control" />
     </div>
     <div class="form-group">
+        <label asp-for="IsReady" class="control-label">IsReady</label>
+        <input type="text" asp-for="IsReady" class="form-control" />
+    </div>
+    <div class="form_label">
+        <div class="multiselect_block">
+            <label for="select-1" class="field_multiselect">Tags</label>
+
+            <input id="checkbox-1" class="multiselect_checkbox" type="checkbox">
+            <label for="checkbox-1" class="multiselect_label"></label>
+
+            <select id="select-1" class="field_select" asp-for="Tags" name="Tags" multiple>
+                @foreach (var tag in Model.Tags)
+                {
+                    <option value="@tag.Id">@tag.Name</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="form_label">
+        <div class="multiselect_block">
+            <label for="select-2" class="field_multiselect">Frameworks</label>
+
+            <input id="checkbox-2" class="multiselect_checkbox" type="checkbox">
+            <label for="checkbox-2" class="multiselect_label"></label>
+
+            <select id="select-2" class="field_select" asp-for="Materials" name="Materials" multiple>
+                @foreach (var tag in Model.Materials)
+                {
+                    <option value="@tag.Id">@tag.FilePath</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
         <input type="submit" value="Сохранить" class="btn btn-default" />
     </div>
 </form>
+
+@section NewsStyles {
+    <link href="~/css/news.css" rel="stylesheet" />
+}
+
+@section NewsScripts {
+    <script src="~/js/news.js"></script>
+}

@@ -33,6 +33,7 @@ namespace AsturianuTV.Controllers
             => View(await _characterRepository.Read().Include(x => x.Skills).ToListAsync(cancellationToken));
 
         [HttpGet]
+        
         public IActionResult Create() => View();
 
         [HttpPost]
@@ -40,9 +41,11 @@ namespace AsturianuTV.Controllers
         {
             if (characterViewModel != null)
             {
-                string path = "/Files/Character/" + characterViewModel.CharacterImage.FileName;
-                await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                string path = null;
+                if (characterViewModel.CharacterImage != null)
                 {
+                    path = "/Files/Characters/" + Guid.NewGuid() + characterViewModel.CharacterImage.FileName;
+                    await using var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create);
                     await characterViewModel.CharacterImage.CopyToAsync(fileStream);
                 }
                 var character = _mapper.Map<Character>(characterViewModel);
@@ -63,7 +66,7 @@ namespace AsturianuTV.Controllers
                 var character = await _characterRepository
                     .Read()
                     .AsNoTracking()
-                    .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+                    .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
                 if (character != null)
                     return View(character);
@@ -77,7 +80,15 @@ namespace AsturianuTV.Controllers
         {
             if (characterViewModel != null)
             {
+                string path = null;
+                if (characterViewModel.CharacterImage != null)
+                {
+                    path = "/Files/Characters/" + Guid.NewGuid() + characterViewModel.CharacterImage.FileName;
+                    await using var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create);
+                    await characterViewModel.CharacterImage.CopyToAsync(fileStream);
+                }
                 var character = _mapper.Map<Character>(characterViewModel);
+                character.ImagePath = path;
                 await _characterRepository.UpdateAsync(character);
             }
             else
@@ -93,7 +104,9 @@ namespace AsturianuTV.Controllers
             {
                 var character = await _characterRepository
                     .Read()
-                    .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+                    .AsNoTracking()
+                    .Include(x => x.Skills)
+                    .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
                 if (character != null)
                     return View(character);
@@ -110,7 +123,8 @@ namespace AsturianuTV.Controllers
             {
                 var character = await _characterRepository
                     .Read()
-                    .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+                    .AsNoTracking()
+                    .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
                 if (character != null)
                     return View(character);
@@ -126,7 +140,8 @@ namespace AsturianuTV.Controllers
             {
                 var character = await _characterRepository
                     .Read()
-                    .FirstOrDefaultAsync(x=>x.Id == id, cancellationToken);
+                    .AsNoTracking()
+                    .SingleOrDefaultAsync(x=>x.Id == id, cancellationToken);
                 
                 if (character != null)
                 {

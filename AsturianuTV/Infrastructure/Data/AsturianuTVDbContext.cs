@@ -50,6 +50,8 @@ namespace AsturianuTV.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new BlogConfiguration());
             modelBuilder.ApplyConfiguration(new PlanConfiguration());
             modelBuilder.ApplyConfiguration(new MaterialConfiguration());
+            modelBuilder.ApplyConfiguration(new NewsMaterialConfiguration());
+            modelBuilder.ApplyConfiguration(new BlogMaterialConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using AsturianuTV.Dto;
@@ -46,12 +47,13 @@ namespace AsturianuTV.Controllers
             if (createSkillViewModel != null)
             {
                 string path = null;
+                
                 if (createSkillViewModel.Image != null)
                 {
-                    path = "/Files/Skills/" + createSkillViewModel.Image.FileName;
-                    var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create);
-                    await createSkillViewModel.Image.CopyToAsync(fileStream);
+                    path = "/Files/Skills/" + Guid.NewGuid() + createSkillViewModel.Image.FileName;
+                    Directory.CreateDirectory(_appEnvironment.WebRootPath + path);
                 }
+
                 var skill = _mapper.Map<Skill>(createSkillViewModel);
                 skill.ImagePath = path;
                 await _skillRepository.AddAsync(skill);
@@ -105,7 +107,15 @@ namespace AsturianuTV.Controllers
         {
             if (updateSkillViewModel != null)
             {
+                string path = null;
+
+                if (updateSkillViewModel.Image != null)
+                {
+                    path = "/Files/Skills/" + Guid.NewGuid() + updateSkillViewModel.Image.FileName;
+                    Directory.CreateDirectory(_appEnvironment.WebRootPath + path);
+                }
                 var skill = _mapper.Map<Skill>(updateSkillViewModel);
+                skill.ImagePath = path;
                 await _skillRepository.UpdateAsync(skill);
             }
             else
@@ -137,7 +147,8 @@ namespace AsturianuTV.Controllers
             {
                 var skill = await _skillRepository
                     .Read()
-                    .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+                    .AsNoTracking()
+                    .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
 
                 if (skill != null)
                 {

@@ -1,31 +1,24 @@
-﻿@using AsturianuTV.Infrastructure.Data.Enums
-@model AsturianuTV.Dto.MaterialDto
+﻿@model AsturianuTV.Infrastructure.Data.Models.Material
 @{
     Layout = "_AdminLayout";
 }
 
 <form class="form" asp-action="Create" asp-controller="Material" enctype="multipart/form-data">
     <h2 class="form-title">Добавление файла</h2>
-    <input class="material" type="file" name="FilePaths" />
+    <input class="material" type="file" name="FilePath" />
+    
     <div class="form-group">
-        <label asp-for="BlogId" class="control-label">Выберите блог</label>
-        <select class="select" asp-for="BlogId">
-            <option disabled>Выберите блог</option>
-            @foreach (var blog in Model.Blogs)
-            {
-                <option value="@blog.Id">@blog.Title</option>
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="BlogId" class="control-label">Выберите блог</label>
-        <select class="select-news" asp-for="NewsId">
-            <option disabled>Выберите новость</option>
-            @foreach (var news in Model.News)
-            {
-                <option value="@news.Id">@news.Title</option>
-            }
-        </select>
+        <label asp-for="IsNewsMaterial" class="control-label">Тип урона: </label>
+        <div class="form-radio">
+            <div class="form_radio_btn">
+                <input id="radio-1" type="radio" asp-for="IsNewsMaterial" value="@true" checked>
+                <label for="radio-1">True</label>
+            </div>
+            <div class="form_radio_btn">
+                <input id="radio-2" type="radio" asp-for="IsNewsMaterial" value="@false" checked>
+                <label for="radio-2">False</label>
+            </div>
+        </div>
     </div>
     <div class="form-group">
         <input class="btn submit" type="submit" value="Отправить" />
