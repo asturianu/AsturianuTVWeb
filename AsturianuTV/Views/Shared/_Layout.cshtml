@@ -1,5 +1,4 @@
-﻿@model AsturianuTV.Infrastructure.Data.User
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -14,7 +13,7 @@
     <link href="~/lib/slick/slick-theme.css" rel="stylesheet" />
     <link href="~/lib/resset/resset.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    @RenderSection("MainPageStyles", required: false)
+    <link href="~/css/main-page.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -23,11 +22,9 @@
                 <div class="header-menu__links">
                     <a class="logo-link"><img src="~/assets/icon-dota.svg"></a>
                     <ul class="header-items">
-                        <li class="header-item"><a href="" class="header-item__link">about</a></li>
-                        <li class="header-item"><a href="" class="header-item__link">galery</a></li>
-                        <li class="header-item"><a href="" class="header-item__link">pricing</a></li>
-                        <li class="header-item"><a href="" class="header-item__link">faq</a></li>
-                        <li class="header-item"><a href="" class="header-item__link">benefits</a></li>
+                        <li class="header-item"><a asp-controller="Home" asp-action="Heroes" class="header-item__link">Герои</a></li>
+                        <li class="header-item"><a asp-controller="Home" asp-action="News" class="header-item__link">Новости</a></li>
+                        <li class="header-item"><a asp-controller="Home" asp-action="Subscriptions" class="header-item__link">Подписки</a></li>
                     </ul>
                 </div>
             </nav>
@@ -37,10 +34,7 @@
             <div class="menu-wrap">
                 <h1 class="logo"><a href="">Аккаунт</a></h1>
                 <i class="fa fa-arrow-right menu-close"></i>
-                <a asp-controller="Home" asp-action="Profile" asp-route-id="@Model.Id">Профиль</a>
-                <a asp-controller="Home" asp-action="SettingsProfile" asp-route-id="@Model.Id">Настройки</a>
-                <a asp-controller="Home" asp-action="Subscriptions" asp-route-id="@Model.Id">Мои подписки</a>
-                <a asp-controller="Home" asp-action="News" asp-route-id="@Model.Id">Мои новости</a>
+     
                 <a href="#"><i class="fa fa-facebook"></i></a>
                 <a href="#"><i class="fa fa-twitter"></i></a>
                 <a href="#"><i class="fa fa-dribbble"></i></a>
@@ -55,96 +49,6 @@
     <footer class="footer">
         <div class="wrapper">
             <div class="footer-wrap">
-                <div class="footer-head">
-                    <h4 class="title-footer">ARShakir</h4>
-                    <ul class="social-items">
-                        <li class="social-item">
-                            <a href="" class="social-item__link">
-                                <img src="~/assets/image/gl.png" alt="" class="footer-img__social">
-                            </a>
-                        </li>
-                        <li class="social-item">
-                            <a href="" class="social-item__link">
-                                <img src="~/assets/image/tw.png" alt="" class="footer-img__social">
-                            </a>
-                        </li>
-                        <li class="social-item">
-                            <a href="" class="social-item__link">
-                                <img src="~/assets/image/fb.png" alt="" class="footer-img__social">
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="pages" style="display: flex; justify-content: space-between; align-items: center;">
-                    <ul class="page-items">
-                        <li class="page-item">
-                            <a href="" class="page-item__link page-item__title">First</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="" class="page-item__link">First page</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="" class="page-item__link">Second page</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="" class="page-item__link">Third page</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="" class="page-item__link">Fourth page</a>
-                        </li>
-                    </ul>
-                    <ul class="page-items">
-                        <li class="page-item">
-                            <a href="" class="page-item__link page-item__title">First</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="" class="page-item__link">First page</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="" class="page-item__link">Second page</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="" class="page-item__link">Third page</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="" class="page-item__link">Fourth page</a>
-                        </li>
-                    </ul>
-                    <ul class="page-items">
-                        <li class="page-item">
-                            <a href="" class="page-item__link page-item__title">First</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="" class="page-item__link">First page</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="" class="page-item__link">Second page</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="" class="page-item__link">Third page</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="" class="page-item__link">Fourth page</a>
-                        </li>
-                    </ul>
-                    <ul class="page-items">
-                        <li class="page-item">
-                            <a href="" class="page-item__link page-item__title">First</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="" class="page-item__link">First page</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="" class="page-item__link">Second page</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="" class="page-item__link">Third page</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="" class="page-item__link">Fourth page</a>
-                        </li>
-                    </ul>
-                </div>
                 <div class="footer-copy">
                     <p>© Copyrights 2021</p>
                     <p>Privacy policy</p>
@@ -156,6 +60,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/header.js"></script>
     <script src="~/js/footer.js"></script>
-    @RenderSection("MainPageScripts", required: false)
+    <script src="js/main-page.js"></script>
 </body>
 </html>

@@ -51,7 +51,10 @@ namespace AsturianuTV.Controllers
                 if (createSkillViewModel.Image != null)
                 {
                     path = "/Files/Skills/" + Guid.NewGuid() + createSkillViewModel.Image.FileName;
-                    Directory.CreateDirectory(_appEnvironment.WebRootPath + path);
+                    await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await createSkillViewModel.Image.CopyToAsync(fileStream);
+                    }
                 }
 
                 var skill = _mapper.Map<Skill>(createSkillViewModel);
@@ -112,7 +115,10 @@ namespace AsturianuTV.Controllers
                 if (updateSkillViewModel.Image != null)
                 {
                     path = "/Files/Skills/" + Guid.NewGuid() + updateSkillViewModel.Image.FileName;
-                    Directory.CreateDirectory(_appEnvironment.WebRootPath + path);
+                    await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await updateSkillViewModel.Image.CopyToAsync(fileStream);
+                    }
                 }
                 var skill = _mapper.Map<Skill>(updateSkillViewModel);
                 skill.ImagePath = path;

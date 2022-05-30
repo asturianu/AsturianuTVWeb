@@ -8,8 +8,8 @@ namespace AsturianuTV.MapperProfile
     {
         public CharacterProfile()
         {
-            CreateMap<CreateBlogViewModel, Character>();
-            CreateMap<UpdateMaterialViewModel, Character>();
+            CreateMap<CreateCharacterViewModel, Character>();
+            CreateMap<UpdateCharacterViewModel, Character>();
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AsturianuTV.Infrastructure.Data.Models;
 using AsturianuTV.Infrastructure.Interfaces;
+using AsturianuTV.ViewModels.System.BlogViewModels;
 using AsturianuTV.ViewModels.System.CharacterViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
@@ -37,16 +38,18 @@ namespace AsturianuTV.Controllers
         public IActionResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateBlogViewModel characterViewModel)
+        public async Task<IActionResult> Create(CreateCharacterViewModel characterViewModel)
         {
             if (characterViewModel != null)
             {
                 string path = null;
-                if (characterViewModel.CharacterImage != null)
+                if (characterViewModel.Image != null)
                 {
-                    path = "/Files/Characters/" + Guid.NewGuid() + characterViewModel.CharacterImage.FileName;
-                    await using var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create);
-                    await characterViewModel.CharacterImage.CopyToAsync(fileStream);
+                    path = "/Files/Characters/" + Guid.NewGuid() + characterViewModel.Image.FileName;
+                    await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await characterViewModel.Image.CopyToAsync(fileStream);
+                    }
                 }
                 var character = _mapper.Map<Character>(characterViewModel);
                 character.ImagePath = path;
@@ -76,16 +79,18 @@ namespace AsturianuTV.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UpdateMaterialViewModel characterViewModel)
+        public async Task<IActionResult> Edit(UpdateCharacterViewModel characterViewModel)
         {
             if (characterViewModel != null)
             {
                 string path = null;
-                if (characterViewModel.CharacterImage != null)
+                if (characterViewModel.Image != null)
                 {
-                    path = "/Files/Characters/" + Guid.NewGuid() + characterViewModel.CharacterImage.FileName;
-                    await using var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create);
-                    await characterViewModel.CharacterImage.CopyToAsync(fileStream);
+                    path = "/Files/Characters/" + Guid.NewGuid() + characterViewModel.Image.FileName;
+                    await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await characterViewModel.Image.CopyToAsync(fileStream);
+                    }
                 }
                 var character = _mapper.Map<Character>(characterViewModel);
                 character.ImagePath = path;

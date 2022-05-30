@@ -3,7 +3,7 @@
 @{
     Layout = "_AdminLayout";
 }
-<form class="form" asp-action="Edit" asp-controller="Skill" asp-route-id="@Model.Id">
+<form class="form" asp-action="Edit" asp-controller="Skill" asp-route-id="@Model.Id" enctype="multipart/form-data">
     <h2 class="form-title">Обновление скилла</h2>
     <div class="form-group">
         <label asp-for="Name" class="control-label">Название: </label>
@@ -14,7 +14,7 @@
             <div class="image-file file">
                 <div id="img-preview"><img id="output" /></div>
                 <div class="file-btn">
-                    <input type="file" id="choose-file" name="Image" accept="image/*" onchange="loadFile(event)" />
+                    <input type="file" id="choose-file" name="CharacterImage" accept="image/*" onchange="loadFile(event)" />
                     <label for="choose-file">Выбрать</label>
                 </div>
             </div>

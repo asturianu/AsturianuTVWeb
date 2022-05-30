@@ -5,19 +5,19 @@
 }
 }
 
-<form class="form" asp-action="Edit" asp-controller="Character" asp-route-id="@Model.Id">
+<form class="form" asp-action="Edit" asp-controller="Character" asp-route-id="@Model.Id" enctype="multipart/form-data">
     <h2 class="form-title">Обновление героя</h2>
     <div class="form-group">
         <label asp-for="Name" class="control-label">Название: </label>
         <input class="field" type="text" asp-for="Name" class="form-control" />
     </div>
     
-    <div class="form-group">
+    <div class="form-group file">
         <div class="left">
             <div class="image-file file">
                 <div id="img-preview"><img id="output" /></div>
                 <div class="file-btn">
-                    <input type="file" id="choose-file" name="CharacterImage" accept="image/*" onchange="loadFile(event)" />
+                    <input type="file" id="choose-file" name="Image" accept="image/*" onchange="loadFile(event)" />
                     <label for="choose-file">Выбрать</label>
                 </div>
             </div>
@@ -111,9 +111,9 @@
 </form>
 
 <script>
-    var loadFile = function(event) {
+    var loadFile = function (event) {
         var reader = new FileReader();
-        reader.onload = function(){
+        reader.onload = function () {
             var output = document.getElementById('output');
             output.src = reader.result;
         };
