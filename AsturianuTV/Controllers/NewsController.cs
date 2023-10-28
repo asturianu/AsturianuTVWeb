@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AsturianuTV.Dto;
 using AsturianuTV.Infrastructure.Data.Models;
+using AsturianuTV.Infrastructure.Data.Models.ContentNews;
 using AsturianuTV.Infrastructure.Interfaces;
 using AsturianuTV.ViewModels.System.NewsViewModels;
 using AutoMapper;
@@ -30,7 +31,7 @@ namespace AsturianuTV.Controllers
             IRepository<NewsTag> newsTagRepository,
             IMapper mapper)
         {
-            _newsRepository = newsRepository;
+            _newsRepository = newsRepository ?? throw new System.ArgumentNullException(nameof(newsRepository));
             _tagRepository = tagRepository;
             _materialRepository = materialRepository;
             _newsMaterialRepository = newsMaterialRepository;

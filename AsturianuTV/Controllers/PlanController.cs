@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AsturianuTV.Dto;
 using AsturianuTV.Infrastructure.Data.Models;
+using AsturianuTV.Infrastructure.Data.Models.Subscriptions;
 using AsturianuTV.Infrastructure.Interfaces;
 using AsturianuTV.ViewModels.System.PlanViewModels;
 using AutoMapper;

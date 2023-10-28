@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AsturianuTV.Infrastructure.Data.Models;
+using AsturianuTV.Infrastructure.Data.Models.ContentNews;
 
 namespace AsturianuTV.ViewModels.System.TagViewModels
 {

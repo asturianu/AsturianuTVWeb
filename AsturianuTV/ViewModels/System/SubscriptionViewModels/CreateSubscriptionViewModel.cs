@@ -2,6 +2,7 @@
 using AsturianuTV.Infrastructure.Data;
 using AsturianuTV.Infrastructure.Data.Enums;
 using AsturianuTV.Infrastructure.Data.Models;
+using AsturianuTV.Infrastructure.Data.Models.Subscriptions;
 
 namespace AsturianuTV.ViewModels.System.SubscriptionViewModels
 {

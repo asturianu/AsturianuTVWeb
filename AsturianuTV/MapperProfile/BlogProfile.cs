@@ -1,5 +1,5 @@
 ﻿using AsturianuTV.Dto;
-using AsturianuTV.Infrastructure.Data.Models;
+using AsturianuTV.Infrastructure.Data.Models.Subscriptions;
 using AsturianuTV.ViewModels.System.BlogViewModels;
 using AutoMapper;
 

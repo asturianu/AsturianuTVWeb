@@ -40,8 +40,8 @@ body, html {
 .box h4 {
   font-family: 'Source Sans Pro', sans-serif;
   color: #5c6bc0; 
-  font-size: 18px;
-  margin-top:94px;;
+  font-size: 26px;
+  margin-top: 40px;
 }
 
 .box h4 span {
@@ -55,7 +55,7 @@ body, html {
   color: #a1a4ad;
   letter-spacing: 1.5px;
   margin-top: -15px;
-  margin-bottom: 70px;
+  margin-bottom: 40px;
 }
 
 .box input[type = "text"],.box input[type = "password"] {
@@ -186,4 +186,8 @@ body {
 
 .particule {
     position: absolute;
+}
+
+span{
+    color: red;
 }

@@ -13,7 +13,7 @@ namespace AsturianuTV.Infrastructure.Repository
 {
     public class EfCoreRepository<T> : IRepository<T> where T : BaseEntity
     {
-        public readonly AsturianuTVDbContext _context;
+        private readonly AsturianuTVDbContext _context;
 
         public EfCoreRepository(AsturianuTVDbContext context) => _context = context;
 

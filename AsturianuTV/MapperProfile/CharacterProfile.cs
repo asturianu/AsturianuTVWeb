@@ -1,4 +1,4 @@
-﻿using AsturianuTV.Infrastructure.Data.Models;
+﻿using AsturianuTV.Infrastructure.Data.Models.BaseKnowledges;
 using AsturianuTV.ViewModels.System.CharacterViewModels;
 using AutoMapper;
 

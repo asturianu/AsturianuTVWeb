@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using AsturianuTV.Infrastructure.Data.Enums;
 
-namespace AsturianuTV.Infrastructure.Data.Models
+namespace AsturianuTV.Infrastructure.Data.Models.BaseKnowledges
 {
     public class Character : BaseEntity
     {

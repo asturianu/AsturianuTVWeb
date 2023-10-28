@@ -3,6 +3,8 @@ using System;
 using AsturianuTV.Infrastructure.Data;
 using AsturianuTV.Infrastructure.Interfaces;
 using AsturianuTV.Infrastructure.Repository;
+using AsturianuTV.Services;
+using AsturianuTV.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +32,9 @@ namespace AsturianuTV
                 options => options.UseSqlServer(connection));
             services.AddControllersWithViews();
             services.AddAutoMapper(typeof(Startup));
+            services.AddHttpContextAccessor();
+
+            services.AddScoped<IPreloadDataService, PreloadDataService>();
 
     #if DEBUG
             services.AddControllersWithViews().AddRazorRuntimeCompilation();

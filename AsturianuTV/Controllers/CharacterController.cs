@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using AsturianuTV.Infrastructure.Data.Models;
+using AsturianuTV.Infrastructure.Data.Models.BaseKnowledges;
 using AsturianuTV.Infrastructure.Interfaces;
 using AsturianuTV.ViewModels.System.BlogViewModels;
 using AsturianuTV.ViewModels.System.CharacterViewModels;

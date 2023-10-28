@@ -19,52 +19,7 @@ namespace AsturianuTV.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Blog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PlanId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlanId");
-
-                    b.ToTable("Blogs");
-                });
-
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.BlogMaterial", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("BlogId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MaterialId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BlogId");
-
-                    b.HasIndex("MaterialId");
-
-                    b.ToTable("BlogMaterial");
-                });
-
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Character", b =>
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.BaseKnowledges.Character", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -118,45 +73,7 @@ namespace AsturianuTV.Migrations
                     b.ToTable("Characters");
                 });
 
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("ChildId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("LastModifiedBy")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("NewsId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NewsId");
-
-                    b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Item", b =>
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.BaseKnowledges.Item", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -191,113 +108,7 @@ namespace AsturianuTV.Migrations
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Material", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ContentType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FilePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsNewsMaterial")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Materials");
-                });
-
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.News", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsReady")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("News");
-                });
-
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.NewsMaterial", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("MaterialId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("NewsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MaterialId");
-
-                    b.HasIndex("NewsId");
-
-                    b.ToTable("NewsMaterial");
-                });
-
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.NewsTag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("NewsId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TagId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NewsId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("NewsTags");
-                });
-
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Plan", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SubscriptionId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubscriptionId");
-
-                    b.ToTable("Plans");
-                });
-
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Skill", b =>
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.BaseKnowledges.Skill", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -341,7 +152,331 @@ namespace AsturianuTV.Migrations
                     b.ToTable("Skills");
                 });
 
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Subscription", b =>
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.ContentNews.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ChildId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("LastModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NewsId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NewsId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.ContentNews.News", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsReady")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("LeagueId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TeamId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LeagueId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("News");
+                });
+
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.ContentNews.NewsMaterial", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("MaterialId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NewsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MaterialId");
+
+                    b.HasIndex("NewsId");
+
+                    b.ToTable("NewsMaterial");
+                });
+
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.ContentNews.NewsTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("NewsId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TagId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NewsId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("NewsTags");
+                });
+
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Cybersports.League", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PriceFound")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Leagues");
+                });
+
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Cybersports.LeagueTeam", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("LeagueId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LeagueId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("LeagueTeams");
+                });
+
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Cybersports.Player", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Bday")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullPrice")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Matches")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TeamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Wins")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("Players");
+                });
+
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Cybersports.Team", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FullPrice")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Matches")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Wins")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Teams");
+                });
+
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Material", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsNewsMaterial")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Materials");
+                });
+
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Subscriptions.Blog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PlanId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlanId");
+
+                    b.ToTable("Blogs");
+                });
+
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Subscriptions.BlogMaterial", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BlogId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MaterialId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogId");
+
+                    b.HasIndex("MaterialId");
+
+                    b.ToTable("BlogMaterial");
+                });
+
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Subscriptions.Plan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SubscriptionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubscriptionId");
+
+                    b.ToTable("Plans");
+                });
+
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Subscriptions.Subscription", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -458,51 +593,53 @@ namespace AsturianuTV.Migrations
                         });
                 });
 
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Blog", b =>
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.BaseKnowledges.Skill", b =>
                 {
-                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Plan", "Plan")
-                        .WithMany("Blogs")
-                        .HasForeignKey("PlanId")
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.BaseKnowledges.Character", "Character")
+                        .WithMany("Skills")
+                        .HasForeignKey("CharacterId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.BlogMaterial", b =>
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.ContentNews.Comment", b =>
                 {
-                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Blog", "Blog")
-                        .WithMany("BlogMaterials")
-                        .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Material", "Material")
-                        .WithMany("BlogMaterials")
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Comment", b =>
-                {
-                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.News", "News")
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.ContentNews.News", "News")
                         .WithMany("Comments")
                         .HasForeignKey("NewsId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.NewsMaterial", b =>
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.ContentNews.News", b =>
+                {
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Cybersports.League", "League")
+                        .WithMany("News")
+                        .HasForeignKey("LeagueId");
+
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Cybersports.Player", "Player")
+                        .WithMany("News")
+                        .HasForeignKey("PlayerId");
+
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Cybersports.Team", "Team")
+                        .WithMany("News")
+                        .HasForeignKey("TeamId");
+                });
+
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.ContentNews.NewsMaterial", b =>
                 {
                     b.HasOne("AsturianuTV.Infrastructure.Data.Models.Material", "Material")
                         .WithMany("NewsMaterials")
                         .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.News", "News")
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.ContentNews.News", "News")
                         .WithMany("NewsMaterials")
                         .HasForeignKey("NewsId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.NewsTag", b =>
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.ContentNews.NewsTag", b =>
                 {
-                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.News", "News")
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.ContentNews.News", "News")
                         .WithMany("NewsTags")
                         .HasForeignKey("NewsId")
                         .OnDelete(DeleteBehavior.SetNull);
@@ -513,19 +650,55 @@ namespace AsturianuTV.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Plan", b =>
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Cybersports.LeagueTeam", b =>
                 {
-                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Subscription", "Subscription")
-                        .WithMany("Plans")
-                        .HasForeignKey("SubscriptionId")
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Cybersports.League", "League")
+                        .WithMany("LeagueTeams")
+                        .HasForeignKey("LeagueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Cybersports.Team", "Team")
+                        .WithMany("LeagueTeams")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Cybersports.Player", b =>
+                {
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Cybersports.Team", "Team")
+                        .WithMany("Players")
+                        .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Skill", b =>
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Subscriptions.Blog", b =>
                 {
-                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Character", "Character")
-                        .WithMany("Skills")
-                        .HasForeignKey("CharacterId")
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Subscriptions.Plan", "Plan")
+                        .WithMany("Blogs")
+                        .HasForeignKey("PlanId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Subscriptions.BlogMaterial", b =>
+                {
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Subscriptions.Blog", "Blog")
+                        .WithMany("BlogMaterials")
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Material", "Material")
+                        .WithMany("BlogMaterials")
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Subscriptions.Plan", b =>
+                {
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Subscriptions.Subscription", "Subscription")
+                        .WithMany("Plans")
+                        .HasForeignKey("SubscriptionId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
@@ -535,7 +708,7 @@ namespace AsturianuTV.Migrations
                         .WithMany("Users")
                         .HasForeignKey("RoleId");
 
-                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Subscription", "Subscription")
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Subscriptions.Subscription", "Subscription")
                         .WithMany("Users")
                         .HasForeignKey("SubscriptionId")
                         .OnDelete(DeleteBehavior.SetNull);

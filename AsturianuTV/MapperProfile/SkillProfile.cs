@@ -1,8 +1,7 @@
 ﻿using AsturianuTV.Dto;
 using AsturianuTV.ViewModels.System.SkillViewModels;
-using AsturianuTV.Infrastructure.Data.Models;
 using AutoMapper;
-
+using AsturianuTV.Infrastructure.Data.Models.BaseKnowledges;
 
 namespace AsturianuTV.MapperProfile
 {

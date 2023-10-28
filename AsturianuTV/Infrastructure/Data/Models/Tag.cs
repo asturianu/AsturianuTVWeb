@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AsturianuTV.Infrastructure.Data.Models.ContentNews;
+using System.Collections.Generic;
 
 namespace AsturianuTV.Infrastructure.Data.Models
 {

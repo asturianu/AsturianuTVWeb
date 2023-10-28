@@ -1,4 +1,5 @@
 ﻿using AsturianuTV.Infrastructure.Data.Models;
+using AsturianuTV.Infrastructure.Data.Models.Subscriptions;
 
 namespace AsturianuTV.Infrastructure.Data
 {

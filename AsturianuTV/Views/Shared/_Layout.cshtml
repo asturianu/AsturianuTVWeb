@@ -1,9 +1,15 @@
-﻿<!DOCTYPE html>
+﻿@using AsturianuTV.Services.Interfaces
+@inject IPreloadDataService PreloadDataService
+@{
+    var preloadedData = await PreloadDataService.PreloadData();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - AsturianuTV</title>
+    <title> AsturianuTV</title>
     <link href="~/css/header.css" rel="stylesheet" />
     <link href="~/css/footer.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,21 +26,50 @@
         <div class="wrapper">
             <nav class="header-menu">
                 <div class="header-menu__links">
-                    <a class="logo-link"><img src="~/assets/icon-dota.svg"></a>
+                    <a asp-action="Index" asp-controller="Home" class="logo-link"><img src="~/assets/icon-dota.svg"></a>
                     <ul class="header-items">
-                        <li class="header-item"><a asp-controller="Home" asp-action="Heroes" class="header-item__link">Герои</a></li>
-                        <li class="header-item"><a asp-controller="Home" asp-action="News" class="header-item__link">Новости</a></li>
-                        <li class="header-item"><a asp-controller="Home" asp-action="Subscriptions" class="header-item__link">Подписки</a></li>
+                        <li class="header-item"><a asp-controller="Home" asp-action="Heroes" class="header-item__link">Base of knowleges</a></li>
+                        <li class="header-item"><a asp-controller="Home" asp-action="News" class="header-item__link">News</a></li>
+                        <li class="header-item"><a asp-controller="Home" asp-action="Subscriptions" class="header-item__link">Cybersport</a></li>
                     </ul>
                 </div>
             </nav>
         </div>
-
         <nav class="menu" id="theMenu">
             <div class="menu-wrap">
                 <h1 class="logo"><a href="">Аккаунт</a></h1>
                 <i class="fa fa-arrow-right menu-close"></i>
-     
+                @if (preloadedData != null)
+                {
+                    <p>@preloadedData.Email</p>
+
+                    @if (preloadedData.Role?.Name == "Administrator")
+                    {
+                        <a asp-controller="Admin"
+                           asp-action="Index">Go to settings</a>
+                    }
+
+                    if (preloadedData.Subscription != null)
+                    {
+                        <a asp-controller="Subscription"
+                            asp-action="Details"
+                            asp-route-id="@preloadedData.Subscription.Id">My subscription</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Subscription"
+                            asp-action="Index">
+                            Buy a subscription
+                        </a>
+                    }
+                    <a asp-controller="Account" asp-action="Logout">Log out</a>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login">Login</a>
+                    <a asp-controller="Account" asp-action="Register">Registration</a>
+                }
+
                 <a href="#"><i class="fa fa-facebook"></i></a>
                 <a href="#"><i class="fa fa-twitter"></i></a>
                 <a href="#"><i class="fa fa-dribbble"></i></a>
@@ -42,21 +77,12 @@
             </div>
             <div id="menuToggle"><i class="fa fa-bars"></i></div>
         </nav>
+
     </header>
     <main>
         @RenderBody()
     </main>
-    <footer class="footer">
-        <div class="wrapper">
-            <div class="footer-wrap">
-                <div class="footer-copy">
-                    <p>© Copyrights 2021</p>
-                    <p>Privacy policy</p>
-                    <p>Terms of service</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/header.js"></script>
     <script src="~/js/footer.js"></script>

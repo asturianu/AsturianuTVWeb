@@ -1,4 +1,4 @@
-﻿using AsturianuTV.Infrastructure.Data.Models;
+﻿using AsturianuTV.Infrastructure.Data.Models.ContentNews;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -31,6 +31,18 @@ namespace AsturianuTV.Infrastructure.ModelsConfiguration
             builder.HasMany(x => x.NewsMaterials)
                 .WithOne(x => x.News)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(x => x.League)
+                .WithMany(x => x.News)
+                .HasForeignKey(x => x.LeagueId);
+
+            builder.HasOne(x => x.Team)
+                .WithMany(x => x.News)
+                .HasForeignKey(x => x.TeamId);
+
+            builder.HasOne(x => x.Player)
+                .WithMany(x => x.News)
+                .HasForeignKey(x => x.PlayerId);
         }
     }
 }

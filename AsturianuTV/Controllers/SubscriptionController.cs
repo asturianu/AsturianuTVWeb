@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using AsturianuTV.Infrastructure.Data.Models;
+using AsturianuTV.Infrastructure.Data.Models.Subscriptions;
 using AsturianuTV.Infrastructure.Interfaces;
 using AsturianuTV.ViewModels.System.SubscriptionViewModels;
 using AutoMapper;
@@ -22,6 +22,11 @@ namespace AsturianuTV.Controllers
             _subscriptionRepository = subscriptionRepository;
             _mapper = mapper;
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> AdminIndex(CancellationToken cancellationToken) =>
+            View(await _subscriptionRepository.ListAsync(cancellationToken));
 
         [HttpGet]
         public async Task<IActionResult> Index(CancellationToken cancellationToken) =>

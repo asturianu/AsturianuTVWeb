@@ -1,7 +1,6 @@
 ﻿using AsturianuTV.Infrastructure.Data.Enums;
-using Microsoft.Data.SqlClient.DataClassification;
 
-namespace AsturianuTV.Infrastructure.Data.Models
+namespace AsturianuTV.Infrastructure.Data.Models.BaseKnowledges
 {
     public class Skill : BaseEntity
     {

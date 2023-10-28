@@ -5,21 +5,17 @@ namespace AsturianuTV.ViewModels
 {
     public class RegisterModel
     {
-        [Required(ErrorMessage = "Не указан Surname")]
+        [Required(ErrorMessage = "Surname is required field")]
         public string Surname { get; set; }
 
-        [Required(ErrorMessage = "Не указан Name")]
+        [Required(ErrorMessage = "Name is required field")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Не указан Email")]
+        [Required(ErrorMessage = "Email is required field")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Не указан пароль")]
+        [Required(ErrorMessage = "Password is required field")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Пароль введен неверно")]
-        public string ConfirmPassword { get; set; }
     }
 }

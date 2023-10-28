@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AsturianuTV.Dto;
 using AsturianuTV.Infrastructure.Data.Models;
+using AsturianuTV.Infrastructure.Data.Models.BaseKnowledges;
 using AsturianuTV.Infrastructure.Interfaces;
 using AsturianuTV.ViewModels.System.SkillViewModels;
 using AutoMapper;

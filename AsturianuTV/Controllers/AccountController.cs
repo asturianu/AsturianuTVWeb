@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace AsturianuTV.Controllers
@@ -38,14 +37,12 @@ namespace AsturianuTV.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userRepository
-                    .Read()
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(u => u.Email == model.Email);
+                var theUserExist = await _userRepository.Read()
+                    .AnyAsync(u => u.Email == model.Email);
 
-                if (user == null)
+                if (!theUserExist)
                 {
-                    user = new User 
+                    var user = new User 
                     {
                         Surname = model.Surname,
                         Name = model.Name,
@@ -57,7 +54,9 @@ namespace AsturianuTV.Controllers
                         .FirstOrDefaultAsync(r => r.Name == RoleName);
 
                     if (userRole != null)
+                    {
                         user.Role = userRole;
+                    }
 
                     await _userRepository.AddAsync(user);
 
@@ -66,7 +65,9 @@ namespace AsturianuTV.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 else
-                    ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                {
+                    ModelState.AddModelError("", "The same user already exist or data did not fill");
+                }
             }
             return View(model);
         }
@@ -107,6 +108,12 @@ namespace AsturianuTV.Controllers
                     ClaimsIdentity.DefaultRoleClaimType);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdentity));
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

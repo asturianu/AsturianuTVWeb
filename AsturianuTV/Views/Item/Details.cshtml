@@ -1,25 +1,3 @@
-﻿@model AsturianuTV.Infrastructure.Data.Models.Item
-@{
-    Layout = "_AdminLayout";
+﻿@{
+    Layout = "_Layout";
 }
-<section>
-    <div class="form">
-        <p>@Model.Name</p>
-        <p>
-        </p>
-        <div class="secondary-info">
-            <p>
-                @if (@Model.ImagePath == null)
-                {
-                    <span>No Image</span>
-                }
-                else
-                {
-                    <img class="content-img" src="@Model.ImagePath" alt="Alternate Text" />
-                }
-            </p>
-            <p>@Model.Description</p>
-            <p>@Model.CoolDown</p>
-        </div>
-    </div>
-</section>

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AsturianuTV.Infrastructure.Data.Models
+namespace AsturianuTV.Infrastructure.Data.Models.Subscriptions
 {
     public class Blog : BaseEntity
     {

@@ -20,7 +20,7 @@ a, a:hover {
     align-items: center;
     padding: 10px;
     border-radius: 15px;
-    background-color: rgba(56, 57, 77, 0.35);
+    background-color: #16171f;
     margin-bottom: 15px;
 }
 
@@ -36,7 +36,11 @@ a, a:hover {
 }
 
 .info {
-    width: 25%;
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 30px;
 }
 
 .crud-action {
@@ -62,6 +66,15 @@ a, a:hover {
     padding: 8px 15px;
     text-align: center;
     background-color: rgba(56, 57, 77, 0.35);
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.create {
+    float: right;
+    padding: 8px 15px;
+    text-align: center;
+    background-color: #16171f;
     border-radius: 10px;
     margin-top: 15px;
 }

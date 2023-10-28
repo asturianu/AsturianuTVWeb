@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace AsturianuTV.Infrastructure.Data.Models
+namespace AsturianuTV.Infrastructure.Data.Models.Subscriptions
 {
     public class Plan : BaseEntity
     {

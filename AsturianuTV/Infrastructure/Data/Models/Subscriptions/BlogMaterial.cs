@@ -1,4 +1,4 @@
-﻿namespace AsturianuTV.Infrastructure.Data.Models
+﻿namespace AsturianuTV.Infrastructure.Data.Models.Subscriptions
 {
     public class BlogMaterial : BaseEntity
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using AsturianuTV.Infrastructure.Data.Enums;
 
-namespace AsturianuTV.Infrastructure.Data.Models
+namespace AsturianuTV.Infrastructure.Data.Models.Subscriptions
 {
     public class Subscription : BaseEntity
     {

@@ -1,28 +1,28 @@
 ﻿using AsturianuTV.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AsturianuTV.Infrastructure.Data;
-using AsturianuTV.Infrastructure.Data.Models;
 using AsturianuTV.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using AsturianuTV.Infrastructure.Data.Models.Subscriptions;
+using AsturianuTV.Infrastructure.Data.Models.ContentNews;
+using AsturianuTV.Infrastructure.Data.Models.BaseKnowledges;
 
 namespace AsturianuTV.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Character> _characterRepository;
         private readonly IRepository<News> _newsRepository;
         private readonly IRepository<Subscription> _subscriptionRepository;
         private readonly IRepository<Plan> _planRepository;
         private readonly IRepository<Blog> _blogRepository;
+
         public HomeController(
-            ILogger<HomeController> logger,
             IRepository<User> userRepository,
             IRepository<Character> characterRepository,
             IRepository<News> newsRepository,
@@ -30,7 +30,6 @@ namespace AsturianuTV.Controllers
             IRepository<Plan> planRepository,
             IRepository<Blog> blogRepository)
         {
-            _logger = logger;
             _userRepository = userRepository;
             _characterRepository = characterRepository;
             _newsRepository = newsRepository;
@@ -39,10 +38,15 @@ namespace AsturianuTV.Controllers
             _blogRepository = blogRepository;
         }
 
+        public IActionResult SomeAction()
+        {
+            ViewData["SharedData"] = "This data is shared across the application.";
+            return View();
+        }
+
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            var user = await _userRepository
-                .Read()
+            var user = await _userRepository.Read()
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Email.Equals(User.Identity.Name), cancellationToken);
 

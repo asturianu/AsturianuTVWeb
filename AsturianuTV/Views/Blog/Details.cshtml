@@ -1,18 +1,3 @@
-﻿@model AsturianuTV.Infrastructure.Data.Models.Blog
-@{
-    Layout = "_AdminLayout";
+﻿@{
+    Layout = "_Layout";
 }
-
-<section>
-    <div class="form">
-        <p class="info">@Model.Title</p>
-        @if (Model.Plan == null)
-        {
-            <p class="info">План не создан</p>
-        }
-        else
-        {
-            <p class="info">@Model.Plan.Name</p>
-        }
-    </div>
-</section>

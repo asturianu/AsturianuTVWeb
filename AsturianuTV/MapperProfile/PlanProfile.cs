@@ -1,6 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using AsturianuTV.Dto;
-using AsturianuTV.Infrastructure.Data.Models;
+﻿using AsturianuTV.Dto;
+using AsturianuTV.Infrastructure.Data.Models.Subscriptions;
 using AsturianuTV.ViewModels.System.PlanViewModels;
 using AutoMapper;
 

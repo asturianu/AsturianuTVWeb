@@ -1,6 +1,6 @@
 ﻿using AsturianuTV.Infrastructure.Data.Models;
 
-namespace AsturianuTV.Infrastructure.Data.Models
+namespace AsturianuTV.Infrastructure.Data.Models.ContentNews
 {
     public class NewsMaterial : BaseEntity
     {

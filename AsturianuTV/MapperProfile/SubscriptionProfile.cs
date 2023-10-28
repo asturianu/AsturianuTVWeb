@@ -1,4 +1,4 @@
-﻿using AsturianuTV.Infrastructure.Data.Models;
+﻿using AsturianuTV.Infrastructure.Data.Models.Subscriptions;
 using AsturianuTV.ViewModels.System.SubscriptionViewModels;
 using AutoMapper;
 

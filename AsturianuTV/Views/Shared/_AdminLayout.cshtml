@@ -9,53 +9,30 @@
     @RenderSection("NewsStyles", required: false)
     <meta charset="UTF-8" />
 </head>
+
 <body>
-    <div id="app">
-        <div class="primary-nav">
-            <a href="/">
-                <img class="logo" src="~/assets/icon-dota.svg" alt="">
-            </a>
-            <a class="logo-link tooltip-right" href="/" data-tooltip="Dota settings">
-                <img class="logo-settings" src="~/assets/dota-settings.svg" alt="">
-            </a>
-            <a class="logo-link tooltip-right" href="/" data-tooltip="Subscripe settings">
-                <img class="logo-settings" src="~/assets/icon-subscriptions.svg" alt="">
-            </a>
-            <a class="logo-link tooltip-right" href="/" data-tooltip="News settings">
-                <img class="logo-settings" src="~/assets/icon-news.svg" alt="">
-            </a>
-            <a class="logo-link tooltip-right" href="/" data-tooltip="User settings">
-                <img class="logo-settings" src="~/assets/icon-settings.svg" alt="">
-            </a>
-        </div>
-        <div class="nav">
-            <div class="mini-header"></div>
-            <div id="navContent">
-                <div class="content-bar">
-                    <a class="create-title" asp-action="Index" asp-controller="Character">Character</a>
-                    <a class="create-title" asp-action="Index" asp-controller="Skill">Skill</a>
-                    <a class="create-title" asp-action="Index" asp-controller="Item">Item</a>
-                    <a class="create-title" asp-action="Index" asp-controller="News">News</a>
-                    <a class="create-title" asp-action="Index" asp-controller="Subscription">Subscription</a>
-                    <a class="create-title" asp-action="Index" asp-controller="Plan">Plan</a>
-                    <a class="create-title" asp-action="Index" asp-controller="Blog">Blog</a>
-                    <a class="create-title" asp-action="Index" asp-controller="Material">Material</a>
-                </div>
+    <main class="admin-wrapper">
+        <div class="admin-actions">
+            <div class="base-of-knowledge">
+                <a asp-controller="" asp-action="">Heroes</a>
+                <a asp-controller="" asp-action="">Skills</a>
+                <a asp-controller="" asp-action="">Items</a>
+            </div>
+            <div class="subscription">
+                <a asp-controller="" asp-action="">Users</a>
+                <a asp-controller="" asp-action="">Subscriptions</a>
+                <a asp-controller="" asp-action="">Plans</a>
+            </div>
+            <div class="cybersport">
+                <a asp-controller="" asp-action="">Leagues</a>
+                <a asp-controller="" asp-action="">Teams</a>
+                <a asp-controller="" asp-action="">Players</a>
+                <a asp-controller="" asp-action="">News</a>
             </div>
         </div>
-        <div class="asset-grid" id="grid">
-            <main id="particles-js">
-                <div class="container">
-                    @RenderBody()
-                </div>
-            </main>
+        <div>
+            <main>@RenderBody()</main>
         </div>
-    </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/admin.js"></script>
-    <script src="~/js/app.js"></script>
-    <script src="~/js/particles.js"></script>
-    @RenderSection("CharacterScripts", required: false)
-    @RenderSection("NewsScripts", required: false)
+    </main>
 </body>
 </html>

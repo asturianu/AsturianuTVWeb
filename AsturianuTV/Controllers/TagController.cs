@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AsturianuTV.Infrastructure.Data.Models;
+using AsturianuTV.Infrastructure.Data.Models.ContentNews;
 using AsturianuTV.Infrastructure.Interfaces;
 using AsturianuTV.ViewModels.System.TagViewModels;
 using AutoMapper;

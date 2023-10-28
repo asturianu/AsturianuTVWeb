@@ -1,4 +1,8 @@
 ﻿using AsturianuTV.Infrastructure.Data.Models;
+using AsturianuTV.Infrastructure.Data.Models.BaseKnowledges;
+using AsturianuTV.Infrastructure.Data.Models.ContentNews;
+using AsturianuTV.Infrastructure.Data.Models.Cybersports;
+using AsturianuTV.Infrastructure.Data.Models.Subscriptions;
 using AsturianuTV.Infrastructure.ModelsConfiguration;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +12,10 @@ namespace AsturianuTV.Infrastructure.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<LeagueTeam> LeagueTeams { get; set; }
+        public DbSet<League> Leagues { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<Player> Players { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Skill> Skills { get; set; }
@@ -21,7 +29,7 @@ namespace AsturianuTV.Infrastructure.Data
         public DbSet<Material> Materials { get; set; }
 
         public AsturianuTVDbContext(DbContextOptions<AsturianuTVDbContext> options)
-            : base(options) { }
+            : base(options) { Database.EnsureCreated(); }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,6 +46,10 @@ namespace AsturianuTV.Infrastructure.Data
             modelBuilder.Entity<Role>().HasData(new Role[] { adminRole, userRole });
             modelBuilder.Entity<User>().HasData(new User[] { adminUser });
 
+            modelBuilder.ApplyConfiguration(new LeagueTeamConfiguration());
+            modelBuilder.ApplyConfiguration(new LeagueConfiguration());
+            modelBuilder.ApplyConfiguration(new TeamConfiguration());
+            modelBuilder.ApplyConfiguration(new PlayerConfiguration());
             modelBuilder.ApplyConfiguration(new CharacterConfiguration());
             modelBuilder.ApplyConfiguration(new SkillConfiguration());
             modelBuilder.ApplyConfiguration(new ItemConfiguration());

@@ -1,5 +1,5 @@
 ﻿using AsturianuTV.Dto;
-using AsturianuTV.Infrastructure.Data.Models;
+using AsturianuTV.Infrastructure.Data.Models.ContentNews;
 using AsturianuTV.ViewModels.System.NewsViewModels;
 using AutoMapper;
 

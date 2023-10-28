@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using AsturianuTV.Infrastructure.Data.Models.ContentNews;
+using AsturianuTV.Infrastructure.Data.Models.Subscriptions;
 using System.Collections.Generic;
 
 namespace AsturianuTV.Infrastructure.Data.Models

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AsturianuTV.Infrastructure.Data.Enums;
 using AsturianuTV.Infrastructure.Data.Models;
+using AsturianuTV.Infrastructure.Data.Models.BaseKnowledges;
 
 namespace AsturianuTV.Dto
 {

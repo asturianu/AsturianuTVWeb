@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using AsturianuTV.Infrastructure.Data.Models;
+﻿using System.Collections.Generic;
+using AsturianuTV.Infrastructure.Data.Models.Subscriptions;
 
 namespace AsturianuTV.Dto
 {
