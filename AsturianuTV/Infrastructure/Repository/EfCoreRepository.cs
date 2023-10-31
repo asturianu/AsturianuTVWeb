@@ -17,9 +17,9 @@ namespace AsturianuTV.Infrastructure.Repository
 
         public EfCoreRepository(AsturianuTVDbContext context) => _context = context;
 
-        public async Task<T> AddAsync(T entity)
+        public async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
         {
-            await _context.Set<T>().AddAsync(entity);
+            await _context.Set<T>().AddAsync(entity, cancellationToken);
             await _context.SaveChangesAsync();
             return entity;
         }

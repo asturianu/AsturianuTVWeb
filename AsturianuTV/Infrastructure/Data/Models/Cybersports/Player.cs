@@ -7,6 +7,7 @@ namespace AsturianuTV.Infrastructure.Data.Models.Cybersports
     public class Player : BaseEntity
     {
         public string FullName { get; set; }
+        public string Logo { get; set; }
         public DateTime Bday { get; set; }
         public string Country { get; set; }
         public string FullPrice { get; set; }

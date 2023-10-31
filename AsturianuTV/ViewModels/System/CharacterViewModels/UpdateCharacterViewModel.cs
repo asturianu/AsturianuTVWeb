@@ -21,10 +21,5 @@ namespace AsturianuTV.ViewModels.System.CharacterViewModels
         public int MagicResist { get; set; }
         public int MoveSpeed { get; set; }
         public int Damage { get; set; }
-
-        internal object AsQueryable()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

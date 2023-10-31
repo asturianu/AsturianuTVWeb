@@ -1,3 +1,32 @@
-﻿@{
+﻿@model List<AsturianuTV.Infrastructure.Data.Models.Subscriptions.Subscription>
+@{
     Layout = "_AdminLayout";
 }
+
+<div>
+    <a asp-controller="Subscription" asp-action="Create">create</a>
+    <table id="tableId" class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>State</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>@item.IsReady</td>
+                    <td>
+                        <a asp-controller="Subscription" asp-action="Edit">udpate</a>
+                        <a asp-controller="Subscription" asp-action="Delete">delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

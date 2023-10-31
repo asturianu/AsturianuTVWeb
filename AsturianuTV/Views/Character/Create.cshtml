@@ -8,26 +8,19 @@
     <h2 class="form-title">Добавление героя</h2>
     <div class="form-group">
         <label asp-for="Name" class="control-label">Название: </label>
-        <input class="field" type="text" asp-for="Name" class="form-control" />
+        <input type="text" asp-for="Name" />
     </div>
-    <div class="form-group file">
-        <div class="left">
-            <div class="image-file file">
-                <div id="img-preview"><img id="output" /></div>
-                <div class="file-btn">
-                    <input type="file" id="choose-file" name="Image" onchange="loadFile(event)" />
-                    <label for="choose-file">Выбрать</label>
-                </div>
-            </div>
-        </div>
-        <div class="right">
-            <label asp-for="ShortDescription" class="control-label">Описание: </label>
-            <textarea class="field textarea" type="text" asp-for="ShortDescription"></textarea>
-        </div>
+    <div class="form-group">
+        <label asp-for="ImagePath" class="control-label">ImagePath: </label>
+        <textarea type="text" asp-for="ImagePath"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="ShortDescription" class="control-label">Описание: </label>
+        <textarea  type="text" asp-for="ShortDescription"></textarea>
     </div>
     <div class="form-group">
         <label asp-for="History" class="control-label">История: </label>
-        <textarea class="field textarea" type="text" asp-for="History"></textarea>
+        <textarea type="text" asp-for="History"></textarea>
     </div>
     <div class="form-group">
         <label asp-for="Attribute" class="control-label">Аттрибут: </label>
@@ -66,55 +59,44 @@
     <div class="form-group">
         <div class="left">
             <label asp-for="Damage" class="control-label">Урон: </label>
-            <input class="field" type="text" asp-for="Damage" class="form-control"/>
+            <input class="field" type="text" asp-for="Damage" />
         </div>
         <div class="right">
             <label asp-for="Armor" class="control-label">Броня: </label>
-            <input class="field" type="text" asp-for="Armor" class="form-control"/>
+            <input class="field" type="text" asp-for="Armor" />
         </div>
     </div>
     <div class="form-group">
         <div class="left">
             <label asp-for="Health" class="control-label">Здоровье: </label>
-            <input class="field" type="text" asp-for="Health" class="form-control"/>
+            <input class="field" type="text" asp-for="Health" />
         </div>
         <div class="right">
             <label asp-for="HealthRegeneration" class="control-label">Регенерация здоровья: </label>
-            <input class="field" type="text" asp-for="HealthRegeneration" class="form-control"/>
+            <input class="field" type="text" asp-for="HealthRegeneration" />
         </div>
     </div>
     <div class="form-group">
         <div class="left">
             <label asp-for="Mana" class="control-label">Мана: </label>
-            <input class="field" type="text" asp-for="Mana" class="form-control" />
+            <input class="field" type="text" asp-for="Mana" />
         </div>
         <div class="right">
             <label asp-for="ManaRegeneration" class="control-label">Регенерация маны: </label>
-            <input class="field" type="text" asp-for="ManaRegeneration" class="form-control" />
+            <input class="field" type="text" asp-for="ManaRegeneration" />
         </div>
     </div>
     <div class="form-group">
         <div class="left">
             <label asp-for="MoveSpeed" class="control-label">Скорость передвижения: </label>
-            <input class="field" type="text" asp-for="MoveSpeed" class="form-control" />
+            <input class="field" type="text" asp-for="MoveSpeed" />
         </div>
         <div class="right">
             <label asp-for="MagicResist" class="control-label">Сопротивление магии: </label>
-            <input class="field" type="text" asp-for="MagicResist" class="form-control" />
+            <input class="field" type="text" asp-for="MagicResist" />
         </div>
     </div>
     <div class="form-group">
         <input class="btn submit" type="submit" value="Отправить" />
     </div>
 </form>
-
-<script>
-    var loadFile = function (event) {
-        var reader = new FileReader();
-        reader.onload = function () {
-            var output = document.getElementById('output');
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    };
-</script>

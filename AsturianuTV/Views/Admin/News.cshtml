@@ -1,3 +1,36 @@
-﻿@{
+﻿@model List<AsturianuTV.Infrastructure.Data.Models.ContentNews.News>
+@{
     Layout = "_AdminLayout";
 }
+
+<div>
+    <a asp-controller="News" asp-action="Create">create</a>
+    <table id="tableId" class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Is Ready</th>
+                <th>League</th>
+                <th>Team</th>
+                <th>Player</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.IsReady</td>
+                    <td>@item?.League?.Name</td>
+                    <td>@item?.Team?.Name</td>
+                    <td>@item?.Player?.FullName</td>
+                    <td>
+                        <a asp-controller="News" asp-action="Edit">udpate</a>
+                        <a asp-controller="News" asp-action="Delete">delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

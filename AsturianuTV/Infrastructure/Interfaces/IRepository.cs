@@ -13,7 +13,7 @@ namespace AsturianuTV.Infrastructure.Interfaces
         Task DeleteRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken);
         Task UpdateAsync(T entity);
         Task<IEnumerable<T>> UpdateRangeAsync(IEnumerable<T> entities);
-        Task<T> AddAsync(T entity);
+        Task<T> AddAsync(T entity, CancellationToken cancellationToken = default);
         Task AddRangeAsync(IList<T> entities);
         Task<List<T>> ListAsync(CancellationToken cancellationToken);
         IQueryable<T> Read();

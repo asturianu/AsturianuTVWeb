@@ -3,36 +3,43 @@
 <head>
     <title>Dota Helper Admin</title>
     <link rel="stylesheet" href="~/css/admin.css">
+    <script src="~/lib/jquery/dist/jquery.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    @RenderSection("AdminMainPageStyles", required: false)
-    @RenderSection("CharacterStyles", required: false)
-    @RenderSection("NewsStyles", required: false)
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <meta charset="UTF-8" />
 </head>
 
 <body>
     <main class="admin-wrapper">
-        <div class="admin-actions">
-            <div class="base-of-knowledge">
-                <a asp-controller="" asp-action="">Heroes</a>
-                <a asp-controller="" asp-action="">Skills</a>
-                <a asp-controller="" asp-action="">Items</a>
+        <div class="admin-container">
+            <div class="admin-actions">
+                <div class="admin-action-block base-of-knowledge">
+                    <a class="admin-action" asp-controller="Admin" asp-action="Heroes">Heroes</a>
+                    <a class="admin-action" asp-controller="Admin" asp-action="Skills">Skills</a>
+                    <a class="admin-action" asp-controller="Admin" asp-action="Items">Items</a>
+                </div>
+                <div class="admin-action-block subscription">
+                    <a class="admin-action" asp-controller="Admin" asp-action="Users">Users</a>
+                    <a class="admin-action" asp-controller="Admin" asp-action="Subscriptions">Subscriptions</a>
+                    <a class="admin-action" asp-controller="Admin" asp-action="Plans">Plans</a>
+                </div>
+                <div class="admin-action-block cybersport">
+                    <a class="admin-action" asp-controller="Admin" asp-action="Leagues">Leagues</a>
+                    <a class="admin-action" asp-controller="Admin" asp-action="Teams">Teams</a>
+                    <a class="admin-action" asp-controller="Admin" asp-action="Players">Players</a>
+                    <a class="admin-action" asp-controller="Admin" asp-action="News">News</a>
+                </div>
             </div>
-            <div class="subscription">
-                <a asp-controller="" asp-action="">Users</a>
-                <a asp-controller="" asp-action="">Subscriptions</a>
-                <a asp-controller="" asp-action="">Plans</a>
+            <div class="admin-content">
+                <main>@RenderBody()</main>
             </div>
-            <div class="cybersport">
-                <a asp-controller="" asp-action="">Leagues</a>
-                <a asp-controller="" asp-action="">Teams</a>
-                <a asp-controller="" asp-action="">Players</a>
-                <a asp-controller="" asp-action="">News</a>
-            </div>
-        </div>
-        <div>
-            <main>@RenderBody()</main>
         </div>
     </main>
+    <script>
+        $(document).ready(function () {
+            $('#tableId').DataTable();
+        });
+    </script>
 </body>
 </html>

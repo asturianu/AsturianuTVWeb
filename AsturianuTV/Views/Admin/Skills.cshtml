@@ -1,3 +1,30 @@
-﻿@{
+﻿@model List<AsturianuTV.Infrastructure.Data.Models.BaseKnowledges.Skill>
+@{
     Layout = "_AdminLayout";
 }
+
+<div>
+    <a asp-controller="Skill" asp-action="Create">create</a>
+    <table id="tableId" class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Heroe</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Character.Name</td>
+                    <td>
+                        <a asp-controller="Skill" asp-action="Edit">udpate</a>
+                        <a asp-controller="Skill" asp-action="Delete">delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

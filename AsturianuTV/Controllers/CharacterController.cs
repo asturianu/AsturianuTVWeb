@@ -41,121 +41,42 @@ namespace AsturianuTV.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateCharacterViewModel characterViewModel)
         {
-            if (characterViewModel != null)
-            {
-                string path = null;
-                if (characterViewModel.Image != null)
-                {
-                    path = "/Files/Characters/" + Guid.NewGuid() + characterViewModel.Image.FileName;
-                    await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
-                    {
-                        await characterViewModel.Image.CopyToAsync(fileStream);
-                    }
-                }
-                var character = _mapper.Map<Character>(characterViewModel);
-                character.ImagePath = path;
-                await _characterRepository.AddAsync(character);
-            }
-            else
-                NotFound();
-            
-            return RedirectToAction("Index", "Character");
+            var character = _mapper.Map<Character>(characterViewModel);
+            await _characterRepository.AddAsync(character);
+            return RedirectToAction("Heroes", "Admin");
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int? id, CancellationToken cancellationToken)
+        public async Task<IActionResult> Edit(int id, CancellationToken cancellationToken)
         {
-            if (id != null)
-            {
-                var character = await _characterRepository
-                    .Read()
-                    .AsNoTracking()
-                    .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
-
-                if (character != null)
-                    return View(character);
-            }
-            return NotFound();
-            
+            var character = await _characterRepository.Read()
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
+                
+                return View(character);
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(UpdateCharacterViewModel characterViewModel)
         {
-            if (characterViewModel != null)
-            {
-                string path = null;
-                if (characterViewModel.Image != null)
-                {
-                    path = "/Files/Characters/" + Guid.NewGuid() + characterViewModel.Image.FileName;
-                    await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
-                    {
-                        await characterViewModel.Image.CopyToAsync(fileStream);
-                    }
-                }
-                var character = _mapper.Map<Character>(characterViewModel);
-                character.ImagePath = path;
-                await _characterRepository.UpdateAsync(character);
-            }
-            else
-                NotFound();
+            var character = await _characterRepository.Read()
+                .FirstOrDefaultAsync(x => x.Id == characterViewModel.Id);
 
-            return RedirectToAction("Index", "Character");
-        }
+            _mapper.Map(characterViewModel, character);
+            await _characterRepository.UpdateAsync(character);
 
-        [HttpGet]
-        public async Task<IActionResult> Details(int? id, CancellationToken cancellationToken)
-        {
-            if (id != null)
-            {
-                var character = await _characterRepository
-                    .Read()
-                    .AsNoTracking()
-                    .Include(x => x.Skills)
-                    .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
-
-                if (character != null)
-                    return View(character);
-            }
-
-            return NotFound();
-        }
-
-        [HttpGet]
-        [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int? id, CancellationToken cancellationToken)
-        {
-            if (id != null)
-            {
-                var character = await _characterRepository
-                    .Read()
-                    .AsNoTracking()
-                    .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
-
-                if (character != null)
-                    return View(character);
-            }
-
-            return NotFound();
+            return RedirectToAction("Heroes", "Admin");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete([FromRoute]int? id, CancellationToken cancellationToken)
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
-            if (id != null)
-            {
-                var character = await _characterRepository
-                    .Read()
-                    .AsNoTracking()
-                    .SingleOrDefaultAsync(x=>x.Id == id, cancellationToken);
+            var character = await _characterRepository.Read()
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x=>x.Id == id, cancellationToken);
                 
-                if (character != null)
-                {
-                    await _characterRepository.DeleteAsync(character);
-                    return RedirectToAction("Index", "Character");
-                }
-            }
-            return NotFound();
+            await _characterRepository.DeleteAsync(character);
+            return RedirectToAction("Heroes", "Admin");
         }
     }
 }

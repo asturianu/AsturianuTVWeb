@@ -1,9 +1,8 @@
-
-using System;
 using AsturianuTV.Infrastructure.Data;
 using AsturianuTV.Infrastructure.Interfaces;
 using AsturianuTV.Infrastructure.Repository;
 using AsturianuTV.Services;
+using AsturianuTV.Services.Cybersports;
 using AsturianuTV.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -35,6 +34,7 @@ namespace AsturianuTV
             services.AddHttpContextAccessor();
 
             services.AddScoped<IPreloadDataService, PreloadDataService>();
+            services.AddScoped<ITeamService, TeamService>();
 
     #if DEBUG
             services.AddControllersWithViews().AddRazorRuntimeCompilation();

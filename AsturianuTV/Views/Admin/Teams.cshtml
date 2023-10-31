@@ -1,3 +1,32 @@
-﻿@{
+﻿@model List<AsturianuTV.Infrastructure.Data.Models.Cybersports.Team>
+@{
     Layout = "_AdminLayout";
 }
+
+<div>
+    <a asp-controller="Team" asp-action="Create">create</a>
+    <table id="tableId" class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Country</th>
+                <th>Start Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Country</td>
+                    <td>@item.StartDate</td>
+                    <td>
+                        <a asp-controller="Team" asp-action="Edit">udpate</a>
+                        <a asp-controller="Team" asp-action="Delete">delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,3 +1,35 @@
-﻿@{
+﻿@model List<AsturianuTV.Infrastructure.Data.Models.BaseKnowledges.Character>
+@{
     Layout = "_AdminLayout";
 }
+
+<div>
+    <a asp-controller="Character" asp-action="Create">create</a>
+    <table id="tableId" class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Character Attribute</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Attribute</td>
+                    <td>
+                        <a asp-controller="Character" asp-action="Edit" asp-route-id="@item.Id">
+                            <img src="~/assets/icons8-редактировать.svg" alt="Alternate Text" />
+                        </a>
+                        <form asp-controller="Character" asp-action="Delete" method="post">
+                            <input type="hidden" name="Id" value="@item.Id" />
+                            <button type="submit" name="delete">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

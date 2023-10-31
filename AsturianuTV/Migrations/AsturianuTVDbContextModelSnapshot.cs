@@ -283,6 +283,9 @@ namespace AsturianuTV.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -341,6 +344,9 @@ namespace AsturianuTV.Migrations
                     b.Property<string>("FullPrice")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Matches")
                         .HasColumnType("int");
 
@@ -372,6 +378,9 @@ namespace AsturianuTV.Migrations
 
                     b.Property<int>("FullPrice")
                         .HasColumnType("int");
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Matches")
                         .HasColumnType("int");
@@ -491,6 +500,9 @@ namespace AsturianuTV.Migrations
 
                     b.Property<int>("Level")
                         .HasColumnType("int");
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
