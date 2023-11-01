@@ -67,17 +67,6 @@ namespace AsturianuTV.Controllers
             return RedirectToAction("Leagues", "Admin");
         }
 
-        [HttpGet]
-        [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int id, CancellationToken cancellationToken)
-        {
-            var team = await _teamRepository.Read()
-                .AsNoTracking()
-                .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
-
-            return View(team);
-        }
-
         [HttpPost]
         public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken cancellationToken)
         {

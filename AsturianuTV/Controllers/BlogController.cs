@@ -49,27 +49,22 @@ namespace AsturianuTV.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateBlogViewModel blogViewModel)
         {
-            if (blogViewModel != null)
-            {
-                var blog = _mapper.Map<Blog>(blogViewModel);
-                await _blogRepository.AddAsync(blog);
+            var blog = _mapper.Map<Blog>(blogViewModel);
+            await _blogRepository.AddAsync(blog);
 
-                if (blogViewModel.Materials != null)
+            if (blogViewModel.Materials != null)
+            {
+                foreach (var material in blogViewModel.Materials)
                 {
-                    foreach (var material in blogViewModel.Materials)
+                    await _blogMaterialRepository.AddAsync(new BlogMaterial
                     {
-                        await _blogMaterialRepository.AddAsync(new BlogMaterial
-                        {
-                            MaterialId = material,
-                            BlogId = blog.Id
-                        });
-                    }
+                        MaterialId = material,
+                        BlogId = blog.Id
+                    });
                 }
             }
-            else
-                NotFound();
-
-            return RedirectToAction("Index", "Blog");
+           
+            return RedirectToAction("Blogs", "Admin");
         }
 
         [HttpGet]
@@ -77,8 +72,7 @@ namespace AsturianuTV.Controllers
         {
             if (id != null)
             {
-                var blog = await _blogRepository
-                    .Read()
+                var blog = await _blogRepository.Read()
                     .AsNoTracking()
                     .Include(x => x.Plan)
                     .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
@@ -104,87 +98,54 @@ namespace AsturianuTV.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UpdateBlogViewModel blogViewModel, CancellationToken cancellationToken)
         {
-            if (blogViewModel != null)
+            var blog = await _blogRepository.Read()
+                .SingleOrDefaultAsync(x => x.Id == blogViewModel.Id, cancellationToken);
+
+            _mapper.Map(blogViewModel, blog);
+            await _blogRepository.UpdateAsync(blog);
+
+            if (blogViewModel.Materials != null)
             {
-                var blog = _mapper.Map<Blog>(blogViewModel);
-                await _blogRepository.UpdateAsync(blog);
+                var removeMaterials = await _blogMaterialRepository.Read()
+                    .AsNoTracking()
+                    .Where(x => x.BlogId == blogViewModel.Id)
+                    .ToListAsync(cancellationToken);
 
-                if (blogViewModel.Materials != null)
+                await _blogMaterialRepository.DeleteRangeAsync(removeMaterials, cancellationToken);
+
+                foreach (var material in blogViewModel.Materials)
                 {
-                    var removeMaterials = await _blogMaterialRepository
-                        .Read()
-                        .AsNoTracking()
-                        .Where(x => x.BlogId == blogViewModel.Id)
-                        .ToListAsync(cancellationToken);
-
-                    await _blogMaterialRepository.DeleteRangeAsync(removeMaterials, cancellationToken);
-
-                    foreach (var material in blogViewModel.Materials)
-                    {
-                        await _blogMaterialRepository.AddAsync(new BlogMaterial { MaterialId = material, BlogId = blog.Id });
-                    }
+                    await _blogMaterialRepository.AddAsync(
+                        new BlogMaterial 
+                        {
+                            MaterialId = material, 
+                            BlogId = blog.Id 
+                        });
                 }
             }
-            else
-                NotFound();
 
-            return RedirectToAction("Index", "Blog");
+            return RedirectToAction("Blogs", "Admin");
         }
 
         [HttpGet]
         public async Task<IActionResult> Details(int? id, CancellationToken cancellationToken)
-        {
-            if (id != null)
-            {
-                var blog = await _blogRepository
-                    .Read()
-                    .AsNoTracking()
-                    .Include(x => x.Plan)
-                    .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
-
-                if (blog != null)
-                    return View(blog);
-            }
-
-            return NotFound();
-        }
-
-        [HttpGet]
-        [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int? id, CancellationToken cancellationToken)
-        {
-            if (id != null)
-            {
-                var blog = await _blogRepository
-                    .Read()
-                    .AsNoTracking()
-                    .Include(x => x.Plan)
-                    .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
-
-                if (blog != null)
-                    return View(blog);
-            }
-
-            return NotFound();
+        {       
+            var blog = await _blogRepository.Read()
+                .AsNoTracking()
+                .Include(x => x.Plan)
+                .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
+       
+            return View(blog);
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete([FromRoute] int? id, CancellationToken cancellationToken)
         {
-            if (id != null)
-            {
-                var blog = await _blogRepository
-                    .Read()
-                    .AsNoTracking()
-                    .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
-
-                if (blog != null)
-                {
-                    await _blogRepository.DeleteAsync(blog);
-                    return RedirectToAction("Index", "Blog");
-                }
-            }
-            return NotFound();
+            var blog = await _blogRepository.Read()
+                .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
+             
+            await _blogRepository.DeleteAsync(blog);
+            return RedirectToAction("Blogs", "Admin");
         }
     }
 }

@@ -3,8 +3,13 @@
     Layout = "_AdminLayout";
 }
 
-<div>
-    <a asp-controller="Character" asp-action="Create">create</a>
+<div class="admin-content-block">
+    <div class="admin-content-block-top">
+        <h2 class="admin-content-block-title">Heroes</h2>
+        <a asp-controller="Character" asp-action="Create">
+            Create new heroe
+        </a>
+    </div>
     <table id="tableId" class="table">
         <thead>
             <tr>
@@ -19,13 +24,20 @@
                 <tr>
                     <td>@item.Name</td>
                     <td>@item.Attribute</td>
-                    <td>
-                        <a asp-controller="Character" asp-action="Edit" asp-route-id="@item.Id">
-                            <img src="~/assets/icons8-редактировать.svg" alt="Alternate Text" />
+                    <td class="table-actions">
+                        <a class="table-action" 
+                           asp-controller="Character" 
+                           asp-action="Edit" 
+                           asp-route-id="@item.Id">
+                            <img class="table-action-img" src="~/assets/icons8-редактировать.svg" alt="Alternate Text" />
                         </a>
-                        <form asp-controller="Character" asp-action="Delete" method="post">
+                        <form asp-controller="Character" 
+                              asp-action="Delete" 
+                              method="post">
                             <input type="hidden" name="Id" value="@item.Id" />
-                            <button type="submit" name="delete">Удалить</button>
+                            <button class="table-action" type="submit" name="delete">
+                                <img class="table-action-img" src="/assets/icons8-мусор (1).svg" alt="Alternate Text" />
+                            </button>
                         </form>
                     </td>
                 </tr>

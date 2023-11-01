@@ -4,7 +4,12 @@
 }
 
 <div>
-    <a asp-controller="Skill" asp-action="Create">create</a>
+    <div class="admin-content-block-top">
+        <h2 class="admin-content-block-title">Skills</h2>
+        <a asp-controller="Skill" asp-action="Create">
+            Create new skill
+        </a>
+    </div>
     <table id="tableId" class="table">
         <thead>
             <tr>
@@ -19,9 +24,21 @@
                 <tr>
                     <td>@item.Name</td>
                     <td>@item.Character.Name</td>
-                    <td>
-                        <a asp-controller="Skill" asp-action="Edit">udpate</a>
-                        <a asp-controller="Skill" asp-action="Delete">delete</a>
+                    <td class="table-actions">
+                        <a class="table-action"
+                           asp-controller="Skill"
+                           asp-action="Edit"
+                           asp-route-id="@item.Id">
+                            <img class="table-action-img" src="~/assets/icons8-редактировать.svg" alt="Alternate Text" />
+                        </a>
+                        <form asp-controller="Skill"
+                              asp-action="Delete"
+                              method="post">
+                            <input type="hidden" name="Id" value="@item.Id" />
+                            <button class="table-action" type="submit" name="delete">
+                                <img class="table-action-img" src="/assets/icons8-мусор (1).svg" alt="Alternate Text" />
+                            </button>
+                        </form>
                     </td>
                 </tr>
             }

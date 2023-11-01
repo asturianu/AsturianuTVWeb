@@ -3,17 +3,22 @@
 @{
     Layout = "_AdminLayout";
 }
+
 <form asp-action="Edit" asp-controller="Subscription" asp-route-id="@Model.Id">
     <div class="form-group">
-        <label asp-for="Name" class="control-label">Название</label>
+        <label asp-for="Name" class="control-label">Name</label>
         <input type="text" asp-for="Name" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Description" class="control-label">Описание</label>
+        <label asp-for="Description" class="control-label">Description</label>
         <input type="text" asp-for="Description" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Level" class="control-label">Аттрибут: </label>
+        <label asp-for="Logo" class="control-label">Logo</label>
+        <input type="text" asp-for="Logo" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Level" class="control-label">Level</label>
         <div class="form-radio">
             <div class="form_radio_btn">
                 <input id="radio-1" type="radio" asp-for="Level" value="@SubscriptionLevel.Low" checked>
@@ -34,18 +39,18 @@
         </div>
     </div>
     <div class="form-group">
-        <label asp-for="Price" class="control-label">Цена</label>
+        <label asp-for="Price" class="control-label">Price</label>
         <input type="text" asp-for="Price" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Level" class="control-label">Готовность: </label>
+        <label asp-for="IsReady" class="control-label">IsReady</label>
         <div class="form-radio">
             <div class="form_radio_btn">
-                <input id="radio-5" type="radio" asp-for="Level" value="@false" checked>
+                <input id="radio-5" type="radio" asp-for="IsReady" value="@false" checked>
                 <label for="radio-5">False</label>
             </div>
             <div class="form_radio_btn">
-                <input id="radio-6" type="radio" asp-for="Level" value="@true">
+                <input id="radio-6" type="radio" asp-for="IsReady" value="@true">
                 <label for="radio-6">True</label>
             </div>
         </div>

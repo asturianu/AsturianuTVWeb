@@ -4,12 +4,16 @@
 }
 
 <div>
-    <a asp-controller="League" asp-action="Create">create</a>
+    <div class="admin-content-block-top">
+        <h2 class="admin-content-block-title">Leagues</h2>
+        <a asp-controller="League" asp-action="Create">
+            Create new league
+        </a>
+    </div>
     <table id="tableId" class="table">
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Price</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Actions</th>
@@ -20,12 +24,23 @@
             {
                 <tr>
                     <td>@item.Name</td>
-                    <td>@item.PriceFound</td>
-                    <td>@item.StartDate</td>
-                    <td>@item.EndDate</td>
-                    <td>
-                        <a asp-controller="League" asp-action="Edit">udpate</a>
-                        <a asp-controller="League" asp-action="Delete">delete</a>
+                    <td>@item.StartDate.Date.ToShortDateString()</td>
+                    <td>@item.EndDate.Date.ToShortDateString()</td>
+                    <td class="table-actions">
+                        <a class="table-action"
+                           asp-controller="League"
+                           asp-action="Edit"
+                           asp-route-id="@item.Id">
+                            <img class="table-action-img" src="~/assets/icons8-редактировать.svg" alt="Alternate Text" />
+                        </a>
+                        <form asp-controller="League"
+                              asp-action="Delete"
+                              method="post">
+                            <input type="hidden" name="Id" value="@item.Id" />
+                            <button class="table-action" type="submit" name="delete">
+                                <img class="table-action-img" src="/assets/icons8-мусор (1).svg" alt="Alternate Text" />
+                            </button>
+                        </form>
                     </td>
                 </tr>
             }

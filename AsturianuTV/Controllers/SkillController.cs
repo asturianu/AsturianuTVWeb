@@ -45,27 +45,10 @@ namespace AsturianuTV.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateSkillViewModel createSkillViewModel)
         {
-            if (createSkillViewModel != null)
-            {
-                string path = null;
-                
-                if (createSkillViewModel.Image != null)
-                {
-                    path = "/Files/Skills/" + Guid.NewGuid() + createSkillViewModel.Image.FileName;
-                    await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
-                    {
-                        await createSkillViewModel.Image.CopyToAsync(fileStream);
-                    }
-                }
+            var skill = _mapper.Map<Skill>(createSkillViewModel);
+            await _skillRepository.AddAsync(skill);
 
-                var skill = _mapper.Map<Skill>(createSkillViewModel);
-                skill.ImagePath = path;
-                await _skillRepository.AddAsync(skill);
-            }
-            else
-                NotFound();
-
-            return RedirectToAction("Index", "Skill");
+            return RedirectToAction("Skills", "Admin");
         }
 
         [HttpGet]
@@ -86,84 +69,38 @@ namespace AsturianuTV.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int? id, CancellationToken cancellationToken)
+        public async Task<IActionResult> Edit(int id, CancellationToken cancellationToken)
         {
-            if (id != null)
-            {
-                var skill = await _skillRepository
-                    .Read()
-                    .AsNoTracking()
-                    .Include(x => x.Character)
-                    .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
+            var skill = await _skillRepository.Read()
+                .AsNoTracking()
+                .Include(x => x.Character)
+                .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
 
-                if (skill != null)
-                {
-                    var skillDto = _mapper.Map<SkillDto>(skill);
-                    skillDto.Characters = await _characterRepository.ListAsync(cancellationToken);
-                    return View(skillDto);
-                }
-            }
-            return NotFound();
+                var skillDto = _mapper.Map<SkillDto>(skill);
+                skillDto.Characters = await _characterRepository.ListAsync(cancellationToken);
+                return View(skillDto);
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(UpdateSkillViewModel updateSkillViewModel, CancellationToken cancellationToken)
         {
-            if (updateSkillViewModel != null)
-            {
-                string path = null;
+            var skill = await _skillRepository.Read()
+                .FirstOrDefaultAsync(x => x.Id == updateSkillViewModel.Id, cancellationToken);
 
-                if (updateSkillViewModel.Image != null)
-                {
-                    path = "/Files/Skills/" + Guid.NewGuid() + updateSkillViewModel.Image.FileName;
-                    await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
-                    {
-                        await updateSkillViewModel.Image.CopyToAsync(fileStream);
-                    }
-                }
-                var skill = _mapper.Map<Skill>(updateSkillViewModel);
-                skill.ImagePath = path;
-                await _skillRepository.UpdateAsync(skill);
-            }
-            else
-                NotFound();
-            
-            return RedirectToAction("Index", "Skill");
-        }
-
-        [HttpGet]
-        [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int? id, CancellationToken cancellationToken)
-        {
-            if (id != null)
-            {
-                var skill = await _skillRepository
-                    .Read()
-                    .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
-
-                if (skill != null)
-                    return View(skill);
-            }
-            return NotFound();
+            _mapper.Map(updateSkillViewModel, skill);
+            await _skillRepository.UpdateAsync(skill);
+            return RedirectToAction("Skills", "Admin");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int? id, CancellationToken cancellationToken)
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
-            if (id != null)
-            {
-                var skill = await _skillRepository
-                    .Read()
-                    .AsNoTracking()
-                    .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
+            var skill = await _skillRepository.Read()
+                .AsNoTracking()
+                .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
 
-                if (skill != null)
-                {
-                    await _skillRepository.DeleteAsync(skill);
-                    return RedirectToAction("Index", "Skill");
-                }
-            }
-            return NotFound();
+                await _skillRepository.DeleteAsync(skill);
+                return RedirectToAction("Skills", "Admin");
         }
     }
 }

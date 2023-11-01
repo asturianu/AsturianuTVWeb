@@ -1,13 +1,11 @@
-﻿using System.Net.Mime;
-using AsturianuTV.Infrastructure.Data.Enums;
-using Microsoft.AspNetCore.Http;
+﻿using AsturianuTV.Infrastructure.Data.Enums;
 
 namespace AsturianuTV.ViewModels.System.ItemViewModels
 {
     public class CreateItemViewModel
     {
         public string Name { get; set; }
-        public IFormFile ItemImage { get; set; }
+        public string ImagePath { get; set; }
         public string Description { get; set; }
         public ItemCategory ItemCategory { get; set; }
         public ItemType ItemType { get; set; }

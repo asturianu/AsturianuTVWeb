@@ -1,11 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using AsturianuTV.Infrastructure.Data.Models;
 using AsturianuTV.Infrastructure.Data.Models.BaseKnowledges;
 using AsturianuTV.Infrastructure.Interfaces;
-using AsturianuTV.ViewModels.System.BlogViewModels;
 using AsturianuTV.ViewModels.System.CharacterViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
@@ -17,22 +13,15 @@ namespace AsturianuTV.Controllers
     public class CharacterController : Controller
     {
         private readonly IRepository<Character> _characterRepository;
-        private readonly IWebHostEnvironment _appEnvironment;
         private readonly IMapper _mapper;
 
         public CharacterController(
             IRepository<Character> characterRepository,
-            IWebHostEnvironment appEnvironment,
             IMapper mapper)
         {
             _characterRepository = characterRepository;
-            _appEnvironment = appEnvironment;
             _mapper = mapper;
         }
-
-        [HttpGet]
-        public async Task<IActionResult> Index(CancellationToken cancellationToken) 
-            => View(await _characterRepository.Read().Include(x => x.Skills).ToListAsync(cancellationToken));
 
         [HttpGet]
         

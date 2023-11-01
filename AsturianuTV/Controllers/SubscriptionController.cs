@@ -24,109 +24,52 @@ namespace AsturianuTV.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> AdminIndex(CancellationToken cancellationToken) =>
-            View(await _subscriptionRepository.ListAsync(cancellationToken));
-
-        [HttpGet]
         public async Task<IActionResult> Index(CancellationToken cancellationToken) =>
             View(await _subscriptionRepository.ListAsync(cancellationToken));
 
         [HttpGet]
         [Authorize(Roles = "Administrator")]
         public IActionResult Create() => View();
-        
-        [HttpGet]
-        public async Task<IActionResult> Details(int? id, CancellationToken cancellationToken)
-        {
-            if (id != null)
-            {
-                var subscription = await _subscriptionRepository
-                    .Read()
-                    .AsNoTracking()
-                    .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
-
-                if (subscription != null)
-                    return View(subscription);
-            }
-            return NotFound();
-        }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateSubscriptionViewModel subscriptionViewModel)
         {
 
-            if (subscriptionViewModel != null)
-            {
-                var subscription = _mapper.Map<Subscription>(subscriptionViewModel);
-                await _subscriptionRepository.AddAsync(subscription);
-            }
-            else
-                NotFound();
+            var subscription = _mapper.Map<Subscription>(subscriptionViewModel);
+            await _subscriptionRepository.AddAsync(subscription);
 
-            return RedirectToAction("Index", "Subscription");
+            return RedirectToAction("Subscriptions", "Admin");
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int? id, CancellationToken cancellationToken)
+        public async Task<IActionResult> Edit(int id, CancellationToken cancellationToken)
         {
-            if (id != null)
-            {
-                var subscription = await _subscriptionRepository.Read()
-                    .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
-                if (subscription != null)
-                    return View(subscription);
-            }
-            return NotFound();
+            var subscription = await _subscriptionRepository.Read()
+                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+         
+            return View(subscription);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UpdateSubscriptionViewModel updateSkillViewModel, 
-            CancellationToken cancellationToken)
+        public async Task<IActionResult> Edit(
+            UpdateSubscriptionViewModel updateSubscriptionViewModel)
         {
-            if (updateSkillViewModel != null)
-            {
-                var subscription = _mapper.Map<Subscription>(updateSkillViewModel);
-                await _subscriptionRepository.UpdateAsync(subscription);
-            }
-            else
-                NotFound();
+            var subscription = await _subscriptionRepository.Read()
+                .FirstOrDefaultAsync(x => x.Id == updateSubscriptionViewModel.Id);
 
-            return RedirectToAction("Index", "Subscription");
-        }
-
-        [HttpGet]
-        [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int? id, CancellationToken cancellationToken)
-        {
-            if (id != null)
-            {
-                var subscription = await _subscriptionRepository
-                    .Read()
-                    .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
-
-                if (subscription != null)
-                    return View(subscription);
-            }
-            return NotFound();
+            _mapper.Map(updateSubscriptionViewModel, subscription);
+            await _subscriptionRepository.UpdateAsync(subscription);
+            return RedirectToAction("Subscriptions", "Admin");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int? id, CancellationToken cancellationToken)
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
-            if (id != null)
-            {
-                var subscription = await _subscriptionRepository
-                    .Read()
-                    .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+            var subscription = await _subscriptionRepository.Read()
+                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
-                if (subscription != null)
-                {
-                    await _subscriptionRepository.DeleteAsync(subscription);
-                    return RedirectToAction("Index", "Subscription");
-                }
-            }
-            return NotFound();
+            await _subscriptionRepository.DeleteAsync(subscription);
+            return RedirectToAction("Subscriptions", "Admin");
         }
     }
 }

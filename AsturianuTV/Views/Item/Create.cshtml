@@ -3,29 +3,23 @@
 @{
     Layout = "_AdminLayout";
 }
+
 <form class="form" asp-action="Create" asp-controller="Item">
-    <h2 class="form-title">Добавление предмета</h2>
+    <h2 class="form-title">Create item</h2>
     <div class="form-group">
-        <label asp-for="Name" class="control-label">Название: </label>
-        <input class="field" type="text" asp-for="Name" class="form-control"/>
-    </div>
-    <div class="form-group file">
-        <div class="left">
-            <div class="image-file file">
-                <div id="img-preview"><img id="output" /></div>
-                <div class="file-btn">
-                    <input type="file" id="choose-file" name="ItemImage" accept="image/*" onchange="loadFile(event)" />
-                    <label for="choose-file">Выбрать</label>
-                </div>
-            </div>
-        </div>
-        <div class="right">
-            <label asp-for="Description" class="control-label">Описание: </label>
-            <textarea class="field textarea" type="text" asp-for="Description"></textarea>
-        </div>
+        <label asp-for="Name" class="control-label">Name</label>
+        <input class="field" type="text" asp-for="Name" />
     </div>
     <div class="form-group">
-        <label asp-for="ItemCategory" class="control-label category">Категория: </label>
+        <label asp-for="ImagePath" class="control-label">Logo</label>
+        <input class="field" type="text" asp-for="ImagePath" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Description</label>
+        <textarea class="field textarea" type="text" asp-for="Description"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="ItemCategory" class="control-label category">Category</label>
         <div class="form-radio">
             <div class="form_radio_btn item">
                 <input id="radio-2" type="radio" asp-for="ItemCategory" value="@ItemCategory.None" checked>
@@ -78,7 +72,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label asp-for="ItemType" class="control-label">Тип: </label>
+        <label asp-for="ItemType" class="control-label">Item type</label>
         <div class="form-radio">
             <div class="form_radio_btn">
                 <input id="radio-15" type="radio" asp-for="ItemType" value="@ItemType.None" checked>
@@ -95,27 +89,14 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="left">
-            <label asp-for="CoolDown" class="control-label">Перезарядка: </label>
-            <input class="field" type="text" asp-for="CoolDown" class="form-control"/>
-        </div>
-        <div class="right">
-            <label asp-for="Price" class="control-label">Стоимость: </label>
-            <input class="field" type="text" asp-for="Price" class="form-control"/>
-        </div>
+        <label asp-for="CoolDown" class="control-label">Cool down</label>
+        <input class="field" type="text" asp-for="CoolDown" />
     </div>
     <div class="form-group">
-        <input type="submit" value="Отправить" class="btn submit"/>
+        <label asp-for="Price" class="control-label">Price</label>
+        <input class="field" type="text" asp-for="Price" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" />
     </div>
 </form>
-
-<script>
-    var loadFile = function (event) {
-        var reader = new FileReader();
-        reader.onload = function () {
-            var output = document.getElementById('output');
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    };
-</script>

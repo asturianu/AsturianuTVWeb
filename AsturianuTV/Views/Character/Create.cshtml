@@ -5,25 +5,25 @@
 }
 
 <form class="form" asp-action="Create" asp-controller="Character" enctype="multipart/form-data">
-    <h2 class="form-title">Добавление героя</h2>
+    <h2 class="form-title">Create heroe</h2>
     <div class="form-group">
-        <label asp-for="Name" class="control-label">Название: </label>
+        <label asp-for="Name" class="control-label">Name</label>
         <input type="text" asp-for="Name" />
     </div>
     <div class="form-group">
-        <label asp-for="ImagePath" class="control-label">ImagePath: </label>
+        <label asp-for="ImagePath" class="control-label">Logo</label>
         <textarea type="text" asp-for="ImagePath"></textarea>
     </div>
     <div class="form-group">
-        <label asp-for="ShortDescription" class="control-label">Описание: </label>
+        <label asp-for="ShortDescription" class="control-label">Description</label>
         <textarea  type="text" asp-for="ShortDescription"></textarea>
     </div>
     <div class="form-group">
-        <label asp-for="History" class="control-label">История: </label>
+        <label asp-for="History" class="control-label">History</label>
         <textarea type="text" asp-for="History"></textarea>
     </div>
     <div class="form-group">
-        <label asp-for="Attribute" class="control-label">Аттрибут: </label>
+        <label asp-for="Attribute" class="control-label">Attribute</label>
         <div class="form-radio">
             <div class="form_radio_btn">
                 <input id="radio-2" type="radio" asp-for="Attribute" value="@CharacterAttribute.Strength" checked>
@@ -40,7 +40,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label asp-for="RangeType" class="control-label">Дальность атаки: </label>
+        <label asp-for="RangeType" class="control-label">Attack range</label>
         <div class="form-radio">
             <div class="form_radio_btn">
                 <input id="radio-5" type="radio" asp-for="RangeType" value="@RangeType.None" checked>
@@ -58,45 +58,41 @@
     </div>
     <div class="form-group">
         <div class="left">
-            <label asp-for="Damage" class="control-label">Урон: </label>
+            <label asp-for="Damage" class="control-label">Damage</label>
             <input class="field" type="text" asp-for="Damage" />
         </div>
         <div class="right">
-            <label asp-for="Armor" class="control-label">Броня: </label>
+            <label asp-for="Armor" class="control-label">Armor</label>
             <input class="field" type="text" asp-for="Armor" />
         </div>
     </div>
     <div class="form-group">
         <div class="left">
-            <label asp-for="Health" class="control-label">Здоровье: </label>
+            <label asp-for="Health" class="control-label">Health</label>
             <input class="field" type="text" asp-for="Health" />
         </div>
         <div class="right">
-            <label asp-for="HealthRegeneration" class="control-label">Регенерация здоровья: </label>
+            <label asp-for="HealthRegeneration" class="control-label">Health regeneration</label>
             <input class="field" type="text" asp-for="HealthRegeneration" />
         </div>
     </div>
-    <div class="form-group">
-        <div class="left">
-            <label asp-for="Mana" class="control-label">Мана: </label>
-            <input class="field" type="text" asp-for="Mana" />
-        </div>
-        <div class="right">
-            <label asp-for="ManaRegeneration" class="control-label">Регенерация маны: </label>
-            <input class="field" type="text" asp-for="ManaRegeneration" />
-        </div>
+    <div class="form-group"">
+        <label asp-for="Mana" class="control-label">Mana</label>
+        <input class="field" type="text" asp-for="Mana" />
+    </div>
+    <div class="form-group"">
+        <label asp-for="ManaRegeneration" class="control-label">Mana regeneration</label>
+        <input class="field" type="text" asp-for="ManaRegeneration" />
     </div>
     <div class="form-group">
-        <div class="left">
-            <label asp-for="MoveSpeed" class="control-label">Скорость передвижения: </label>
-            <input class="field" type="text" asp-for="MoveSpeed" />
-        </div>
-        <div class="right">
-            <label asp-for="MagicResist" class="control-label">Сопротивление магии: </label>
-            <input class="field" type="text" asp-for="MagicResist" />
-        </div>
+        <label asp-for="MoveSpeed" class="control-label">Move speed</label>
+        <input class="field" type="text" asp-for="MoveSpeed" />
     </div>
     <div class="form-group">
-        <input class="btn submit" type="submit" value="Отправить" />
+        <label asp-for="MagicResist" class="control-label">Magic resist</label>
+        <input class="field" type="text" asp-for="MagicResist" />
+    </div>
+    <div class="form-group">
+        <input class="btn submit" type="submit" value="Save" />
     </div>
 </form>

@@ -4,7 +4,8 @@ body {
     background: black;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url(../assets/image/background.jpg);
+    background-image: url(../assets/rosh-background.jpg);
+    background-size: auto;
 }
 
 @font-face {
@@ -52,22 +53,16 @@ body {
     src: url('../lib/fonts/Roboto-Italic.ttf');
 }
 
-*, *::before, *::after {
-    box-sizing: border-box;
-}
-
 * {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
 }
 
-a, a:hover {
-    color: white;
+a, p, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto';
     text-decoration: none;
-    font-family: 'Gilroy-SemiBold';
 }
-
 
 .admin-container {
     position: fixed;
@@ -76,34 +71,72 @@ a, a:hover {
     transform: translate(-50%, -50%);
     width: 80%;
     height: 80%;
+    background-color: #2d3641;
+    display: flex;
 }
 
 .admin-actions {
+    padding: 15px;
     float: left;
     width: 20%;
-    height: 100%;
-    background-color: black;
     overflow-y: auto;
+    background-color: #242a37;
+    margin: 10px 0 10px 10px;
+}
+
+.admin-actions::-webkit-scrollbar {
+    width: 8px;
+}
+
+.admin-actions::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 5px;
+}
+
+.admin-actions::-webkit-scrollbar-track {
+    background-color: #2d3641;
 }
 
 .admin-content {
     float: left;
     width: 80%;
-    height: 100%;
-    background-color: black;
+    background-color: #242a37;
+    margin: 10px;
 }
 
-.admin-action {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    background-color: lightcoral;
+.admin-content-blocks {
+    max-width: 80%;
+    margin: 50px auto;
+}
+
+.admin-content-block-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.admin-content-block-top > a {
+    font-family: 'Roboto Bold';
+    font-size: 18px;
+    color: #fe6637;
+}
+
+.admin-content-block-title {
     color: white;
-    text-align: center;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
+    font-family: 'Roboto Bold';
+    font-size: 26px;
+}
+
+.admin-actions-title {
+    color: white;
+    font-family: 'Roboto Bold';
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.admin-actions-block:not(:first-child) {
+    margin-top: 20px;
 }
 
 .form {
@@ -119,11 +152,9 @@ a, a:hover {
 .text-field-label {
     display: block;
     margin-bottom: 0.25rem;
-    font-family: 'Roboto';
 }
 
 .text-field-input {
-    font-family: 'Roboto';
     display: block;
     width: 100%;
     height: calc(2.25rem + 2px);
@@ -156,4 +187,131 @@ a, a:hover {
 .text-field-input[readonly] {
     background-color: #f5f5f5;
     opacity: 1;
+}
+
+.admin-action {
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: 1px solid #fe6637;
+    border-radius: 3px;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    color: #fe6637;
+    transition: .3s all;
+}
+
+.admin-action:hover {
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: 1px solid #fe6637;
+    border-radius: 3px;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    color: white;
+    background-color: #fe6637;
+}
+
+table {
+    overflow-y: auto;
+}
+
+th {
+    font-family: 'Roboto Bold';
+}
+td {
+    font-family: 'Roboto';
+}
+
+td, th {
+    color: white;
+    background-color: #2d3641;
+}
+
+.dataTables_filter {
+   margin-bottom: 20px;
+}
+
+.dataTables_filter > label {
+    color: white;
+    font-family: 'Roboto';
+    font-size: 16px;
+}
+
+.dataTables_filter > label > input {
+    margin-left: 10px !important;
+}
+
+.dataTables_filter > label > input:focus-visible {
+    outline: none;
+}
+
+.table-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.table-actions > form > button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.dataTables_info {
+    color: white!important;
+    font-family: 'Roboto';
+    font-size: 13px;
+}
+
+.table-action-img {
+    width: 24px;
+    height: 24px;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    padding-top: 1.25em;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    border: 1px solid #fe6637;
+    border-radius: 3px;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    color: #fe6637 !important;
+    transition: .3s all;
+    margin-left: 5px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    border: 1px solid #fe6637;
+    background: none;
+    border-radius: 3px;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    color: white;
+    background-color: #fe6637;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: white !important;
+    border: 1px solid #fe6637;
+    background-color: #fe6637;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+    color: #555 !important;
+    font-family: 'Roboto';
+    font-size: 14px;
 }

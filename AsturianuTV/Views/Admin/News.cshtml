@@ -4,7 +4,12 @@
 }
 
 <div>
-    <a asp-controller="News" asp-action="Create">create</a>
+    <div class="admin-content-block-top">
+        <h2 class="admin-content-block-title">News</h2>
+        <a asp-controller="News" asp-action="Create">
+            Create new news
+        </a>
+    </div>
     <table id="tableId" class="table">
         <thead>
             <tr>
@@ -25,9 +30,21 @@
                     <td>@item?.League?.Name</td>
                     <td>@item?.Team?.Name</td>
                     <td>@item?.Player?.FullName</td>
-                    <td>
-                        <a asp-controller="News" asp-action="Edit">udpate</a>
-                        <a asp-controller="News" asp-action="Delete">delete</a>
+                    <td class="table-actions">
+                        <a class="table-action"
+                           asp-controller="News"
+                           asp-action="Edit"
+                           asp-route-id="@item.Id">
+                            <img class="table-action-img" src="~/assets/icons8-редактировать.svg" alt="Alternate Text" />
+                        </a>
+                        <form asp-controller="News"
+                              asp-action="Delete"
+                              method="post">
+                            <input type="hidden" name="Id" value="@item.Id" />
+                            <button class="table-action" type="submit" name="delete">
+                                <img class="table-action-img" src="/assets/icons8-мусор (1).svg" alt="Alternate Text" />
+                            </button>
+                        </form>
                     </td>
                 </tr>
             }

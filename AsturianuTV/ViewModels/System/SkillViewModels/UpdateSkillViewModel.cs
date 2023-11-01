@@ -1,5 +1,4 @@
 ﻿using AsturianuTV.Infrastructure.Data.Enums;
-using Microsoft.AspNetCore.Http;
 
 namespace AsturianuTV.ViewModels.System.SkillViewModels
 {
@@ -7,7 +6,7 @@ namespace AsturianuTV.ViewModels.System.SkillViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IFormFile Image { get; set; }
+        public string ImagePath { get; set; }
         public string Description { get; set; }
         public int? Damage { get; set; }
         public int? CoolDown { get; set; }

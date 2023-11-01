@@ -55,32 +55,12 @@ namespace AsturianuTV.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UpdatePlayerViewModel playerViewModel)
         {
-            if (playerViewModel != null)
-            {
-                var player = await _playerRepository.Read()
-                    .FirstOrDefaultAsync(x => x.Id == playerViewModel.Id);
+            var player = await _playerRepository.Read()
+                .FirstOrDefaultAsync(x => x.Id == playerViewModel.Id);
 
-                _mapper.Map(player, playerViewModel);
-                await _playerRepository.UpdateAsync(player);
-            }
-            else
-            {
-                NotFound();
-            }
-
+            _mapper.Map(playerViewModel, player);
+            await _playerRepository.UpdateAsync(player);
             return RedirectToAction("Players", "Admin");
-        }
-
-        [HttpGet]
-        [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int id, CancellationToken cancellationToken)
-        {
-            var character = await _playerRepository.Read()
-                .AsNoTracking()
-                .Include(x => x.Team)
-                .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
-
-            return View(character);
         }
 
         [HttpPost]

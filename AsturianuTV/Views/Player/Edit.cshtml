@@ -1,5 +1,58 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using AsturianuTV.Services.Interfaces
+@inject ITeamService teamService
+@model AsturianuTV.ViewModels.System.PlayerViewModels.CreatePlayerViewModel
 @{
+    var teams = await teamService.GetAllTeams();
 }
+@{
+    Layout = "_AdminLayout";
+}
+
+<form class="form" asp-action="Edit" asp-controller="Player" enctype="multipart/form-data">
+
+    <h2 class="form-title">Edit player</h2>
+
+    <div class="form-group">
+        <label asp-for="FullName">FullName</label>
+        <input class="field" type="text" asp-for="FullName" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Logo">Logo</label>
+        <input class="field" type="text" asp-for="Logo" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Description</label>
+        <textarea class="field textarea" type="text" asp-for="Description"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="Bday"></label>
+        <input asp-for="Bday" type="date" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Country">Country</label>
+        <input class="field" type="text" asp-for="Country" />
+    </div>
+    <div class="form-group">
+        <label asp-for="FullPrice" class="control-label">FullPrice</label>
+        <textarea class="field textarea" type="text" asp-for="FullPrice"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="Matches">Matches</label>
+        <input class="field" type="text" asp-for="Matches" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Wins">Wins</label>
+        <input class="field" type="text" asp-for="Wins" />
+    </div>
+
+    <select asp-for="TeamId" size="1">
+        @foreach (var team in teams)
+        {
+            <option value="@team.Id">@team.Name</option>
+        }
+    </select>
+
+    <div class="form-group">
+        <input type="submit" value="Save" />
+    </div>
+</form>

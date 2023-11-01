@@ -4,48 +4,37 @@
     Layout = "_AdminLayout";
 }
 <form class="form" asp-action="Create" asp-controller="Skill" enctype="multipart/form-data">
-    <h2 class="form-title">Добавление скилла</h2>
+    <h2 class="form-title">Create skill</h2>
     <div class="form-group">
-        <label asp-for="Name" class="control-label">Название: </label>
-        <input class="field" type="text" asp-for="Name" class="form-control" />
-    </div>
-    <div class="form-group file">
-        <div class="left">
-            <div class="image-file file">
-                <div id="img-preview"><img id="output" /></div>
-                <div class="file-btn">
-                    <input type="file" id="choose-file" name="Image" onchange="loadFile(event)" />
-                    <label for="choose-file">Выбрать</label>
-                </div>
-            </div>
-        </div>
-        <div class="right">
-            <label asp-for="Description" class="control-label">Описание: </label>
-            <textarea class="field textarea" type="text" asp-for="Description"></textarea>
-        </div>
+        <label asp-for="Name" class="control-label">Name</label>
+        <input class="field" type="text" asp-for="Name" />
     </div>
     <div class="form-group">
-        <div class="left">
-            <label asp-for="Damage" class="control-label">Урон: </label>
-            <input class="field" type="text" asp-for="Damage" class="form-control"/>
-        </div>
-        <div class="right">
-            <label asp-for="CoolDown" class="control-label">Перезарядка: </label>
-            <input class="field" type="text" asp-for="CoolDown" class="form-control" />
-        </div>
+        <label asp-for="ImagePath" class="control-label">Logo</label>
+        <input class="field" type="text" asp-for="ImagePath" />
     </div>
     <div class="form-group">
-        <div class="left">
-            <label asp-for="TimeDuration" class="control-label">Длительность: </label>
-            <input class="field" type="text" asp-for="TimeDuration" class="form-control" />
-        </div>
-        <div class="right">
-            <label asp-for="ManaCost" class="control-label">Стоиость маны: </label>
-            <input class="field" type="text" asp-for="ManaCost" class="form-control" />
-        </div>
+        <label asp-for="Description" class="control-label">Des: </label>
+        <textarea class="field textarea" type="text" asp-for="Description"></textarea>
     </div>
     <div class="form-group">
-        <label asp-for="DamageType" class="control-label">Тип урона: </label>
+        <label asp-for="Damage" class="control-label">Damage</label>
+        <input class="field" type="text" asp-for="Damage" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CoolDown" class="control-label">Cooldown</label>
+        <input class="field" type="text" asp-for="CoolDown" />
+    </div>
+    <div class="form-group">
+        <label asp-for="TimeDuration" class="control-label">Time duration</label>
+        <input class="field" type="text" asp-for="TimeDuration" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ManaCost" class="control-label">Mana cost</label>
+        <input class="field" type="text" asp-for="ManaCost" />
+    </div>
+    <div class="form-group">
+        <label asp-for="DamageType" class="control-label">Damage type</label>
         <div class="form-radio">
             <div class="form_radio_btn">
                 <input id="radio-1" type="radio" asp-for="DamageType" value="@DamageType.None" checked>
@@ -66,7 +55,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label asp-for="SkillType" class="control-label">Тип скилла: </label>
+        <label asp-for="SkillType" class="control-label">Type skill</label>
         <div class="form-radio">
             <div class="form_radio_btn">
                 <input id="radio-5" type="radio" asp-for="SkillType" value="@SkillType.None" checked>
@@ -83,9 +72,9 @@
         </div>
     </div>
     <div class="form-group">
-        <label asp-for="CharacterId" class="control-label">Выберите героя</label>
+        <label asp-for="CharacterId" class="control-label">Select Heroe</label>
         <select class="select" asp-for="CharacterId">
-            <option disabled>Выбрать героя</option>
+            <option disabled>Select heroe</option>
             @foreach (var character in Model.Characters)
             {
                 <option value="@character.Id">@character.Name</option>
@@ -94,18 +83,7 @@
     </div>
     <div class="form-group">
         <div class="btn-wrapper">
-            <input class="btn submit" type="submit" value="Отправить" />
+            <input class="btn submit" type="submit" value="Save" />
         </div>
     </div>
 </form>
-
-<script>
-    var loadFile = function(event) {
-        var reader = new FileReader();
-        reader.onload = function(){
-            var output = document.getElementById('output');
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    };
-</script>

@@ -2,11 +2,11 @@
 <html>
 <head>
     <title>Dota Helper Admin</title>
-    <link rel="stylesheet" href="~/css/admin.css">
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" href="~/css/admin.css">
     <meta charset="UTF-8" />
 </head>
 
@@ -14,31 +14,55 @@
     <main class="admin-wrapper">
         <div class="admin-container">
             <div class="admin-actions">
-                <div class="admin-action-block base-of-knowledge">
-                    <a class="admin-action" asp-controller="Admin" asp-action="Heroes">Heroes</a>
-                    <a class="admin-action" asp-controller="Admin" asp-action="Skills">Skills</a>
-                    <a class="admin-action" asp-controller="Admin" asp-action="Items">Items</a>
+                <div class="admin-actions-block">
+                    <h2 class="admin-actions-title">Base of Knowledge</h2>
+                    <div class="base-of-knowledge">
+                        <a class="admin-action" asp-controller="Admin" asp-action="Heroes">Heroes</a>
+                        <a class="admin-action" asp-controller="Admin" asp-action="Skills">Skills</a>
+                        <a class="admin-action" asp-controller="Admin" asp-action="Items">Items</a>
+                    </div>
                 </div>
-                <div class="admin-action-block subscription">
-                    <a class="admin-action" asp-controller="Admin" asp-action="Users">Users</a>
-                    <a class="admin-action" asp-controller="Admin" asp-action="Subscriptions">Subscriptions</a>
-                    <a class="admin-action" asp-controller="Admin" asp-action="Plans">Plans</a>
+                <div class="admin-actions-block">
+                    <h2 class="admin-actions-title">Subscriptions</h2>
+                    <div class="subscription">
+                        <a class="admin-action" asp-controller="Admin" asp-action="Users">Users</a>
+                        <a class="admin-action" asp-controller="Admin" asp-action="Subscriptions">Subscriptions</a>
+                        <a class="admin-action" asp-controller="Admin" asp-action="Plans">Plans</a>
+                        <a class="admin-action" asp-controller="Admin" asp-action="Blogs">Blogs</a>
+                    </div>
                 </div>
-                <div class="admin-action-block cybersport">
-                    <a class="admin-action" asp-controller="Admin" asp-action="Leagues">Leagues</a>
-                    <a class="admin-action" asp-controller="Admin" asp-action="Teams">Teams</a>
-                    <a class="admin-action" asp-controller="Admin" asp-action="Players">Players</a>
-                    <a class="admin-action" asp-controller="Admin" asp-action="News">News</a>
+                <div class="admin-actions-block">
+                    <h2 class="admin-actions-title">Cybersports</h2>
+                    <div class="cybersport">
+                        <a class="admin-action" asp-controller="Admin" asp-action="Leagues">Leagues</a>
+                        <a class="admin-action" asp-controller="Admin" asp-action="Teams">Teams</a>
+                        <a class="admin-action" asp-controller="Admin" asp-action="Players">Players</a>
+                    </div>
+                </div>
+                <div class="admin-actions-block">
+                    <h2 class="admin-actions-title">News & Contents</h2>
+                    <div class="news">
+                        <a class="admin-action" asp-controller="Admin" asp-action="News">News</a>
+                        <a class="admin-action" asp-controller="Admin" asp-action="Materials">Materials</a>
+                        <a class="admin-action" asp-controller="Admin" asp-action="Tags">Tags</a>
+                    </div>
                 </div>
             </div>
             <div class="admin-content">
-                <main>@RenderBody()</main>
+                <section>
+                    <div class="admin-content-blocks">
+                        @RenderBody()
+                    </div>
+                </section>
             </div>
         </div>
     </main>
     <script>
         $(document).ready(function () {
-            $('#tableId').DataTable();
+            $('#tableId').DataTable({
+                pageLength: 5,
+                "lengthChange": false
+            });
         });
     </script>
 </body>

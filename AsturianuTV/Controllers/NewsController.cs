@@ -180,40 +180,14 @@ namespace AsturianuTV.Controllers
             return RedirectToAction("Index", "News");
         }
 
-        [HttpGet]
-        [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int? id, CancellationToken cancellationToken)
-        {
-            if (id != null)
-            {
-                var news = await _newsRepository
-                    .Read()
-                    .AsNoTracking()
-                    .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
-
-                if (news != null)
-                    return View(news);
-            }
-            return NotFound();
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Delete(int? id, CancellationToken cancellationToken)
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
-            if (id != null)
-            {
-                var news = await _newsRepository
-                    .Read()
-                    .AsNoTracking()
-                    .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
+            var news = await _newsRepository.Read()
+                .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
 
-                if (news != null)
-                {
-                    await _newsRepository.DeleteAsync(news);
-                    return RedirectToAction("Index", "News");
-                }
-            }
-            return NotFound();
+            await _newsRepository.DeleteAsync(news);
+            return RedirectToAction("Index", "News");
         }
     }
 }
