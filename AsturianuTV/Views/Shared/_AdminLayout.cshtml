@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="~/css/admin.css">
     <meta charset="UTF-8" />
 </head>
-
 <body>
     <main class="admin-wrapper">
         <div class="admin-container">
@@ -20,15 +19,6 @@
                         <a class="admin-action" asp-controller="Admin" asp-action="Heroes">Heroes</a>
                         <a class="admin-action" asp-controller="Admin" asp-action="Skills">Skills</a>
                         <a class="admin-action" asp-controller="Admin" asp-action="Items">Items</a>
-                    </div>
-                </div>
-                <div class="admin-actions-block">
-                    <h2 class="admin-actions-title">Subscriptions</h2>
-                    <div class="subscription">
-                        <a class="admin-action" asp-controller="Admin" asp-action="Users">Users</a>
-                        <a class="admin-action" asp-controller="Admin" asp-action="Subscriptions">Subscriptions</a>
-                        <a class="admin-action" asp-controller="Admin" asp-action="Plans">Plans</a>
-                        <a class="admin-action" asp-controller="Admin" asp-action="Blogs">Blogs</a>
                     </div>
                 </div>
                 <div class="admin-actions-block">
@@ -49,11 +39,9 @@
                 </div>
             </div>
             <div class="admin-content">
-                <section>
                     <div class="admin-content-blocks">
                         @RenderBody()
                     </div>
-                </section>
             </div>
         </div>
     </main>

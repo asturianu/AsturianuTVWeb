@@ -8,9 +8,7 @@ namespace AsturianuTV.Infrastructure.ModelsConfiguration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasOne(x => x.Subscription)
-                .WithMany(x => x.Users)
-                .HasForeignKey(x => x.SubscriptionId);
+           
         }
     }
 }

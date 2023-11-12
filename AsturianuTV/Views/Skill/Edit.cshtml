@@ -4,87 +4,83 @@
     Layout = "_AdminLayout";
 }
 
-<form class="form" asp-action="Edit" asp-controller="Skill" asp-route-id="@Model.Id" enctype="multipart/form-data">
+<form class="admin-form" asp-action="Edit" asp-controller="Skill" asp-route-id="@Model.Id" enctype="multipart/form-data">
     <h2 class="form-title">Update skill</h2>
-    <div class="form-group">
-        <label asp-for="Name" class="control-label">Name</label>
-        <input class="field" type="text" asp-for="Name" />
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">Name</label>
+            <input class="field" type="text" asp-for="Name" />
+        </div>
+        <div class="form-group">
+            <label asp-for="ImagePath" class="control-label">Logo</label>
+            <input class="field" type="text" asp-for="ImagePath" />
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="ImagePath" class="control-label">Logo</label>
-        <input class="field" type="text" asp-for="ImagePath" />
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="Damage" class="control-label">Damage</label>
+            <input class="field" type="text" asp-for="Damage" />
+        </div>
+        <div class="form-group">
+            <label asp-for="CoolDown" class="control-label">CoolDown</label>
+            <input class="field" type="text" asp-for="CoolDown" />
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Description" class="control-label">Description</label>
-        <textarea class="field textarea" type="text" asp-for="Description"></textarea>
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="TimeDuration" class="control-label">Time duration</label>
+            <input class="field" type="text" asp-for="TimeDuration" />
+        </div>
+        <div class="form-group">
+            <label asp-for="ManaCost" class="control-label">Mana cost</label>
+            <input class="field" type="text" asp-for="ManaCost" />
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Damage" class="control-label">Damage</label>
-        <input class="field" type="text" asp-for="Damage" />
-    </div>
-    <div class="form-group">
-        <label asp-for="CoolDown" class="control-label">CoolDown</label>
-        <input class="field" type="text" asp-for="CoolDown" />
-    </div>
-    <div class="form-group">
-        <label asp-for="TimeDuration" class="control-label">Time duration</label>
-        <input class="field" type="text" asp-for="TimeDuration" />
-    </div>
-    <div class="form-group">
-        <label asp-for="ManaCost" class="control-label">Mana cost</label>
-        <input class="field" type="text" asp-for="ManaCost" />
-    </div>
-    <div class="form-group">
-        <label asp-for="DamageType" class="control-label">Damage type</label>
-        <div class="form-radio">
-            <div class="form_radio_btn">
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="DamageType" class="control-label">Damage type</label>
+            <div class="form-radio">
                 <input id="radio-1" type="radio" asp-for="DamageType" value="@DamageType.None" checked>
                 <label for="radio-1">None</label>
-            </div>
-            <div class="form_radio_btn">
                 <input id="radio-2" type="radio" asp-for="DamageType" value="@DamageType.Magic">
                 <label for="radio-2">Magic</label>
-            </div>
-            <div class="form_radio_btn">
                 <input id="radio-3" type="radio" asp-for="DamageType" value="@DamageType.Pure">
                 <label for="radio-3">Pure</label>
-            </div>
-            <div class="form_radio_btn">
                 <input id="radio-4" type="radio" asp-for="DamageType" value="@DamageType.Physical">
                 <label for="radio-4">Physical</label>
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="SkillType" class="control-label">Skill Type</label>
-        <div class="form-radio">
-            <div class="form_radio_btn">
+        <div class="form-group">
+            <label asp-for="SkillType" class="control-label">Skill type</label>
+            <div class="form-radio">
                 <input id="radio-5" type="radio" asp-for="SkillType" value="@SkillType.None" checked>
                 <label for="radio-5">None</label>
-            </div>
-            <div class="form_radio_btn">
                 <input id="radio-6" type="radio" asp-for="SkillType" value="@SkillType.Active">
                 <label for="radio-6">Active</label>
-            </div>
-            <div class="form_radio_btn">
                 <input id="radio-7" type="radio" asp-for="SkillType" value="@SkillType.Passive">
                 <label for="radio-7">Passive</label>
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <label asp-for="CharacterId" class="control-label">Select heroe</label>
-        <select class="select" asp-for="CharacterId">
-            <option disabled>Select heroe</option>
-            @foreach (var character in Model.Characters)
-            {
-                <option value="@character.Id">@character.Name</option>
-            }
-        </select>
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="Description" class="control-label">Description</label>
+            <textarea class="field textarea" type="text" asp-for="Description"></textarea>
+        </div>
+        <div class="form-group">
+            <label asp-for="CharacterId" class="control-label">Select heroe</label>
+            <select class="select" asp-for="CharacterId">
+                <option value="null">Nothing</option>
+                @foreach (var character in Model.Characters)
+                {
+                    <option value="@character.Id">@character.Name</option>
+                }
+            </select>
+        </div>
     </div>
     <div class="form-group">
-        <div class="btn-wrapper">
-            <input class="btn submit" type="submit" value="Save"/>
-        </div>
+        <button class="save-button" type="submit">
+            Save
+        </button>
     </div>
 </form>

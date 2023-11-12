@@ -17,5 +17,6 @@ namespace AsturianuTV.Infrastructure.Data.Models.Cybersports
         public int Matches { get; set; }
         public int Wins { get; set; }
         public ICollection<News> News { get; set; }
+        public ICollection<Transfer> Transfers { get; set; }
     }
 }

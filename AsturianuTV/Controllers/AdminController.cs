@@ -1,23 +1,26 @@
-﻿using AsturianuTV.Infrastructure.Data.Models.BaseKnowledges;
+﻿using AsturianuTV.Dto.OpenDotaSync;
+using AsturianuTV.Infrastructure.Data.Enums;
+using AsturianuTV.Infrastructure.Data.Models.BaseKnowledges;
 using AsturianuTV.Infrastructure.Data.Models.ContentNews;
 using AsturianuTV.Infrastructure.Data.Models.Cybersports;
-using AsturianuTV.Infrastructure.Data.Models.Subscriptions;
 using AsturianuTV.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace AsturianuTV.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly IRepository<League> _leagueRepository;
         private readonly IRepository<Team> _teamRepository;
         private readonly IRepository<Player> _playerRepository;
 
-        private readonly IRepository<Subscription> _subscriptionRepository;
-        private readonly IRepository<Plan> _planRepository;
         private readonly IRepository<News> _newsRepository;
 
         private readonly IRepository<Character> _heroeRepository;
@@ -25,21 +28,19 @@ namespace AsturianuTV.Controllers
         private readonly IRepository<Item> _itemRepository;
 
         public AdminController(
+            IHttpClientFactory httpClientFactory,
             IRepository<League> leagueRepository,
             IRepository<Team> teamRepository,
             IRepository<Player> playerRepository,
-            IRepository<Subscription> subscriptionRepository,
-            IRepository<Plan> planRepository,
             IRepository<News> newsRepository,
             IRepository<Character> heroeRepository,
             IRepository<Skill> skillRepository,
             IRepository<Item> itemRepository) 
         {
+            _httpClientFactory = httpClientFactory;
             _leagueRepository = leagueRepository;
             _teamRepository = teamRepository;
             _playerRepository = playerRepository;
-            _subscriptionRepository = subscriptionRepository;
-            _planRepository = planRepository;
             _newsRepository = newsRepository;
             _heroeRepository = heroeRepository;
             _skillRepository = skillRepository;
@@ -50,8 +51,60 @@ namespace AsturianuTV.Controllers
         [Authorize(Roles = "Administrator")]
         public IActionResult Index()
         {
+
             return View();
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> SyncCharacters()
+        {
+            string url = "https://api.opendota.com/api/heroStats";
+
+            HttpClient client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var heroes = JsonConvert.DeserializeObject<List<OpenDotaCharacterDto>>(jsonString);
+
+                foreach (var hero in heroes)
+                {
+                    var existCharacter = await _heroeRepository.Read()
+                        .AnyAsync(x => x.OpenDotaId == hero.Id);
+
+                    if (!existCharacter)
+                    {
+                        var character = new Character
+                        {
+                            OpenDotaId = hero.Id,
+                            Name = hero.Localized_Name,
+                            Armor = (int)hero.Base_Armor,
+                            MagicResist = 25,
+                            Mana = (int)hero.Base_Mana,
+                            ManaRegeneration = (int)hero.Base_Mana_Regen,
+                            Health = (int)hero.Base_Health,
+                            HealthRegeneration = (int)hero.Base_Health_Regen,
+                            MoveSpeed = (int)hero.Move_Speed,
+                            Damage = (int)hero.Base_Attack_Max,
+                            ImagePath = hero.Img,
+                            Attribute =
+                                hero.Primary_Attr == "all" ? CharacterAttribute.None
+                                : hero.Primary_Attr == "str" ? CharacterAttribute.Strength
+                                : hero.Primary_Attr == "agi" ? CharacterAttribute.Agility
+                                : CharacterAttribute.Intelligence,
+                            RangeType =
+                                hero.Attack_Type == "Ranged" ? RangeType.Range : RangeType.Melee
+                        };
+
+                        await _heroeRepository.AddAsync(character);
+                    }
+                }
+            }
+            return RedirectToAction("Index", "Admin");
+        }
+
 
         [HttpGet]
         [Authorize(Roles = "Administrator")]
@@ -134,27 +187,6 @@ namespace AsturianuTV.Controllers
         public async Task<IActionResult> Users()
         {
             return View();
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Subscriptions()
-        {
-            var subscriptions = await _subscriptionRepository.Read()
-                .ToListAsync();
-
-            return View(subscriptions);
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Plans()
-        {
-            var plans = await _planRepository.Read()
-                .Include(x => x.Subscription)
-                .ToListAsync();
-
-            return View(plans);
         }
     }
 }

@@ -26,6 +26,7 @@ namespace AsturianuTV
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient();
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AsturianuTVDbContext>(
                 options => options.UseSqlServer(connection));
@@ -35,6 +36,8 @@ namespace AsturianuTV
 
             services.AddScoped<IPreloadDataService, PreloadDataService>();
             services.AddScoped<ITeamService, TeamService>();
+            services.AddScoped<ILeagueService, LeagueService>();
+            services.AddScoped<IHeroeService, HeroeService>();
 
     #if DEBUG
             services.AddControllersWithViews().AddRazorRuntimeCompilation();

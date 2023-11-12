@@ -8,8 +8,8 @@ namespace AsturianuTV.MapperProfile
     {
         public PlayerProfile()
         {
-            CreateMap<CreatePlayerViewModel, Team>();
-            CreateMap<UpdatePlayerViewModel, Team>();
+            CreateMap<CreatePlayerViewModel, Player>();
+            CreateMap<UpdatePlayerViewModel, Player>();
         }
     }
 }

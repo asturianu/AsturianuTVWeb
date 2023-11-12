@@ -1,10 +1,15 @@
-﻿@model AsturianuTV.Infrastructure.Data.Models.Cybersports.League
+﻿@using AsturianuTV.Services.Interfaces
+
+@inject ITeamService teamService
+@model AsturianuTV.ViewModels.System.LeagueViewModels.UpdateLeagueViewModel
+@{
+    var teams = await teamService.GetAllTeams();
+}
 @{
     Layout = "_AdminLayout";
 }
 
-
-<form class="form" asp-action="Create" asp-controller="League" enctype="multipart/form-data">
+<form class="form" asp-action="Edit" asp-controller="League" enctype="multipart/form-data">
 
     <h2 class="form-title">Edit league</h2>
 
@@ -25,15 +30,26 @@
         <input class="text-field-input" type="text" asp-for="PriceFound" />
     </div>
     <div class="form-group">
-        <label class="text-field-label" asp-for="StartDate"></label>
+        <label class="text-field-label" asp-for="StartDate">Start date</label>
         <input class="text-field-input" asp-for="StartDate" type="date" />
     </div>
     <div class="form-group">
-        <label class="text-field-label" asp-for="EndDate"></label>
+        <label class="text-field-label" asp-for="EndDate">End date</label>
         <input class="text-field-input" asp-for="EndDate" type="date" />
     </div>
 
-   
+    <input type="hidden" asp-for="TeamIds" />
+
+    <div class="form-group">
+        <label asp-for="TeamIds">Select teams:</label>
+        <select asp-for="TeamIds" multiple>
+            @foreach (var team in teams)
+            {
+                <option value="@team.Id">@team.Name</option>
+            }
+        </select>
+    </div>
+
     <div class="form-group">
         <input type="submit" value="Send" />
     </div>

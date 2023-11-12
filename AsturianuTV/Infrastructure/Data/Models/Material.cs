@@ -1,5 +1,4 @@
 ﻿using AsturianuTV.Infrastructure.Data.Models.ContentNews;
-using AsturianuTV.Infrastructure.Data.Models.Subscriptions;
 using System.Collections.Generic;
 
 namespace AsturianuTV.Infrastructure.Data.Models
@@ -10,6 +9,5 @@ namespace AsturianuTV.Infrastructure.Data.Models
         public string FilePath { get; set; }
         public string ContentType { get; set; }
         public ICollection<NewsMaterial> NewsMaterials { get; set; }
-        public ICollection<BlogMaterial> BlogMaterials { get; set; }
     }
 }

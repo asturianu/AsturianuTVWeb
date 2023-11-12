@@ -2,7 +2,6 @@
 using AsturianuTV.Infrastructure.Data.Models.BaseKnowledges;
 using AsturianuTV.Infrastructure.Data.Models.ContentNews;
 using AsturianuTV.Infrastructure.Data.Models.Cybersports;
-using AsturianuTV.Infrastructure.Data.Models.Subscriptions;
 using AsturianuTV.Infrastructure.ModelsConfiguration;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +14,12 @@ namespace AsturianuTV.Infrastructure.Data
         public DbSet<LeagueTeam> LeagueTeams { get; set; }
         public DbSet<League> Leagues { get; set; }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Match> Matches { get; set; }
+        public DbSet<MatchResult> MatchResults { get; set; }
+        public DbSet<PlayerMatchStats> PlayerMatchStats { get; set; }
         public DbSet<Player> Players { get; set; }
+        public DbSet<Transfer> Transfers { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Skill> Skills { get; set; }
@@ -23,9 +27,6 @@ namespace AsturianuTV.Infrastructure.Data
         public DbSet<Tag> Tags { get; set; }
         public DbSet<NewsTag> NewsTags { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<Subscription> Subscriptions { get; set; }
-        public DbSet<Blog> Blogs { get; set; }
-        public DbSet<Plan> Plans { get; set; }
         public DbSet<Material> Materials { get; set; }
 
         public AsturianuTVDbContext(DbContextOptions<AsturianuTVDbContext> options)
@@ -50,6 +51,7 @@ namespace AsturianuTV.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new LeagueConfiguration());
             modelBuilder.ApplyConfiguration(new TeamConfiguration());
             modelBuilder.ApplyConfiguration(new PlayerConfiguration());
+            modelBuilder.ApplyConfiguration(new TransferConfiguration());
             modelBuilder.ApplyConfiguration(new CharacterConfiguration());
             modelBuilder.ApplyConfiguration(new SkillConfiguration());
             modelBuilder.ApplyConfiguration(new ItemConfiguration());
@@ -58,12 +60,8 @@ namespace AsturianuTV.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new NewsTagConfiguration());
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
-            modelBuilder.ApplyConfiguration(new SubscriptionConfiguration());
-            modelBuilder.ApplyConfiguration(new BlogConfiguration());
-            modelBuilder.ApplyConfiguration(new PlanConfiguration());
             modelBuilder.ApplyConfiguration(new MaterialConfiguration());
             modelBuilder.ApplyConfiguration(new NewsMaterialConfiguration());
-            modelBuilder.ApplyConfiguration(new BlogMaterialConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

@@ -1,0 +1,115 @@
+﻿@using AsturianuTV.Services.Interfaces
+@inject IHeroeService heroeService
+@{
+    var heroes = await heroeService.GetAllCharacters();
+}
+@{
+    Layout = "_Layout";
+}
+
+<div class="autopicker-container">
+    <div class="autopicker-block">
+        <div class="autopicker">
+            <section id="myTeam" class="team-block">
+                <div class="team-heroes">
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        <div class="team-heroe">
+                            <select class="js-example-basic-single" name="state">
+                                <option value="0">Not choosen</option>
+                                @foreach (var heroe in heroes)
+                                {
+                                    <option value="@heroe.OpenDotaId">
+                                        @heroe.Name
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                    }
+                </div>
+            </section>
+            <section id="enemyTeam" class="team-block">
+                <div class="team-heroes">
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        <div class="team-heroe">
+                            <select class="js-example-basic-single" name="state">
+                                <option value="0">Not choosen</option>
+                                @foreach (var heroe in heroes)
+                                {
+                                    <option value="@heroe.OpenDotaId">@heroe.Name</option>
+                                }
+                            </select>
+                        </div>
+                    }
+                </div>
+            </section>
+        </div>
+        <button id="analyze-button" class="btn btn-primary">Analyze Picks</button>
+
+        <div class="analyze-result-section">
+            <div id="bestHeroesMyTeamContainer"></div>
+            <div id="worstHeroesMyTeamContainer"></div>
+            <div id="bestHeroesEnemyTeamContainer"></div>
+            <div id="worstHeroesEnemyTeamContainer"></div>
+        </div>
+    </div>
+</div>
+<script>
+    function renderHeroes(data) {
+
+        function renderHeroList(heroes, containerId) {
+            $(containerId).empty();
+            heroes.forEach(function (heroData) {
+                var heroElement = $('<div>').addClass('hero');
+                heroElement.append($('<span>').text(heroData.hero.name));
+
+                var matchupsList = $('<ul>');
+                heroData.matchups.forEach(function (matchup) {
+                    matchupsList.append($('<li>').text(matchup.name + ' - Win Rate: ' + matchup.winRate));
+                });
+
+                heroElement.append(matchupsList);
+                $(containerId).append(heroElement);
+            });
+        }
+
+        renderHeroList(data.result.bestHeroesMyTeam, '#bestHeroesMyTeamContainer');
+        renderHeroList(data.result.worstHeroesMyTeam, '#worstHeroesMyTeamContainer');
+        renderHeroList(data.result.bestHeroesEnemyTeam, '#bestHeroesEnemyTeamContainer');
+        renderHeroList(data.result.worstHeroesEnemyTeam, '#worstHeroesEnemyTeamContainer');
+    }
+
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2();
+
+        function analyzePicks() {
+            var myTeamHeroes = $('#myTeam .js-example-basic-single').map(function () {
+                return parseInt($(this).val(), 10);
+            }).get();
+
+            var enemyTeamHeroes = $('#enemyTeam .js-example-basic-single').map(function () {
+                return parseInt($(this).val(), 10);
+            }).get();
+
+            $.ajax({
+                url: 'AnalizePicks',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ myTeamHeroes: myTeamHeroes, enemyTeamHeroes: enemyTeamHeroes }),
+                success: function (response) {
+                    console.log('Before renderHeroes:', response);
+                    renderHeroes(response);
+                    console.log('After renderHeroes');
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        $('#analyze-button').click(function () {
+            analyzePicks();
+        });
+    });
+</script>

@@ -17,5 +17,8 @@ namespace AsturianuTV.Infrastructure.Interfaces
         Task AddRangeAsync(IList<T> entities);
         Task<List<T>> ListAsync(CancellationToken cancellationToken);
         IQueryable<T> Read();
+        public void BeginTransaction();
+        public void CommitTransaction();
+        public void RollbackTransaction();
     }
 }

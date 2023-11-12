@@ -1,64 +1,92 @@
 ﻿using AsturianuTV.ViewModels;
-using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AsturianuTV.Infrastructure.Data;
 using AsturianuTV.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using AsturianuTV.Infrastructure.Data.Models.Subscriptions;
 using AsturianuTV.Infrastructure.Data.Models.ContentNews;
 using AsturianuTV.Infrastructure.Data.Models.BaseKnowledges;
+using AsturianuTV.Infrastructure.Data.Models.Cybersports;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AsturianuTV.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IRepository<User> _userRepository;
         private readonly IRepository<Character> _characterRepository;
         private readonly IRepository<News> _newsRepository;
-        private readonly IRepository<Subscription> _subscriptionRepository;
-        private readonly IRepository<Plan> _planRepository;
-        private readonly IRepository<Blog> _blogRepository;
+        private readonly IRepository<League> _leagueRepository;
 
         public HomeController(
-            IRepository<User> userRepository,
             IRepository<Character> characterRepository,
             IRepository<News> newsRepository,
-            IRepository<Subscription> subscriptionRepository,
-            IRepository<Plan> planRepository,
-            IRepository<Blog> blogRepository)
+            IRepository<League> leagueRepository)
         {
-            _userRepository = userRepository;
             _characterRepository = characterRepository;
             _newsRepository = newsRepository;
-            _subscriptionRepository = subscriptionRepository;
-            _planRepository = planRepository;
-            _blogRepository = blogRepository;
+            _leagueRepository = leagueRepository;
         }
 
-        public IActionResult SomeAction()
-        {
-            ViewData["SharedData"] = "This data is shared across the application.";
-            return View();
-        }
-
-        public async Task<IActionResult> Index(CancellationToken cancellationToken)
-        {
-            var user = await _userRepository.Read()
-                .AsNoTracking()
-                .SingleOrDefaultAsync(x => x.Email.Equals(User.Identity.Name), cancellationToken);
-
-            if (user == null) return View();
-            return View(user);
-        } 
-
-        public IActionResult Privacy()
+        public IActionResult Index()
         {
             return View();
         }
-      
+
+        public IActionResult Cybersports()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Players()
+        {
+            var leagues = await _leagueRepository.Read().ToListAsync();
+
+            var resources = leagues.Select(l => new {
+                id = l.Id.ToString(),
+                title = l.Name
+            }).ToList();
+
+            var events = leagues.Select(l => new {
+                resourceId = l.Id.ToString(),
+                title = l.Name,
+                start = l.StartDate.ToString("O"),
+                end = l.EndDate.ToString("O"),
+                allDay = false
+            }).ToList();
+
+            ViewBag.Resources = JsonConvert.SerializeObject(resources);
+            ViewBag.Events = JsonConvert.SerializeObject(events);
+            ViewBag.CurrentAction = "Players";
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Leagues()
+        {
+            var leagues = await _leagueRepository.Read().ToListAsync();
+
+            var resources = leagues.Select(l => new {
+                id = l.Id.ToString(),
+                title = l.Name
+            }).ToList();
+
+            var events = leagues.Select(l => new {
+                resourceId = l.Id.ToString(),
+                title = l.Name,
+                start = l.StartDate.ToString("O"),
+                end = l.EndDate.ToString("O"),
+                allDay = false
+            }).ToList();
+
+            ViewBag.Resources = JsonConvert.SerializeObject(resources);
+            ViewBag.Events = JsonConvert.SerializeObject(events);
+            ViewBag.CurrentAction = "Leagues";
+            return View();
+        }
+
         [HttpGet]
         public async Task<IActionResult> Heroes(CancellationToken cancellationToken)
         {
@@ -110,66 +138,6 @@ namespace AsturianuTV.Controllers
                 .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
             if (news != null) return View(news);
-            return NotFound();
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Subscriptions(CancellationToken cancellationToken) =>
-            View(await _subscriptionRepository.ListAsync(cancellationToken));
-
-        [HttpGet]
-        public async Task<IActionResult> Subscription(int id, CancellationToken cancellationToken)
-        {
-            var subscription = await _subscriptionRepository
-                .Read()
-                .AsNoTracking()
-                .Include(x => x.Plans)
-                .ThenInclude(x => x.Blogs)
-                .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
-
-            if (subscription != null) return View(subscription);
-            return NotFound();
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Plans(int subscriptionId, CancellationToken cancellationToken)
-        {
-            var plans = await _planRepository
-                .Read()
-                .AsNoTracking()
-                .Include(x => x.Subscription)
-                .Include(x => x.Blogs)
-                .Where(x => x.SubscriptionId == subscriptionId)
-                .ToListAsync(cancellationToken);
-
-            return View(plans);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Plan(int id, CancellationToken cancellationToken)
-        {
-            var plan = await _planRepository
-                .Read()
-                .AsNoTracking()
-                .Include(x => x.Subscription)
-                .Include(x => x.Blogs)
-                .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
-
-            if (plan != null) View(plan);
-            return NotFound();
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Blog(int id, CancellationToken cancellationToken)
-        {
-            var blog = await _blogRepository
-                .Read()
-                .AsNoTracking()
-                .Include(x => x.BlogMaterials)
-                .ThenInclude(x => x.Material)
-                .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
-
-            if (blog != null) View(blog);
             return NotFound();
         }
 

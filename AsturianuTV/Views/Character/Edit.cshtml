@@ -4,91 +4,95 @@
     Layout = "_AdminLayout";
 }
 
-<form class="form" asp-action="Edit" asp-controller="Character" asp-route-id="@Model.Id" enctype="multipart/form-data">
+<form class="admin-form" asp-action="Edit" asp-controller="Character" asp-route-id="@Model.Id" enctype="multipart/form-data">
     <h2 class="form-title">Update heroe</h2>
-    <div class="form-group">
-        <label asp-for="Name" class="control-label">Name</label>
-        <input  type="text" asp-for="Name" />
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">Name</label>
+            <input type="text" asp-for="Name" />
+        </div>
+        <div class="form-group">
+            <label asp-for="ImagePath" class="control-label">Image</label>
+            <input type="text" asp-for="ImagePath" />
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="ImagePath" class="control-label">Image</label>
-        <input type="text" asp-for="ImagePath" />
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="ShortDescription" class="control-label">Description</label>
+            <textarea class="field textarea" type="text" asp-for="ShortDescription"></textarea>
+        </div>
+        <div class="form-group">
+            <label asp-for="History" class="control-label">History</label>
+            <textarea class="field textarea" type="text" asp-for="History"></textarea>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="ShortDescription" class="control-label">Description</label>
-        <textarea class="field textarea" type="text" asp-for="ShortDescription"></textarea>
-    </div>
-    <div class="form-group">
-        <label asp-for="History" class="control-label">History</label>
-        <textarea class="field textarea" type="text" asp-for="History"></textarea>
-    </div>
-    <div class="form-group">
-        <label asp-for="Attribute" class="control-label">Attribute</label>
-        <div class="form-radio">
-            <div class="form_radio_btn">
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="Attribute" class="control-label">Attribute</label>
+            <div class="form-radio">
                 <input id="radio-2" type="radio" asp-for="Attribute" value="@CharacterAttribute.Strength" checked>
                 <label for="radio-2">Strength</label>
-            </div>
-            <div class="form_radio_btn">
                 <input id="radio-3" type="radio" asp-for="Attribute" value="@CharacterAttribute.Agility">
                 <label for="radio-3">Agility</label>
-            </div>
-            <div class="form_radio_btn">
                 <input id="radio-4" type="radio" asp-for="Attribute" value="@CharacterAttribute.Intelligence">
                 <label for="radio-4">Intelligence</label>
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="RangeType" class="control-label">Attack range</label>
-        <div class="form-radio">
-            <div class="form_radio_btn">
+        <div class="form-group">
+            <label asp-for="RangeType" class="control-label">Attack range</label>
+            <div class="form-radio">
                 <input id="radio-5" type="radio" asp-for="RangeType" value="@RangeType.None" checked>
                 <label for="radio-5">None</label>
-            </div>
-            <div class="form_radio_btn">
                 <input id="radio-6" type="radio" asp-for="RangeType" value="@RangeType.Melee">
                 <label for="radio-6">Melee</label>
-            </div>
-            <div class="form_radio_btn">
                 <input id="radio-7" type="radio" asp-for="RangeType" value="@RangeType.Range">
                 <label for="radio-7">Range</label>
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Damage" class="control-label">Damage</label>
-        <input class="field" type="text" asp-for="Damage" />
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="Damage" class="control-label">Damage</label>
+            <input class="field" type="text" asp-for="Damage" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Armor" class="control-label">Armor</label>
+            <input class="field" type="text" asp-for="Armor" />
+        </div>
+    </div>
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="Health" class="control-label">Health</label>
+            <input class="field" type="text" asp-for="Health" />
+        </div>
+        <div class="form-group">
+            <label asp-for="HealthRegeneration" class="control-label">Health regeneration</label>
+            <input class="field" type="text" asp-for="HealthRegeneration" />
+        </div>
+    </div>
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="Mana" class="control-label">Mana</label>
+            <input class="field" type="text" asp-for="Mana" />
+        </div>
+        <div class="form-group">
+            <label asp-for="ManaRegeneration" class="control-label">Mana regeneration</label>
+            <input class="field" type="text" asp-for="ManaRegeneration" />
+        </div>
+    </div>
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="MoveSpeed" class="control-label">Move speed</label>
+            <input class="field" type="text" asp-for="MoveSpeed" />
+        </div>
+        <div class="form-group">
+            <label asp-for="MagicResist" class="control-label">Magic resist</label>
+            <input class="field" type="text" asp-for="MagicResist" />
+        </div>
     </div>
     <div class="form-group">
-        <label asp-for="Armor" class="control-label">Armor</label>
-        <input class="field" type="text" asp-for="Armor" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Health" class="control-label">Health</label>
-        <input class="field" type="text" asp-for="Health"/>
-    </div>
-    <div class="form-group">
-        <label asp-for="HealthRegeneration" class="control-label">Health regeneration</label>
-        <input class="field" type="text" asp-for="HealthRegeneration" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Mana" class="control-label">Mana</label>
-        <input class="field" type="text" asp-for="Mana" />
-    </div>
-    <div class="form-group">
-        <label asp-for="ManaRegeneration" class="control-label">Mana regeneration</label>
-        <input class="field" type="text" asp-for="ManaRegeneration" />
-    </div>
-    <div class="form-group">
-        <label asp-for="MoveSpeed" class="control-label">Move speed</label>
-        <input class="field" type="text" asp-for="MoveSpeed"  />
-    </div>
-    <div class="form-group">
-        <label asp-for="MagicResist" class="control-label">Magic resist</label>
-        <input class="field" type="text" asp-for="MagicResist" />
-    </div>
-    <div class="form-group">
-        <input class="btn submit" type="submit" value="Save" />
+        <button class="save-button" type="submit">
+            Save
+        </button>
     </div>
 </form>

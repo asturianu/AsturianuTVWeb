@@ -4,6 +4,8 @@ body {
     background: black;
     background-repeat: no-repeat;
     background-size: cover;
+    background-image: url(../assets/rosh-background.jpg);
+    background-size: auto;
 }
 
 @font-face {
@@ -972,4 +974,93 @@ ul > li {
     line-height: 20px;
     letter-spacing: 0.20000000298023224px;
     text-align: left;
+}
+
+#calendar {
+    height: calc(100vh - 300px); 
+    width: 100%;
+    overflow: hidden;
+}
+
+.autopicker-container {
+    position: fixed;
+    top: 56%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background-color: #2d3641;
+    display: flex;
+}
+
+.autopicker-block {
+    width: 100%;
+    background-color: #242a37;
+    margin: 10px;
+}
+
+.autopicker {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: 40px auto 0;
+}
+
+.team-heroes {
+
+}
+
+.team-heroe {
+    margin: 20px;
+}
+
+.select2-container {
+    height: 40px!important;
+}
+
+.statistic-container {
+    position: fixed;
+    top: 56%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background-color: #2d3641;
+    display: flex;
+}
+
+.statistic-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.statistic-block {
+    width: 100%;
+}
+
+.statistic-block.left {
+    display: flex;
+    flex-direction: column;
+}
+
+.statistic-profile-info {
+    display: flex;
+    justify-content: space-between;
+    background-color: #242a37;
+    margin: 15px;
+}
+
+.statistic-block-heroes {
+    background-color: #242a37;
+    overflow-y: scroll;
+    margin: 0 15px 15px 15px;
+}
+
+.statisctic-matches {
+    background-color: #242a37;
+    overflow-y: scroll;
+    max-height: -webkit-fill-available;
+    margin: 15px 15px 15px 0;
 }

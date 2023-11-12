@@ -3,7 +3,6 @@ using AsturianuTV.Infrastructure.Interfaces;
 using AsturianuTV.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -16,6 +15,10 @@ namespace AsturianuTV.Infrastructure.Repository
         private readonly AsturianuTVDbContext _context;
 
         public EfCoreRepository(AsturianuTVDbContext context) => _context = context;
+
+        public void BeginTransaction() => _context.Database.BeginTransaction();
+        public void CommitTransaction() => _context.Database.CommitTransaction();
+        public void RollbackTransaction() => _context.Database.RollbackTransaction();
 
         public async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
         {

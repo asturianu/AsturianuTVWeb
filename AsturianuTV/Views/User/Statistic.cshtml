@@ -1,0 +1,90 @@
+﻿@model AsturianuTV.Dto.OpenDotaSync.OpenDotaStatisticDto
+
+@{
+    Layout = "_Layout";
+    var url = "https://api.opendota.com";
+}
+
+<div class="statistic-container">
+    <div class="statistic-wrapper">
+        <div class="statistic-block left">
+            <div class="statistic-profile-info">
+                <div class="statistic-profile-info-img">
+                    <img src="@Model.OpenDotaGeneralInfoUser.Profile.Avatarfull" alt="Alternate Text" />
+                </div>
+                <div class="statistic-profile-info-main-stats">
+                    <p>@Model.OpenDotaGeneralInfoUser.Profile.Personaname</p>
+                    <p>@Model.OpenDotaGeneralInfoUser.Profile.Loccountrycode</p>
+                    <p>@Model.OpenDotaGeneralInfoUser.Profile.Steamid</p>
+                    <p>@Model.OpenDotaGeneralInfoUser.Profile.Plus</p>
+                </div>
+            </div>
+            <div class="statistic-block-heroes">
+                <div class="statistic-block-heroes-main">
+                    <table id="hereosId" class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Games</th>
+                                <th>Wins</th>
+                                <th>Loses</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OpenDotaPlayerHeroes)
+                            {
+                                <tr>
+                                    <td>@item.Character.Name</td>
+                                    <td>@item.Games</td>
+                                    <td>@item.Win</td>
+                                    <td>@(@item.Games - @item.Win)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="statistic-block">
+            <div class="statisctic-matches">
+                <div class="statistic-matches-main">
+                    <table id="matchesId" class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Win</th>
+                                <th>Kills</th>
+                                <th>Deaths</th>
+                                <th>Assists</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OpenDotaPlayerMatches)
+                            {
+                                <tr>
+                                    <td>@item.Character.Name</td>
+                                    <td>@item.Radiant_Win</td>
+                                    <td>@item.Kills</td>
+                                    <td>@item.Deaths</td>
+                                    <td>@item.Assists</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Initialize heroes table -->
+<script>
+    $(document).ready(function () {
+        $('#hereosId').DataTable({
+            "paging": false
+        });
+        $('#matchesId').DataTable({
+            "paging": false
+        });
+    });
+</script>

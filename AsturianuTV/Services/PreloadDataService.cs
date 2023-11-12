@@ -31,8 +31,6 @@ namespace AsturianuTV.Services
             return await _userRepository.Read()
                 .AsNoTracking()
                 .Include(x => x.Role)
-                .Include(x => x.Subscription)
-                    .ThenInclude(x => x.Plans)
                 .Where(x => x.Email == userName)
                 .FirstOrDefaultAsync();
         }

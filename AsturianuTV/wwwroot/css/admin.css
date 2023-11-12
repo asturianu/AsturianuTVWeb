@@ -59,7 +59,7 @@ body {
     margin: 0;
 }
 
-a, p, h1, h2, h3, h4, h5, h6 {
+a, p, h1, h2, h3, h4, h5, h6, label {
     font-family: 'Roboto';
     text-decoration: none;
 }
@@ -106,7 +106,9 @@ a, p, h1, h2, h3, h4, h5, h6 {
 
 .admin-content-blocks {
     max-width: 80%;
+    height: -webkit-fill-available;
     margin: 50px auto;
+    overflow-y: auto;
 }
 
 .admin-content-block-top {
@@ -137,16 +139,6 @@ a, p, h1, h2, h3, h4, h5, h6 {
 
 .admin-actions-block:not(:first-child) {
     margin-top: 20px;
-}
-
-.form {
-    width: 50%;
-    height: 80%;
-    background-color: lightgray;
-}
-
-.form-group {
-    margin-bottom: 1rem;
 }
 
 .text-field-label {
@@ -314,4 +306,81 @@ td, th {
     color: #555 !important;
     font-family: 'Roboto';
     font-size: 14px;
+}
+
+.admin-form {
+    background-color: #2d3641;
+    padding: 20px;
+}
+
+.form-groups {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.form-group {
+    width: 50%;
+    margin-top: 15px;
+}
+
+.form-group > input {
+    width: 100%;
+    font-size: 14px;
+    padding: 7px;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.form-group > input,
+.form-group > textarea {
+    margin-top: 5px;
+}
+
+.form-radio > input{
+    margin-top: 15px;
+}
+
+.form-group > textarea {
+    width: 100%;
+    height: 80px;
+    resize: none;
+    padding: 7px;
+}
+
+.form-group > input:focus,
+.form-group > textarea:focus {
+    outline: none;
+}
+
+.form-group > label,
+.form-radio > label {
+    color: white;
+    font-size: 16px;
+}
+
+.form-group {
+    width: 50%;
+}
+
+.form-title {
+    color: white;
+}
+
+.save-button {
+    color: #fe6637;
+    font-size: 16px;
+    background: none;
+    border-radius: 3px;
+    border: 1px solid #fe6637;
+    padding: 5px 25px;
+    transition: .3s all;
+    cursor: pointer;
+}
+
+.save-button:hover {
+    color: white;
+    background-color: #fe6637;
 }

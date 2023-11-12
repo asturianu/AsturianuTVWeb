@@ -1,6 +1,6 @@
 ﻿@using AsturianuTV.Services.Interfaces
 @inject ITeamService teamService
-@model AsturianuTV.ViewModels.System.PlayerViewModels.CreatePlayerViewModel
+@model AsturianuTV.ViewModels.System.PlayerViewModels.UpdatePlayerViewModel
 @{
     var teams = await teamService.GetAllTeams();
 }
@@ -8,7 +8,7 @@
     Layout = "_AdminLayout";
 }
 
-<form class="form" asp-action="Edit" asp-controller="Player" enctype="multipart/form-data">
+<form class="form" asp-action="Edit" asp-controller="Player" asp-route-id="@Model.Id enctype="multipart/form-data">
 
     <h2 class="form-title">Edit player</h2>
 
