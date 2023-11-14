@@ -10,7 +10,8 @@ namespace AsturianuTV.Infrastructure.ModelsConfiguration
         {
             builder.HasOne(x => x.Player)
                 .WithMany(x => x.Transfers)
-                .HasForeignKey(x => x.PlayerId);
+                .HasForeignKey(x => x.PlayerId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

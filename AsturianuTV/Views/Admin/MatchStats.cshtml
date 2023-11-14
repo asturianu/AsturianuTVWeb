@@ -1,0 +1,53 @@
+﻿@model List<AsturianuTV.Infrastructure.Data.Models.Cybersports.PlayerMatchStats>
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-content-block">
+    <div class="admin-content-block-top">
+        <h2 class="admin-content-block-title">Player match stats</h2>
+        <a asp-controller="MatchStats" asp-action="Create">
+            Create new player stat
+        </a>
+    </div>
+    <table id="tableId" class="table">
+        <thead>
+            <tr>
+                <th>Player</th>
+                <th>League</th>
+                <th>Dire Team</th>
+                <th>Radiant Team</th>
+                <th>Character</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Player.FullName</td>
+                    <td>@item.Match.League.Name</td>
+                    <td>@item.Match.DireTeam.Name</td>
+                    <td>@item.Match.RadiantTeam.Name</td>
+                    <td>@item.Character.Name</td>
+                    <td class="table-actions">
+                        <a class="table-action"
+                           asp-controller="MatchStats"
+                           asp-action="Edit"
+                           asp-route-id="@item.Id">
+                            <img class="table-action-img" src="~/assets/icons8-редактировать.svg" alt="Alternate Text" />
+                        </a>
+                        <form asp-controller="MatchStats"
+                              asp-action="Delete"
+                              method="post">
+                            <input type="hidden" name="Id" value="@item.Id" />
+                            <button class="table-action" type="submit" name="delete">
+                                <img class="table-action-img" src="/assets/icons8-мусор (1).svg" alt="Alternate Text" />
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

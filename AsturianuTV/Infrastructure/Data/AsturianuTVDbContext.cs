@@ -16,7 +16,7 @@ namespace AsturianuTV.Infrastructure.Data
         public DbSet<Team> Teams { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Match> Matches { get; set; }
-        public DbSet<MatchResult> MatchResults { get; set; }
+        public DbSet<PlayerHistory> PlayerHistories { get; set; }
         public DbSet<PlayerMatchStats> PlayerMatchStats { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Transfer> Transfers { get; set; }
@@ -62,6 +62,8 @@ namespace AsturianuTV.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new MaterialConfiguration());
             modelBuilder.ApplyConfiguration(new NewsMaterialConfiguration());
+            modelBuilder.ApplyConfiguration(new MatchConfiguration());
+            modelBuilder.ApplyConfiguration(new PlayerMatchStatsConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

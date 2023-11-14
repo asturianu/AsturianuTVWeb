@@ -10,7 +10,5 @@ namespace AsturianuTV.ViewModels.System.TeamViewModels
         public DateTime StartDate { get; set; }
         public string Country { get; set; }
         public int FullPrice { get; set; }
-        public int Matches { get; set; }
-        public int Wins { get; set; }
     }
 }

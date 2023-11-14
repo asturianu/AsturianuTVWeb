@@ -8,7 +8,6 @@
     Layout = "_AdminLayout";
 }
 
-
 <form class="admin-form" asp-action="Create" asp-controller="Player" enctype="multipart/form-data">
     <h2 class="form-title">Create player</h2>
     <div class="form-groups">
@@ -26,20 +25,9 @@
             <label asp-for="Country">Country</label>
             <input type="text" asp-for="Country" />
         </div>
-
         <div class="form-group">
             <label asp-for="FullPrice">FullPrice</label>
             <input type="text" asp-for="FullPrice" />
-        </div>
-    </div>
-    <div class="form-groups">
-        <div class="form-group">
-            <label asp-for="Matches">Matches</label>
-            <input class="field" type="text" asp-for="Matches" />
-        </div>
-        <div class="form-group">
-            <label asp-for="Wins">Wins</label>
-            <input class="field" type="text" asp-for="Wins" />
         </div>
     </div>
     <div class="form-groups">
@@ -50,6 +38,10 @@
         <div class="form-group">
             <label asp-for="Bday"></label>
             <input asp-for="Bday" type="date" />
+        </div>
+    </div>
+    <div class="form-groups">
+        <div class="form-group">
             <select asp-for="TeamId" size="1">
                 <option value="null">Without team</option>
                 @foreach (var team in teams)
@@ -60,7 +52,10 @@
         </div>
     </div>
     <div class="validation" asp-validation-summary="ModelOnly"></div>
+
     <div class="form-group">
-        <input type="submit" value="Send" />
+        <button class="save-button" type="submit">
+            Save
+        </button>
     </div>
 </form>

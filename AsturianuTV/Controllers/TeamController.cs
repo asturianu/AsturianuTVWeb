@@ -34,7 +34,7 @@ namespace AsturianuTV.Controllers
                 await _teamRepository.AddAsync(team);
             }
             else { NotFound(); }
-            return RedirectToAction("Leagues", "Admin");
+            return RedirectToAction("Teams", "Admin");
         }
 
         [HttpGet]
@@ -42,8 +42,6 @@ namespace AsturianuTV.Controllers
         {
             var team = await _teamRepository.Read()
                 .AsNoTracking()
-                .Include(x => x.LeagueTeams)
-                .ThenInclude(x => x.Team)
                 .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
             return View(team);
@@ -59,23 +57,23 @@ namespace AsturianuTV.Controllers
                 var team = await _teamRepository.Read()
                     .FirstOrDefaultAsync(x => x.Id == updateTeamViewModel.Id, cancellationToken);
 
-                _mapper.Map(team, updateTeamViewModel);
+                _mapper.Map(updateTeamViewModel, team);
                 await _teamRepository.UpdateAsync(team);
             }
 
             else { NotFound(); }
-            return RedirectToAction("Leagues", "Admin");
+            return RedirectToAction("Teams", "Admin");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
             var team = await _teamRepository.Read()
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
             await _teamRepository.DeleteAsync(team);
-            return RedirectToAction("Leagues", "Admin");
+            return RedirectToAction("Teams", "Admin");
         }
     }
 }

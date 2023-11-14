@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -21,6 +22,9 @@ namespace AsturianuTV.Controllers
         private readonly IRepository<Team> _teamRepository;
         private readonly IRepository<Player> _playerRepository;
 
+        private readonly IRepository<Match> _matchRepository;
+        private readonly IRepository<PlayerMatchStats> _playerMatchStatsRepository;
+
         private readonly IRepository<News> _newsRepository;
 
         private readonly IRepository<Character> _heroeRepository;
@@ -32,6 +36,8 @@ namespace AsturianuTV.Controllers
             IRepository<League> leagueRepository,
             IRepository<Team> teamRepository,
             IRepository<Player> playerRepository,
+            IRepository<Match> matchRepository,
+            IRepository<PlayerMatchStats> playerMatchStatsRepository,
             IRepository<News> newsRepository,
             IRepository<Character> heroeRepository,
             IRepository<Skill> skillRepository,
@@ -41,6 +47,8 @@ namespace AsturianuTV.Controllers
             _leagueRepository = leagueRepository;
             _teamRepository = teamRepository;
             _playerRepository = playerRepository;
+            _matchRepository = matchRepository;
+            _playerMatchStatsRepository = playerMatchStatsRepository;
             _newsRepository = newsRepository;
             _heroeRepository = heroeRepository;
             _skillRepository = skillRepository;
@@ -105,6 +113,38 @@ namespace AsturianuTV.Controllers
             return RedirectToAction("Index", "Admin");
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Matches()
+        {
+            var match = await _matchRepository.Read()
+                .AsNoTracking()
+                .Include(x => x.RadiantTeam)
+                .Include(x => x.DireTeam)
+                .Include(x => x.League)
+                .ToListAsync();
+
+            return View(match);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> MatchStats()
+        {
+            var matchStats = await _playerMatchStatsRepository.Read()
+              .AsNoTracking()
+              .Include(x => x.Player)
+              .Include(x => x.Character)
+              .Include(x => x.Match)
+                  .ThenInclude(x => x.DireTeam)
+              .Include(x => x.Match)
+                  .ThenInclude(x => x.RadiantTeam)
+              .Include(x => x.Match)
+                  .ThenInclude(x => x.League)
+              .ToListAsync();
+
+            return View(matchStats);
+        }
 
         [HttpGet]
         [Authorize(Roles = "Administrator")]

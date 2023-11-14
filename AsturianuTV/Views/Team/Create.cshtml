@@ -1,45 +1,43 @@
-﻿@model AsturianuTV.Infrastructure.Data.Models.Cybersports.Team
+﻿@model AsturianuTV.ViewModels.System.TeamViewModels.CreateTeamViewModel
 @{
     Layout = "_AdminLayout";
 }
 
-<form class="form" asp-action="Create" asp-controller="Team" enctype="multipart/form-data">
-
+<form class="admin-form" asp-action="Create" asp-controller="Team" enctype="multipart/form-data">
     <h2 class="form-title">Create team</h2>
-
-    <div class="form-group">
-        <label class="text-field-label" asp-for="Name">Name</label>
-        <input class="text-field-input" type="text" asp-for="Name" />
+    <div class="form-groups">
+        <div class="form-group">
+            <label class="text-field-label" asp-for="Name">Name</label>
+            <input class="text-field-input" type="text" asp-for="Name" />
+        </div>
+        <div class="form-group">
+            <label class="text-field-label" asp-for="Logo">Logo</label>
+            <input class="text-field-input" type="text" asp-for="Logo" />
+        </div>
+    </div>
+    <div class="form-groups">
+        <div class="form-group">
+            <label class="text-field-label" asp-for="Description">Description</label>
+            <textarea class="text-field-textarea" type="text" asp-for="Description"></textarea>
+        </div>
+        <div class="form-group">
+            <label class="text-field-label" asp-for="StartDate">Start date</label>
+            <input class="text-field-input" asp-for="StartDate" type="date" />
+        </div>
+    </div>
+    <div class="form-groups">
+        <div class="form-group">
+            <label class="text-field-label" asp-for="FullPrice">Cash</label>
+            <input class="text-field-input" asp-for="FullPrice" type="text" />
+        </div>
+        <div class="form-group">
+            <label class="text-field-label" asp-for="Country">Country</label>
+            <input class="text-field-input" asp-for="Country" type="text" />
+        </div>
     </div>
     <div class="form-group">
-        <label class="text-field-label" asp-for="Logo">Logo</label>
-        <input class="text-field-input" type="text" asp-for="Logo" />
-    </div>
-    <div class="form-group">
-        <label class="text-field-label" asp-for="Description">Description</label>
-        <textarea class="text-field-textarea" type="text" asp-for="Description"></textarea>
-    </div>
-    <div class="form-group">
-        <label class="text-field-label" asp-for="StartDate">Start date</label>
-        <input class="text-field-input" asp-for="StartDate" type="date" />
-    </div>
-    <div class="form-group">
-        <label class="text-field-label" asp-for="FullPrice">Chash</label>
-        <input class="text-field-input" asp-for="FullPrice" type="date" />
-    </div>
-    <div class="form-group">
-        <label class="text-field-label" asp-for="Country">Country</label>
-        <input class="text-field-input" asp-for="Country" type="text" />
-    </div>
-    <div class="form-group">
-        <label class="text-field-label" asp-for="Matches">Matches</label>
-        <input class="text-field-input" asp-for="Matches" type="text" />
-    </div>
-    <div class="form-group">
-        <label class="text-field-label" asp-for="Wins">Wins</label>
-        <input class="text-field-input" asp-for="Wins" type="text" />
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Save" />
+        <button class="save-button" type="submit">
+            Save
+        </button>
     </div>
 </form>

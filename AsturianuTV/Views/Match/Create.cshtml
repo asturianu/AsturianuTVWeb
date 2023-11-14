@@ -1,0 +1,134 @@
+﻿@using AsturianuTV.Services.Interfaces
+@inject ITeamService teamService
+@inject ILeagueService leagueService
+@inject IHeroeService heroeService
+@inject IPlayerService playerService
+@model AsturianuTV.ViewModels.System.MatchViewModels.CreateMatchViewModel
+@{
+    Layout = "_AdminLayout";
+}
+@{
+    var players = await playerService.GetAllPlayers();
+    var leagues = await leagueService.GetAllLeagues();
+    var teams = await teamService.GetAllTeams();
+    var characters = await heroeService.GetAllCharacters();
+}
+
+<form class="admin-form" asp-action="Create" asp-controller="Match" enctype="multipart/form-data">
+    <h2 class="form-title">Create match</h2>
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="RadiantTeamId" class="control-label">Select radiant team</label>
+            <select class="js-example-basic-single" asp-for="RadiantTeamId" size="1">
+                @foreach (var team in teams)
+                {
+                    <option value="@team.Id">@team.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="DireTeamId" class="control-label">Select dire team</label>
+            <select class="js-example-basic-single" asp-for="DireTeamId" size="1">
+                @foreach (var team in teams)
+                {
+                    <option value="@team.Id">@team.Name</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="LeagueId" class="control-label">Select league</label>
+            <select class="js-example-basic-single" asp-for="LeagueId" size="1">
+                @foreach (var league in leagues)
+                {
+                    <option value="@league.Id">@league.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="IsRadiantWin">Radian Win</label>
+            <div class="form-radio">
+                <input id="radio-5" type="checkbox" asp-for="IsRadiantWin">
+            </div>
+        </div>
+    </div>
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="MatchTime">Match time</label>
+            <input id="radio-5" type="date" asp-for="MatchTime">
+        </div>
+    </div>
+
+    <div id="player-stats-container"></div>
+
+    <button type="button" id="add-player-stats">Add Player Stats</button>
+
+    <div class="form-group">
+        <button class="save-button" type="submit">
+            Save
+        </button>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2();
+
+        var maxBlocks = 10;
+        var container = $('#player-stats-container');
+
+        $('#add-player-stats').click(function () {
+            if (container.children().length < maxBlocks) {
+                container.append(`
+                    <div class="player-stats-block">
+                        <h2 class="stats-title">Stats #${container.children().length + 1}</h2>
+                        <div class="select-match-block">
+                            <div class="select-match large">
+                                <label class="control-label">Select player</label>
+                                <select class="js-example-basic-single" name="Stats[${container.children().length}].PlayerId" size="1">
+                                    @foreach (var player in players)
+                                    {
+                                        <option value="@player.Id">@player.FullName</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="select-match large">
+                                <label class="control-label">Select heroe</label>
+                                <select class="js-example-basic-single" name="Stats[${container.children().length}].HeroId" size="1">
+                                    @foreach (var heroe in characters)
+                                    {
+                                        <option value="@heroe.Id">@heroe.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="match-kda">
+                            <div class="match-kda-block">
+                                <label class="control-label">Kills</label>
+                                <input class="text-field-input" type="text" name="Stats[${container.children().length}].Kills" />
+                            </div>
+                            <div class="match-kda-block">
+                                <label class="control-label">Deaths</label>
+                                <input class="text-field-input" type="text" name="Stats[${container.children().length}].Deaths" />
+                            </div>
+                            <div class="match-kda-block">
+                                <label class="control-label">Assists</label>
+                                <input class="text-field-input" type="text" name="Stats[${container.children().length}].Assists" />
+                            </div>
+                            <div class="match-kda-block">
+                                <label class="control-label">Gold</label>
+                                <input class="text-field-input" type="text" name="Stats[${container.children().length}].GoldEarned" />
+                            </div>
+                            <div class="match-kda-block">
+                                <label class="control-label">Exp</label>
+                                <input class="text-field-input" type="text" name="Stats[${container.children().length}].ExperienceEarned" />
+                            </div>
+                        </div>
+                    </div>
+                `);
+                container.find('.js-example-basic-single').not('.select2-hidden-accessible').select2();
+            }
+        });
+    });
+</script>

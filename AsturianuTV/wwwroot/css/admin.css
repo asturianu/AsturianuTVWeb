@@ -313,6 +313,12 @@ td, th {
     padding: 20px;
 }
 
+.admin-form.sync {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
 .form-groups {
     display: flex;
     justify-content: space-between;
@@ -383,4 +389,77 @@ td, th {
 .save-button:hover {
     color: white;
     background-color: #fe6637;
+}
+
+.form-group > span {
+    width: 100%!important;
+}
+
+.select2-container .select2-selection--single {
+    height: 35px!important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 32px!important;
+    color: black;
+    font-family: Roboto;
+    font-size: 14px;
+}
+
+.match-kda {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.select-match-block {
+    display: flex;
+    gap: 20px;
+}
+
+.select2-container {
+    margin-top: 6px;
+    width: 100%!important;
+}
+
+.select-match {
+    width: 100%;
+}
+
+.stats-title {
+    color: white;
+    margin-bottom: 10px;
+}
+
+#player-stats-container {
+    margin-top: 25px;
+}
+
+.select-match-block {
+    margin: 20px 0;
+}
+
+.match-kda {
+    margin-bottom: 20px;
+}
+
+.control-label {
+    color: white;
+    font-family: Roboto;
+    font-size: 15px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    margin-top: 1px!important;
+}
+
+.match-kda-block > .text-field-input {
+    margin-top: 4px;
+}
+
+.stat-title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center
 }

@@ -103,6 +103,9 @@ namespace AsturianuTV.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
+                    b.Property<int>("OpenDotaId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
@@ -328,6 +331,9 @@ namespace AsturianuTV.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("OpenDotaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("PriceFound")
                         .HasColumnType("nvarchar(max)");
 
@@ -371,6 +377,9 @@ namespace AsturianuTV.Migrations
                     b.Property<int?>("DireTeamId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsRadiantWin")
+                        .HasColumnType("bit");
+
                     b.Property<int>("LeagueId")
                         .HasColumnType("int");
 
@@ -389,32 +398,6 @@ namespace AsturianuTV.Migrations
                     b.HasIndex("RadiantTeamId");
 
                     b.ToTable("Matches");
-                });
-
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Cybersports.MatchResult", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Duration")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MatchId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WinningTeamId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MatchId")
-                        .IsUnique();
-
-                    b.HasIndex("WinningTeamId");
-
-                    b.ToTable("MatchResults");
                 });
 
             modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Cybersports.Player", b =>
@@ -442,13 +425,10 @@ namespace AsturianuTV.Migrations
                     b.Property<string>("Logo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Matches")
-                        .HasColumnType("int");
+                    b.Property<string>("OpenDotaId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("TeamId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Wins")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -456,6 +436,40 @@ namespace AsturianuTV.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("Players");
+                });
+
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Cybersports.PlayerHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Games")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Wins")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlayerId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("PlayerHistories");
                 });
 
             modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Cybersports.PlayerMatchStats", b =>
@@ -486,17 +500,14 @@ namespace AsturianuTV.Migrations
                     b.Property<int>("MatchId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MatchResultId")
-                        .HasColumnType("int");
-
                     b.Property<int>("PlayerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MatchId");
+                    b.HasIndex("HeroId");
 
-                    b.HasIndex("MatchResultId");
+                    b.HasIndex("MatchId");
 
                     b.HasIndex("PlayerId");
 
@@ -522,17 +533,14 @@ namespace AsturianuTV.Migrations
                     b.Property<string>("Logo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Matches")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("OpenDotaId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("Wins")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -753,33 +761,19 @@ namespace AsturianuTV.Migrations
             modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Cybersports.Match", b =>
                 {
                     b.HasOne("AsturianuTV.Infrastructure.Data.Models.Cybersports.Team", "DireTeam")
-                        .WithMany()
+                        .WithMany("TeamDireMatches")
                         .HasForeignKey("DireTeamId");
 
                     b.HasOne("AsturianuTV.Infrastructure.Data.Models.Cybersports.League", "League")
-                        .WithMany()
+                        .WithMany("Matches")
                         .HasForeignKey("LeagueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AsturianuTV.Infrastructure.Data.Models.Cybersports.Team", "RadiantTeam")
-                        .WithMany()
-                        .HasForeignKey("RadiantTeamId");
-                });
-
-            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Cybersports.MatchResult", b =>
-                {
-                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Cybersports.Match", "Match")
-                        .WithOne("Result")
-                        .HasForeignKey("AsturianuTV.Infrastructure.Data.Models.Cybersports.MatchResult", "MatchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Cybersports.Team", "WinningTeam")
-                        .WithMany()
-                        .HasForeignKey("WinningTeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("TeamRadiantMatches")
+                        .HasForeignKey("RadiantTeamId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Cybersports.Player", b =>
@@ -790,20 +784,37 @@ namespace AsturianuTV.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
+            modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Cybersports.PlayerHistory", b =>
+                {
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Cybersports.Player", "Player")
+                        .WithMany("PlayerHistories")
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Cybersports.Team", "Team")
+                        .WithMany("PlayerHistories")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("AsturianuTV.Infrastructure.Data.Models.Cybersports.PlayerMatchStats", b =>
                 {
-                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Cybersports.Match", "Match")
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.BaseKnowledges.Character", "Character")
                         .WithMany()
+                        .HasForeignKey("HeroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Cybersports.Match", "Match")
+                        .WithMany("Stats")
                         .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AsturianuTV.Infrastructure.Data.Models.Cybersports.MatchResult", null)
-                        .WithMany("Stats")
-                        .HasForeignKey("MatchResultId");
-
                     b.HasOne("AsturianuTV.Infrastructure.Data.Models.Cybersports.Player", "Player")
-                        .WithMany()
+                        .WithMany("Stats")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

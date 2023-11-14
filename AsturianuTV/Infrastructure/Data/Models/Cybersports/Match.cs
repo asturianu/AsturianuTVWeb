@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AsturianuTV.Infrastructure.Data.Models.Cybersports
 {
@@ -11,6 +12,7 @@ namespace AsturianuTV.Infrastructure.Data.Models.Cybersports
         public Team RadiantTeam { get; set; }
         public int? DireTeamId { get; set; }
         public Team DireTeam { get; set; }
-        public MatchResult Result { get; set; }
+        public bool IsRadiantWin { get; set; }
+        public List<PlayerMatchStats> Stats { get; set; }
     }
 }

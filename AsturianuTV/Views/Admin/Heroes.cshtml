@@ -25,14 +25,14 @@
                     <td>@item.Name</td>
                     <td>@item.Attribute</td>
                     <td class="table-actions">
-                        <a class="table-action" 
-                           asp-controller="Character" 
-                           asp-action="Edit" 
+                        <a class="table-action"
+                           asp-controller="Character"
+                           asp-action="Edit"
                            asp-route-id="@item.Id">
                             <img class="table-action-img" src="~/assets/icons8-редактировать.svg" alt="Alternate Text" />
                         </a>
-                        <form asp-controller="Character" 
-                              asp-action="Delete" 
+                        <form asp-controller="Character"
+                              asp-action="Delete"
                               method="post">
                             <input type="hidden" name="Id" value="@item.Id" />
                             <button class="table-action" type="submit" name="delete">
@@ -44,4 +44,11 @@
             }
         </tbody>
     </table>
+    <form class="admin-form" asp-action="SyncCharacters" asp-controller="Admin" enctype="multipart/form-data">
+        <div class="form-group">
+            <button class="save-button" type="submit">
+                Sync Heroes
+            </button>
+        </div>
+    </form>
 </div>

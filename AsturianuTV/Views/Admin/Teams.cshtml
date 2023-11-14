@@ -25,7 +25,7 @@
                 <tr>
                     <td>@item.Name</td>
                     <td>@item.Country</td>
-                    <td>@item.StartDate</td>
+                    <td>@item.StartDate.Date.ToShortDateString()</td>
                     <td class="table-actions">
                         <a class="table-action"
                            asp-controller="Team"

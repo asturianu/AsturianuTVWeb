@@ -3,11 +3,11 @@
     Layout = "_Layout";
 }
 
-<p>Id @Model.Id</p>
-<p>Surname @Model.Surname</p>
-<p>Name @Model.Name</p>
-<p>Email @Model.Email</p>
-<p>PhoneNumber @Model.PhoneNumber</p>
-<p>Profile Steam @Model.SteamProfileId</p>
+<p>Id @Model?.Id</p>
+<p>Surname @Model?.Surname</p>
+<p>Name @Model?.Name</p>
+<p>Email @Model?.Email</p>
+<p>PhoneNumber @Model?.PhoneNumber</p>
+<p>Profile Steam @Model?.SteamProfileId</p>
 
 <a asp-controller="User" asp-action="UpdateProfile" asp-route-id="@Model.Id">Update Profile</a>

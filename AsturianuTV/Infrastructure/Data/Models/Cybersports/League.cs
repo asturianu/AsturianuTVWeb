@@ -13,6 +13,8 @@ namespace AsturianuTV.Infrastructure.Data.Models.Cybersports
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public ICollection<LeagueTeam> LeagueTeams { get; set; }
+        public ICollection<Match> Matches { get; set; }
         public ICollection<News> News { get; set; }
+        public int OpenDotaId { get; set; }
     }
 }

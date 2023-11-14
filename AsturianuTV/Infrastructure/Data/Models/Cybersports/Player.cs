@@ -14,9 +14,10 @@ namespace AsturianuTV.Infrastructure.Data.Models.Cybersports
         public string Description { get; set; }
         public int? TeamId { get; set; } 
         public Team Team { get; set; }
-        public int Matches { get; set; }
-        public int Wins { get; set; }
         public ICollection<News> News { get; set; }
         public ICollection<Transfer> Transfers { get; set; }
+        public ICollection<PlayerMatchStats> Stats { get; set; }
+        public ICollection<PlayerHistory> PlayerHistories { get; set; }
+        public string OpenDotaId { get; set; }
     }
 }

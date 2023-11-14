@@ -150,6 +150,23 @@ namespace AsturianuTV.Controllers
             return View(user);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> CheckMatch(int id, CancellationToken cancellationToken)
+        {
+            string matchIfo = $" https://api.opendota.com/api/matches/{id}";
+
+            HttpClient client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync(matchIfo);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var userInfo = JsonConvert.DeserializeObject<OpenDotaGeneralInfoUser>(jsonString);
+                return View(userInfo);
+            }
+            return null;
+        }
+
         [HttpPost]
         public async Task<IActionResult> UpdateProfile(UpdateUserViewModel userViewModel, CancellationToken cancellationToken)
         {

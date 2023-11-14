@@ -38,6 +38,7 @@ namespace AsturianuTV
             services.AddScoped<ITeamService, TeamService>();
             services.AddScoped<ILeagueService, LeagueService>();
             services.AddScoped<IHeroeService, HeroeService>();
+            services.AddScoped<IPlayerService, PlayerService>();
 
     #if DEBUG
             services.AddControllersWithViews().AddRazorRuntimeCompilation();

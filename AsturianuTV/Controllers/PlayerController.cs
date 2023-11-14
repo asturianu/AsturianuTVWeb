@@ -14,18 +14,15 @@ namespace AsturianuTV.Controllers
     public class PlayerController : Controller
     {
         private readonly IRepository<Player> _playerRepository;
-        private readonly IRepository<Team> _teamRepository;
         private readonly IRepository<Transfer> _transferRepository;
         private readonly IMapper _mapper;
 
         public PlayerController(
             IRepository<Player> playerRepository,
-            IRepository<Team> teamRepository,
             IRepository<Transfer> transferRepository,
             IMapper mapper)
         {
             _playerRepository = playerRepository;
-            _teamRepository = teamRepository;
             _transferRepository = transferRepository;
             _mapper = mapper;
         }

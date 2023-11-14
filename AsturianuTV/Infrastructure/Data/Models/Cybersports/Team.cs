@@ -15,7 +15,9 @@ namespace AsturianuTV.Infrastructure.Data.Models.Cybersports
         public ICollection<Player> Players { get; set; }
         public ICollection<News> News { get; set; }
         public ICollection<LeagueTeam> LeagueTeams { get; set; }
-        public int Matches { get; set; }
-        public int Wins { get; set; }
+        public ICollection<Match> TeamDireMatches { get; set; }
+        public ICollection<Match> TeamRadiantMatches { get; set; }
+        public ICollection<PlayerHistory> PlayerHistories { get; set; }
+        public int OpenDotaId { get; set; }
     }
 }

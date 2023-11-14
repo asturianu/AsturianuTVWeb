@@ -12,7 +12,5 @@ namespace AsturianuTV.ViewModels.System.PlayerViewModels
         public string FullPrice { get; set; }
         public string Description { get; set; }
         public int? TeamId { get; set; }
-        public int Matches { get; set; }
-        public int Wins { get; set; }
     }
 }
