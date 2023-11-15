@@ -1,3 +1,19 @@
 ﻿@{
     Layout = "_AdminLayout";
 }
+
+<form class="admin-form" asp-action="SyncCharacters" asp-controller="Admin" enctype="multipart/form-data">
+    <div class="form-group">
+        <button class="save-button" type="submit">
+            Sync Heroes
+        </button>
+    </div>
+</form>
+
+<form class="admin-form" asp-action="SyncItems" asp-controller="Admin" enctype="multipart/form-data">
+    <div class="form-group">
+        <button class="save-button" type="submit">
+            Sync Items
+        </button>
+    </div>
+</form>

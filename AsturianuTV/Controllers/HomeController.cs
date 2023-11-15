@@ -10,21 +10,26 @@ using AsturianuTV.Infrastructure.Data.Models.BaseKnowledges;
 using AsturianuTV.Infrastructure.Data.Models.Cybersports;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
+using AsturianuTV.Dto;
+using AsturianuTV.Infrastructure.Data.Enums;
 
 namespace AsturianuTV.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IRepository<Character> _characterRepository;
+        private readonly IRepository<Item> _itemRepository;
         private readonly IRepository<News> _newsRepository;
         private readonly IRepository<League> _leagueRepository;
 
         public HomeController(
             IRepository<Character> characterRepository,
+            IRepository<Item> itemRepository,
             IRepository<News> newsRepository,
             IRepository<League> leagueRepository)
         {
             _characterRepository = characterRepository;
+            _itemRepository = itemRepository;
             _newsRepository = newsRepository;
             _leagueRepository = leagueRepository;
         }
@@ -88,15 +93,27 @@ namespace AsturianuTV.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Heroes(CancellationToken cancellationToken)
+        public async Task<IActionResult> BaseKnowledge(CancellationToken cancellationToken)
         {
-            var characters = await _characterRepository
-                .Read()
+            var characters = await _characterRepository.Read()
                 .AsNoTracking()
-                .Include(x => x.Skills)
                 .ToListAsync(cancellationToken);
 
-            return View(characters);
+            var items = await _itemRepository.Read()
+               .AsNoTracking()
+               .ToListAsync(cancellationToken);
+
+            var result = new KnowledgeDto
+            {
+                AgilityHeroes = characters.Where(x => x.Attribute == CharacterAttribute.Agility).ToList(),
+                StrenghtHeroes = characters.Where(x => x.Attribute == CharacterAttribute.Strength).ToList(),
+                IntHeroes = characters.Where(x => x.Attribute == CharacterAttribute.Intelligence).ToList(),
+                UniversalHeroes = characters.Where(x => x.Attribute == CharacterAttribute.None).ToList(),
+                NeutralItems = items.Where(x => x.Price == null).ToList(),
+                DefaultItems = items.Where(x => x.Price != null).ToList()
+            };
+
+            return View(result);
         }
 
         [HttpGet]

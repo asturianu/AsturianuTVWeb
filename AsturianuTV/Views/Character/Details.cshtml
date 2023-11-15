@@ -1,3 +1,117 @@
-﻿@{
+﻿@model AsturianuTV.Dto.HeroeDetailsResultDto
+@{
     Layout = "_Layout";
+    var url = "https://api.opendota.com";
 }
+
+<div class="heroe-container">
+    <div class="heroe-wrapper">
+        <div class="heroe-main-info">
+            <div class="heroe-description-wrapper">
+                <div class="heroe-description">
+                    <div class="heroe-info">
+                        <div>
+                            <img src="@url@Model.ImagePath" alt="Alternate Text" />
+                        </div>
+                        <div>
+                            <h2 class="heroe-title">@Model.Name</h2>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="heroe-description">@Model.Description</p>
+                    </div>
+                </div>
+            </div>
+            <div class="heroe-stats-wrapper">
+                <div class="heroe-stats">
+                    <div class="heroe-stat">
+                        <h2 class="heroe-title">The @Model.Name better than</h2>
+                        @foreach (var item in Model.Best)
+                        {
+                            <h2 class="heroe-title-stat">@item.Name</h2>
+                            <div class="heroe-stat-info">
+                                <div class="hero-stat-info-left">
+                                    <img class="heroe-img" src="@url@item.ImagePath" alt="Alternate Text" />
+                                </div>
+                                <div class="hero-stat-matchup">
+                                    <p class="heroe-desc win-rate">Win rate: @item.WinRate</p>
+                                    <p class="heroe-desc games">Games: @item.Games</p>
+                                    <p class="heroe-desc wins">Wins: @item.Wins</p>
+                                    <p class="heroe-desc loses">Loses: @(@item.Games - @item.Wins)</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="heroe-stat">
+                        <h2 class="heroe-title">The @Model.Name worst than</h2>
+                        @foreach (var item in Model.Worst)
+                        {
+                            <h2 class="heroe-title-stat">@item.Name</h2>
+                            <div class="heroe-stat-info">
+                                <div class="hero-stat-info-left">
+                                    <img class="heroe-img" src="@url@item.ImagePath" alt="Alternate Text" />
+                                </div>
+                                <div class="hero-stat-matchup">
+                                    <p class="heroe-desc win-rate">Win rate: @item.WinRate</p>
+                                    <p class="heroe-desc games">Games: @item.Games</p>
+                                    <p class="heroe-desc wins">Wins: @item.Wins</p>
+                                    <p class="heroe-desc loses">Loses: @(@item.Games - @item.Wins)</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="heroe-guid">
+            <div class="heroe-guid-container">
+                <div class="hero-guid-wrapper">
+                    <div class="heroe-popular-item">
+                        <h2>Start game items</h2>
+                        <div class="hero-items">
+                            @foreach (var item in Model.StartGameItems)
+                            {
+                                <div>
+                                    <img class="item-img" src="@url@item.Logo" alt="Alternate Text" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="heroe-popular-item">
+                        <h2>Early game items</h2>
+                        <div class="hero-items">
+                            @foreach (var item in Model.EarlyGameItems)
+                            {
+                                <div>
+                                    <img class="item-img" src="@url@item.Logo" alt="Alternate Text" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="heroe-popular-item">
+                        <h2>Mid game items</h2>
+                        <div class="hero-items">
+                            @foreach (var item in Model.MidGameItems)
+                            {
+                                <div>
+                                    <img class="item-img" src="@url@item.Logo" alt="Alternate Text" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="heroe-popular-item">
+                        <h2>Late game items</h2>
+                        <div class="hero-items">
+                            @foreach (var item in Model.LateGameItems)
+                            {
+                                <div>
+                                    <img class="item-img" src="@url@item.Logo" alt="Alternate Text" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

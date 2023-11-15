@@ -30,7 +30,7 @@ namespace AsturianuTV.Infrastructure.Data
         public DbSet<Material> Materials { get; set; }
 
         public AsturianuTVDbContext(DbContextOptions<AsturianuTVDbContext> options)
-            : base(options) { Database.EnsureCreated(); }
+            : base(options) {  }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

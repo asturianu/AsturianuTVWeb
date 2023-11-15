@@ -1,5 +1,4 @@
-﻿@using AsturianuTV.Infrastructure.Data.Enums
-@model AsturianuTV.Infrastructure.Data.Models.BaseKnowledges.Item
+﻿@model AsturianuTV.Infrastructure.Data.Models.BaseKnowledges.Item
 @{
     Layout = "_AdminLayout";
 }
@@ -18,50 +17,8 @@
     </div>
     <div class="form-groups">
         <div class="form-group">
-            <label asp-for="ItemCategory">Category</label>
-            <div class="form-radio">
-                <input id="radio-2" type="radio" asp-for="ItemCategory" value="@ItemCategory.None" checked>
-                <label for="radio-2">None</label>
-                <input id="radio-3" type="radio" asp-for="ItemCategory" value="@ItemCategory.Consumable">
-                <label for="radio-3">Consumable</label>
-                <input id="radio-4" type="radio" asp-for="ItemCategory" value="@ItemCategory.Attribute">
-                <label for="radio-4">Attribute</label>
-                <input id="radio-5" type="radio" asp-for="ItemCategory" value="@ItemCategory.Equipment">
-                <label for="radio-5">Equipment</label>
-                <input id="radio-6" type="radio" asp-for="ItemCategory" value="@ItemCategory.Different">
-                <label for="radio-6">Different</label>
-                <input id="radio-7" type="radio" asp-for="ItemCategory" value="@ItemCategory.SecretShop">
-                <label for="radio-7">SecretShop</label>
-                <input id="radio-8" type="radio" asp-for="ItemCategory" value="@ItemCategory.Accessory">
-                <label for="radio-8">Accessory</label>
-                <input id="radio-9" type="radio" asp-for="ItemCategory" value="@ItemCategory.Support">
-                <label for="radio-9">Support</label>
-                <input id="radio-11" type="radio" asp-for="ItemCategory" value="@ItemCategory.Magic">
-                <label for="radio-11">Magic</label>
-                <input id="radio-12" type="radio" asp-for="ItemCategory" value="@ItemCategory.Armor">
-                <label for="radio-12">Armor</label>
-                <input id="radio-13" type="radio" asp-for="ItemCategory" value="@ItemCategory.Weapon">
-                <label for="radio-13">Weapon</label>
-                <input id="radio-14" type="radio" asp-for="ItemCategory" value="@ItemCategory.Artifact">
-                <label for="radio-14">Intelligence</label>
-            </div>
-        </div>
-        <div class="form-group">
             <label asp-for="Description" class="control-label">Description</label>
             <textarea class="field textarea" type="text" asp-for="Description"></textarea>
-        </div>
-    </div>
-    <div class="form-groups">
-        <div class="form-group">
-            <label asp-for="ItemType" class="control-label">Item type</label>
-            <div class="form-radio">
-                <input id="radio-15" type="radio" asp-for="ItemType" value="@ItemType.None" checked>
-                <label for="radio-15">None</label>
-                <input id="radio-16" type="radio" asp-for="ItemType" value="@ItemType.Active">
-                <label for="radio-16">Active</label>
-                <input id="radio-17" type="radio" asp-for="ItemType" value="@ItemType.Neutral">
-                <label for="radio-17">Neutral</label>
-            </div>
         </div>
     </div>
     <div class="form-groups">

@@ -46,6 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
+	  <Folder Include="Migrations\" />
 	  <Folder Include="wwwroot\Files\Characters\" />
 	  <Folder Include="wwwroot\Files\Skills\" />
 	  <Folder Include="wwwroot\lib\font-awesome\" />

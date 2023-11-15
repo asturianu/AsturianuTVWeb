@@ -9,6 +9,21 @@ body {
 }
 
 @font-face {
+    font-family: 'Roboto';
+    src: url('../lib/fonts/Roboto-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Roboto Bold';
+    src: url(../lib/fonts/Roboto-Bold.ttf);
+}
+
+@font-face {
+    font-family: 'Roboto Italic';
+    src: url('../lib/fonts/Roboto-Italic.ttf');
+}
+
+@font-face {
     font-family: 'Gilroy-SemiBold';
     src: url(../lib/fonts/Gilroy-SemiBold.ttf);
 }
@@ -35,8 +50,8 @@ body {
     justify-content: space-between;
     align-items: center;
     height: 36px;
-    padding-top: 80px;
-    padding-bottom: 104px;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .header-menu__links {
@@ -1063,4 +1078,164 @@ ul > li {
     overflow-y: scroll;
     max-height: -webkit-fill-available;
     margin: 15px 15px 15px 0;
+}
+
+.characters {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px;
+}
+.characters-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.character-img {
+    width: -webkit-fill-available;
+}
+
+.character-card {
+    width: 70px;
+    height: 38px;
+    -webkit-box-shadow: 4px 4px 8px 0px rgba(240, 27, 18, 0.3);
+    -moz-box-shadow: 4px 4px 8px 0px rgba(240, 27, 18, 0.3);
+    box-shadow: 4px 4px 8px 0px rgba(240, 27, 18, 0.3);
+}
+
+.character-tittle {
+    font-size: 14px;
+}
+
+.wrapper-characters {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.dota-title {
+    color: #B5B5B5;
+    font-family: 'Roboto Bold';
+    font-size: 45px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.characters-page {
+    width: 100%;
+}
+
+.heroe-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.heroe-wrapper {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.heroe-main-info {
+    width: 100%;
+}
+
+.heroe-description-wrapper {
+    background-color: #2d3641;
+    padding: 10px;
+}
+
+.heroe-description {
+    background-color: #242a37;
+    padding: 10px;
+}
+
+.heroe-guid {
+    width: 100%;
+}
+
+.heroe-info {
+    display: flex;
+    justify-content: flex-start;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.heroe-title {
+    color: #B5B5B5;
+}
+
+.heroe-description {
+    color: #B5B5B5;
+}
+
+.heroe-stats-wrapper {
+    margin-top: 30px;
+    background-color: #2d3641;
+    padding: 10px;
+}
+
+.heroe-stats {
+    display: flex;
+}
+
+.heroe-img {
+    width: 80px;
+}
+
+.heroe-stat {
+    width: 100%;
+}
+
+.heroe-desc {
+    color: #B5B5B5;
+
+}
+
+.win-rate {
+    color: orange;
+}
+
+.wins {
+    color: green;
+}
+
+.loses {
+    color: red;
+}
+
+.heroe-stats {
+    padding: 10px;
+    background-color: #242a37;
+}
+
+.heroe-stat-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.heroe-title-stat {
+    color: #B5B5B5;
+    margin-bottom: 10px;
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+.heroe-guid-container {
+    background-color: #2d3641;
+    padding: 10px;
+}
+
+.hero-guid-wrapper {
+    background-color: #242a37;
+    padding: 10px;
+}
+
+.hero-items {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.item-img {
+    width: 45px;
 }

@@ -113,6 +113,46 @@ namespace AsturianuTV.Controllers
             return RedirectToAction("Index", "Admin");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SyncItems()
+        {
+            string url = "https://api.opendota.com/api/constants/items";
+
+            HttpClient client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+
+                var items = JsonConvert.DeserializeObject<Dictionary<string, OpenDotaItemDto>>(jsonString);
+
+                foreach (var item in items)
+                {
+                    if (item.Value.dname == null) { continue; }
+
+                    var existItem = await _itemRepository.Read()
+                        .AnyAsync(x => x.OpenDotaId == item.Value.Id);
+
+                    if (!existItem)
+                    {
+                        var newItem = new Item
+                        {
+                            OpenDotaId = item.Value.Id,
+                            Name = item.Value.dname,
+                            ImagePath = item.Value.Img,
+                            Description = item.Value.notes,
+                            Price = item.Value.cost
+                        };
+
+                        await _itemRepository.AddAsync(newItem);
+                    }
+                }
+            }
+
+            return RedirectToAction("Index", "Admin");
+        }
+
         [HttpGet]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Matches()

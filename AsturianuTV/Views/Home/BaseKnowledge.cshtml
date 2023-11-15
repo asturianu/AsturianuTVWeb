@@ -1,0 +1,61 @@
+﻿@model AsturianuTV.Dto.KnowledgeDto
+@{
+    Layout = "_Layout";
+    string url = "https://api.opendota.com";
+}
+
+<div class="characters-page">
+    <div class="wrapper-characters">
+        <h1 class="dota-title">DOTA HEROES</h1>
+        <section class="characters">
+            <div class="characters-grid">
+                @foreach (var character in Model.StrenghtHeroes)
+                {
+                    <div class="character-card">
+                        <a asp-controller="Character" asp-action="Details" asp-route-id="@character.Id">
+                            <div class="character-img-wrapper">
+                                <img class="character-img" src="@url@character.ImagePath" alt="Alternate Text" />
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+            <div class="characters-grid">
+                @foreach (var character in Model.AgilityHeroes)
+                {
+                    <div class="character-card">
+                        <a asp-controller="Character" asp-action="Details" asp-route-id="@character.Id">
+                            <div class="character-img-wrapper">
+                                <img class="character-img" src="@url@character.ImagePath" alt="Alternate Text" />
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+            <div class="characters-grid">
+                @foreach (var character in Model.IntHeroes)
+                {
+                    <div class="character-card">
+                        <a asp-controller="Character" asp-action="Details" asp-route-id="@character.Id">
+                            <div class="character-img-wrapper">
+                                <img class="character-img" src="@url@character.ImagePath" alt="Alternate Text" />
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+            <div class="characters-grid">
+                @foreach (var character in Model.UniversalHeroes)
+                {
+                    <div class="character-card">
+                        <a asp-controller="Character" asp-action="Details" asp-route-id="@character.Id">
+                            <div class="character-img-wrapper">
+                                <img class="character-img" src="@url@character.ImagePath" alt="Alternate Text" />
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+</div>

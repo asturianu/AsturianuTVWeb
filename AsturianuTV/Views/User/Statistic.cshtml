@@ -63,7 +63,7 @@
                             {
                                 <tr>
                                     <td>
-                                        <a asp-controller="User" asp-action="CheckMatch">@item.Character.Name</a>
+                                        <a asp-controller="User" asp-action="CheckMatch" asp-route-id="@item.Match_Id">@item.Character.Name</a>
                                     </td>
                                     <td>@item.Radiant_Win</td>
                                     <td>@item.Kills</td>
@@ -86,7 +86,8 @@
             "paging": false
         });
         $('#matchesId').DataTable({
-            "paging": false
+            "paging": false,
+            "order": []
         });
     });
 </script>
