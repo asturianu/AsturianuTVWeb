@@ -45,7 +45,7 @@
 
     <div class="form-group">
         <label asp-for="TeamIds">Select teams:</label>
-        <select asp-for="TeamIds" multiple>
+        <select class="js-example-basic-multiple" asp-for="TeamIds" multiple>
             @foreach (var team in teams)
             {
                 <option value="@team.Id">@team.Name</option>
@@ -58,3 +58,9 @@
         </button>
     </div>
 </form>
+
+<script>
+    $(document).ready(function () {
+        $('.js-example-basic-multiple').select2();
+    });
+</script>

@@ -1002,7 +1002,7 @@ ul > li {
     top: 56%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
+    width: 50%;
     height: 80%;
     background-color: #2d3641;
     display: flex;
@@ -1012,27 +1012,68 @@ ul > li {
     width: 100%;
     background-color: #242a37;
     margin: 10px;
+    padding: 15px;
+    overflow: auto;
+}
+
+.team-title {
+    color: orange;
+}
+
+.autopicker-block > h2 {
+    font-size: 35px;
+    color: orange;
+    margin-bottom: 20px;
+}
+
+.autopicker-block > p {
+    color: #B5B5B5;
+    padding: 0 15px;
 }
 
 .autopicker {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 50px;
     width: 80%;
     margin: 40px auto 0;
 }
 
 .team-heroes {
+    width: 100%;
+}
 
+.select2.select2-container {
+    width: 100%!important
+}
+
+.select2-selection.select2-selection--single {
+    height: 32px!important
 }
 
 .team-heroe {
-    margin: 20px;
+    margin: 20px 0;
 }
 
-.select2-container {
-    height: 40px!important;
+#myTeam {
+    width: 100%;
 }
+#enemyTeam {
+    width: 100%;
+}
+
+#analyze-button {
+    background: none;
+    color: orange;
+    border: 1px solid orange;
+    border-radius: 3px;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: block;
+    margin: 30px auto 30px;
+}
+
 
 .statistic-container {
     position: fixed;
@@ -1238,4 +1279,88 @@ ul > li {
 
 .item-img {
     width: 45px;
+}
+
+.heroe-popular-item > h2{
+    color: #B5B5B5;
+}
+
+.hero-items {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.hero-base-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.hero-base-block {
+    margin-top: 10px;
+    padding: 7px 0;
+}
+
+.hero-base-block > h2 {
+    font-size: 13px;
+}
+
+.hero-base-block > h2 > span {
+    color: orange;
+}
+
+.analyze-result-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.analyze-result-block {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.hero-image {
+    width: 50px;
+}
+
+.red {
+    color: red;
+    font-size: 13px;
+}
+
+.green {
+    color: green;
+    font-size: 13px;
+}
+
+.orange {
+    color: orange;
+    font-size: 13px;
+}
+
+.hero-info {
+    margin: 15px 0;
+}
+
+.green {
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+
+.hero-info-title {
+    margin-bottom: 5px;
+    color: #B5B5B5;
+    margin-top: 15px;
+}
+
+.hero-overtitle-green {
+    color: green;
+}
+
+
+.hero-overtitle-red {
+    color: red;
 }

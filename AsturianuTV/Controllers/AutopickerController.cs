@@ -103,9 +103,12 @@ namespace AsturianuTV.Controllers
                 .Select(matchup => new OpenDotaCharacterMatchupDto
                 {
                     Id = matchup.Hero_Id,
+                    MainId = characters.FirstOrDefault(x => x.OpenDotaId == matchup.Hero_Id).Id,
                     Name = characters.FirstOrDefault(x => x.OpenDotaId == matchup.Hero_Id)?.Name,
                     ImagePath = characters.FirstOrDefault(x => x.OpenDotaId == matchup.Hero_Id)?.ImagePath,
-                    WinRate = (matchup.Wins * 100.0f) / matchup.Games_Played
+                    WinRate = (matchup.Wins * 100.0f) / matchup.Games_Played,
+                    Games = matchup.Games_Played,
+                    Wins = matchup.Wins
                 })
                 .ToList();
 
@@ -136,9 +139,12 @@ namespace AsturianuTV.Controllers
                 .Select(matchup => new OpenDotaCharacterMatchupDto
                 {
                     Id = matchup.Hero_Id,
+                    MainId = characters.FirstOrDefault(x => x.OpenDotaId == matchup.Hero_Id).Id,
                     Name = characters.FirstOrDefault(x => x.OpenDotaId == matchup.Hero_Id)?.Name,
                     ImagePath = characters.FirstOrDefault(x => x.OpenDotaId == matchup.Hero_Id)?.ImagePath,
-                    WinRate = (matchup.Wins * 100.0f) / matchup.Games_Played
+                    WinRate = (matchup.Wins * 100.0f) / matchup.Games_Played,
+                    Games = matchup.Games_Played,
+                    Wins = matchup.Wins
                 })
                 .ToList();
 

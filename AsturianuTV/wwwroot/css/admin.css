@@ -331,6 +331,10 @@ td, th {
     margin-top: 15px;
 }
 
+.form-group.main, .form-group.main > textarea {
+    width: 100%
+}
+
 .form-group > input {
     width: 100%;
     font-size: 14px;
@@ -391,10 +395,6 @@ td, th {
     background-color: #fe6637;
 }
 
-.form-group > span {
-    width: 100%!important;
-}
-
 .select2-container .select2-selection--single {
     height: 35px!important;
 }
@@ -420,7 +420,6 @@ td, th {
 
 .select2-container {
     margin-top: 6px;
-    width: 100%!important;
 }
 
 .select-match {
@@ -462,4 +461,16 @@ td, th {
     display: flex;
     justify-content: space-between;
     align-items: center
+}
+
+.form-group > .select2.select2-container {
+    width: 100%!important
+}
+
+.form-group > input {
+    font-family: Roboto;
+}
+
+.material-img {
+    width: 40px;
 }

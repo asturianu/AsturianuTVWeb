@@ -3,6 +3,7 @@
     public class OpenDotaCharacterMatchupDto
     {
         public int Id { get; set; }
+        public int MainId { get; set; }
         public string Name { get; set; }
         public string ImagePath { get; set; }
         public float WinRate { get; set; }

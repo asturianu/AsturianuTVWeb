@@ -1,63 +1,97 @@
-﻿@model AsturianuTV.Dto.NewsDto
+﻿@using AsturianuTV.Services.Interfaces
+@inject IPreloadDataService preload
+@inject ITeamService teamService
+@inject ILeagueService leagueService
+@inject IPlayerService playerService
+@model AsturianuTV.ViewModels.System.NewsViewModels.CreateNewsViewModel
 @{
     Layout = "_AdminLayout";
+    var tags = await preload.GetTags();
+    var materials = await preload.GetMaterials();
+    var players = await playerService.GetAllPlayers();
+    var leagues = await leagueService.GetAllLeagues();
+    var teams = await teamService.GetAllTeams();
 }
-<form class="form" asp-action="Create" asp-controller="News">
-    <div class="form-group">
-        <label asp-for="Title" class="control-label">Title: </label>
-        <input class="field" type="text" asp-for="Title" class="form-control" />
+
+<form class="admin-form" asp-action="Create" asp-controller="News">
+    <h2 class="form-title">Create news</h2>
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="Title" class="control-label">Title</label>
+            <input class="field" type="text" asp-for="Title" />
+        </div>
+        <div class="form-group">
+            <label asp-for="LeagueId" class="control-label">Select league</label>
+            <select class="js-example-basic-single" asp-for="LeagueId" size="1">
+                <option value="null">Nothing</option>
+                @foreach (var league in leagues)
+                {
+                    <option value="@league.Id">@league.Name</option>
+                }
+            </select>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Description" class="control-label">Description: </label>
-        <input class="field" type="text" asp-for="Description" class="form-control" />
+
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="PlayerId" class="control-label">Select player</label>
+            <select class="js-example-basic-single" asp-for="PlayerId" size="1">
+                <option value="null">Nothing</option>
+                @foreach (var player in players)
+                {
+                    <option value="@player.Id">@player.FullName</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="TeamId" class="control-label">Select team</label>
+            <select class="js-example-basic-single" asp-for="TeamId" size="1">
+                <option value="null">Nothing</option>
+                @foreach (var team in teams)
+                {
+                    <option value="@team.Id">@team.Name</option>
+                }
+            </select>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="IsReady" class="control-label">IsReady: </label>
-        <input class="field" type="text" asp-for="IsReady" class="form-control" />
-    </div>
-
-    <div class="form_label">
-        <div class="multiselect_block">
-            <label for="select-1" class="field_multiselect">Tags</label>
-
-            <input id="checkbox-1" class="multiselect_checkbox" type="checkbox">
-            <label for="checkbox-1" class="multiselect_label"></label>
-
-            <select id="select-1" class="field_select" asp-for="Tags" name="Tags" multiple>
-                @foreach (var tag in Model.Tags)
+    <div class="form-groups">
+        <div class="form-group">
+            <label asp-for="Tags" class="control-label">Select tags for news</label>
+            <select class="js-example-basic-multiple" asp-for="Tags" name="Tags">
+                @foreach (var tag in tags)
                 {
                     <option value="@tag.Id">@tag.Name</option>
                 }
             </select>
         </div>
-    </div>
 
-    <div class="form_label">
-        <div class="multiselect_block">
-            <label for="select-2" class="field_multiselect">Frameworks</label>
-
-            <input id="checkbox-2" class="multiselect_checkbox" type="checkbox">
-            <label for="checkbox-2" class="multiselect_label"></label>
-
-            <select id="select-2" class="field_select" asp-for="Materials" name="Materials" multiple>
-                @foreach (var tag in Model.Materials)
+        <div class="form-group">
+            <label asp-for="Materials" class="control-label">Select materials for news</label>
+            <select class="js-example-basic-multiple" asp-for="Materials" name="Materials">
+                @foreach (var material in materials)
                 {
-                    <option value="@tag.Id">@tag.FilePath</option>
+                    <option value="@material.Id">
+                        @material.FilePath"
+                    </option>
                 }
             </select>
         </div>
     </div>
-
+    <div class="form-group main">
+        <label asp-for="Description" class="control-label">Description</label>
+        <textarea asp-for="Description"></textarea>
+    </div>
     <div class="form-group">
-        <input type="submit" value="Отправить" class="btn btn-default" />
+        <button class="save-button" type="submit">
+            Save
+        </button>
     </div>
 </form>
 
-@section NewsStyles { 
-    <link href="~/css/news.css" rel="stylesheet" />
-}
 
-@section NewsScripts {
-    <script src="~/js/news.js"></script>
-}
+<script>
+    $(document).ready(function () {
+        $('.js-example-basic-multiple').select2();
+        $('.js-example-basic-single').select2();
+    });
+</script>

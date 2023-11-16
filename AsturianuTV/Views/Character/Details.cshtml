@@ -15,6 +15,68 @@
                         </div>
                         <div>
                             <h2 class="heroe-title">@Model.Name</h2>
+                            <div class="hero-base-wrapper">
+                                <div class="hero-base-info">
+                                    <div class="hero-base-block">
+                                        <h2>
+                                            AT:
+                                            <span>@Model.Attribute</span>
+                                        </h2>
+                                    </div>
+                                    <div class="hero-base-block">
+                                        <h2>
+                                            RT:
+                                            <span>@Model.RangeType</span>
+                                        </h2>
+                                    </div>
+                                    <div class="hero-base-block">
+                                        <h2>
+                                            MS: 
+                                            <span>@Model.MoveSpeed</span>
+                                        </h2>
+                                    </div>
+                                </div>
+                                <div class="hero-base-info">
+                                    <div class="hero-base-block">
+                                        <h2>
+                                            D:
+                                            <span>@Model.Damage</span>
+                                        </h2>
+                                    </div>
+                                    <div class="hero-base-block">
+                                        <h2>
+                                            A:
+                                            <span>@Model.Armor</span>
+                                        </h2>
+                                    </div>
+                                    <div class="hero-base-block">
+                                        <h2>
+                                            MR:
+                                            <span>@Model.MagicResist</span>
+                                        </h2>
+                                    </div>
+                                </div>
+                                <div class="hero-base-info">
+                                    <div class="hero-base-block">
+                                        <h2>
+                                            H:
+                                            <span>@Model.Health</span>
+                                        </h2>
+                                    </div>
+                                    <div class="hero-base-block">
+                                        <h2>
+                                            MP:
+                                            <span>@Model.Mana</span>
+                                        </h2>
+                                    </div>
+                                    <div class="hero-base-block">
+                                        <h2>
+                                            MR:
+                                            <span>@Model.ManaRegeneration</span>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -31,7 +93,9 @@
                             <h2 class="heroe-title-stat">@item.Name</h2>
                             <div class="heroe-stat-info">
                                 <div class="hero-stat-info-left">
-                                    <img class="heroe-img" src="@url@item.ImagePath" alt="Alternate Text" />
+                                    <a asp-controller="Character" asp-action="Details" asp-route-id="@item.MainId">
+                                        <img class="heroe-img" src="@url@item.ImagePath" alt="Alternate Text" />
+                                    </a>
                                 </div>
                                 <div class="hero-stat-matchup">
                                     <p class="heroe-desc win-rate">Win rate: @item.WinRate</p>
@@ -49,7 +113,9 @@
                             <h2 class="heroe-title-stat">@item.Name</h2>
                             <div class="heroe-stat-info">
                                 <div class="hero-stat-info-left">
-                                    <img class="heroe-img" src="@url@item.ImagePath" alt="Alternate Text" />
+                                    <a asp-controller="Character" asp-action="Details" asp-route-id="@item.MainId">
+                                        <img class="heroe-img" src="@url@item.ImagePath" alt="Alternate Text" />
+                                    </a>
                                 </div>
                                 <div class="hero-stat-matchup">
                                     <p class="heroe-desc win-rate">Win rate: @item.WinRate</p>

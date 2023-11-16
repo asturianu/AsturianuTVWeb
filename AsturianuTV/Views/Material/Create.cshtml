@@ -3,28 +3,15 @@
     Layout = "_AdminLayout";
 }
 
-<form class="form" asp-action="Create" asp-controller="Material" enctype="multipart/form-data">
-    <h2 class="form-title">Добавление файла</h2>
-    <input class="material" type="file" name="FilePath" />
-    
+<form class="admin-form" asp-action="Create" asp-controller="Material" enctype="multipart/form-data">
+    <h2 class="form-title">Create material</h2>
     <div class="form-group">
-        <label asp-for="IsNewsMaterial" class="control-label">Тип урона: </label>
-        <div class="form-radio">
-            <div class="form_radio_btn">
-                <input id="radio-1" type="radio" asp-for="IsNewsMaterial" value="@true" checked>
-                <label for="radio-1">True</label>
-            </div>
-            <div class="form_radio_btn">
-                <input id="radio-2" type="radio" asp-for="IsNewsMaterial" value="@false" checked>
-                <label for="radio-2">False</label>
-            </div>
-        </div>
+        <label asp-for="FilePath">Path</label>
+        <input type="text" asp-for="FilePath">
     </div>
     <div class="form-group">
-        <input class="btn submit" type="submit" value="Отправить" />
+        <button class="save-button" type="submit">
+            Save
+        </button>
     </div>
 </form>
-
-<script>
-
-</script>

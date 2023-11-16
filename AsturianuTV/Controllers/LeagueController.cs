@@ -68,7 +68,6 @@ namespace AsturianuTV.Controllers
             var legue = await _legueRepository.Read()
                 .AsNoTracking()
                 .Include(x => x.LeagueTeams)
-                .ThenInclude(x => x.Team)
                 .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
             return View(legue);

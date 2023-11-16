@@ -1,5 +1,6 @@
 ﻿using AsturianuTV.Dto.OpenDotaSync;
 using AsturianuTV.Infrastructure.Data.Enums;
+using AsturianuTV.Infrastructure.Data.Models;
 using AsturianuTV.Infrastructure.Data.Models.BaseKnowledges;
 using AsturianuTV.Infrastructure.Data.Models.ContentNews;
 using AsturianuTV.Infrastructure.Data.Models.Cybersports;
@@ -22,6 +23,9 @@ namespace AsturianuTV.Controllers
         private readonly IRepository<Team> _teamRepository;
         private readonly IRepository<Player> _playerRepository;
 
+        private readonly IRepository<Material> _materialRepository;
+        private readonly IRepository<Tag> _tagRepository;
+
         private readonly IRepository<Match> _matchRepository;
         private readonly IRepository<PlayerMatchStats> _playerMatchStatsRepository;
 
@@ -36,6 +40,8 @@ namespace AsturianuTV.Controllers
             IRepository<League> leagueRepository,
             IRepository<Team> teamRepository,
             IRepository<Player> playerRepository,
+            IRepository<Material> materialRepository,
+            IRepository<Tag> tagRepository,
             IRepository<Match> matchRepository,
             IRepository<PlayerMatchStats> playerMatchStatsRepository,
             IRepository<News> newsRepository,
@@ -48,6 +54,8 @@ namespace AsturianuTV.Controllers
             _teamRepository = teamRepository;
             _playerRepository = playerRepository;
             _matchRepository = matchRepository;
+            _materialRepository = materialRepository;
+            _tagRepository = tagRepository;
             _playerMatchStatsRepository = playerMatchStatsRepository;
             _newsRepository = newsRepository;
             _heroeRepository = heroeRepository;
@@ -61,6 +69,22 @@ namespace AsturianuTV.Controllers
         {
 
             return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Materials()
+        {
+            var materials = await _materialRepository.Read().ToListAsync();
+            return View(materials);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Tags()
+        {
+            var tags = await _tagRepository.Read().ToListAsync();
+            return View(tags);
         }
 
         [HttpPost]

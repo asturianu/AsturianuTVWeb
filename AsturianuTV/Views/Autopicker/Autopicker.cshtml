@@ -5,18 +5,24 @@
 }
 @{
     Layout = "_Layout";
+    string url = "https://api.opendota.com";
 }
 
 <div class="autopicker-container">
     <div class="autopicker-block">
+        <h2>Autopicker</h2>
+        <p>
+            Here you can pick a hero depending on what characters you already have on your team and on your opponent's team. The system will analyze your draft and help you choose the most suitable variant, as well as tell you which heroes should not be taken against the enemy peak. The system will make the best analysis. Choose, combine and enjoy the process
+        </p>
         <div class="autopicker">
             <section id="myTeam" class="team-block">
+                <h2 class="team-title">Your team</h2>
                 <div class="team-heroes">
                     @for (int i = 0; i < 5; i++)
                     {
                         <div class="team-heroe">
                             <select class="js-example-basic-single" name="state">
-                                <option value="0">Not choosen</option>
+                                <option value="0"></option>
                                 @foreach (var heroe in heroes)
                                 {
                                     <option value="@heroe.OpenDotaId">
@@ -29,12 +35,13 @@
                 </div>
             </section>
             <section id="enemyTeam" class="team-block">
+                <h2 class="team-title">Enemy team</h2>
                 <div class="team-heroes">
                     @for (int i = 0; i < 5; i++)
                     {
                         <div class="team-heroe">
                             <select class="js-example-basic-single" name="state">
-                                <option value="0">Not choosen</option>
+                                <option value="0"></option>
                                 @foreach (var heroe in heroes)
                                 {
                                     <option value="@heroe.OpenDotaId">@heroe.Name</option>
@@ -45,13 +52,21 @@
                 </div>
             </section>
         </div>
-        <button id="analyze-button" class="btn btn-primary">Analyze Picks</button>
+        <button id="analyze-button">Analyze Picks</button>
 
         <div class="analyze-result-section">
-            <div id="bestHeroesMyTeamContainer"></div>
-            <div id="worstHeroesMyTeamContainer"></div>
-            <div id="bestHeroesEnemyTeamContainer"></div>
-            <div id="worstHeroesEnemyTeamContainer"></div>
+            <div class="analyze-result-block">
+                <div id="bestHeroesMyTeamContainer">
+                </div>
+                <div id="worstHeroesMyTeamContainer">
+                </div>
+            </div>
+            <div class="analyze-result-block">
+                <div id="bestHeroesEnemyTeamContainer">
+                </div>
+                <div id="worstHeroesEnemyTeamContainer">
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -62,11 +77,23 @@
             $(containerId).empty();
             heroes.forEach(function (heroData) {
                 var heroElement = $('<div>').addClass('hero');
-                heroElement.append($('<span>').text(heroData.hero.name));
 
-                var matchupsList = $('<ul>');
+                if (containerId == '#bestHeroesMyTeamContainer' || containerId == '#bestHeroesEnemyTeamContainer') {
+                    heroElement.append($('<h2>').addClass('hero-overtitle-green').text('The heroe better'));
+                } else {
+                    heroElement.append($('<h2>').addClass('hero-overtitle-red').text('The heroe worst'));
+                }
+
+                heroElement.append($('<h3>').addClass('hero-info-title').text(heroData.hero.name));
+                heroElement.append($('<img>').attr('src', 'https://api.opendota.com' + heroData.hero.imagePath).addClass('hero-image'));
+
+                var matchupsList = $('<div>').addClass('hero-info');
                 heroData.matchups.forEach(function (matchup) {
-                    matchupsList.append($('<li>').text(matchup.name + ' - Win Rate: ' + matchup.winRate));
+                    matchupsList.append($('<h4>').addClass('hero-info-title').text(matchup.name));
+                    matchupsList.append($('<img>').attr('src', 'https://api.opendota.com' + matchup.imagePath).addClass('hero-image'));
+                    matchupsList.append($('<p>').addClass('red').text('Win Rate: ' + matchup.winRate.toFixed(1)));
+                    matchupsList.append($('<p>').addClass('orange').text('Games: ' + matchup.games));
+                    matchupsList.append($('<p>').addClass('green').text('Wins: ' + matchup.wins));
                 });
 
                 heroElement.append(matchupsList);

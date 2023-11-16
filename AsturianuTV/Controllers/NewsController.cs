@@ -65,12 +65,7 @@ namespace AsturianuTV.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create(CancellationToken cancellationToken) => 
-            View(new NewsDto
-            {
-                Tags = await _tagRepository.ListAsync(cancellationToken),
-                Materials = await _materialRepository.Read().AsNoTracking().Where(x => x.IsNewsMaterial).Distinct().ToListAsync(cancellationToken)
-            });
+        public IActionResult Create() => View();
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateNewsViewModel newsViewModel)
@@ -100,8 +95,6 @@ namespace AsturianuTV.Controllers
                     }
                 }
             }
-            else
-                NotFound();
 
             return RedirectToAction("Index", "News");
         }

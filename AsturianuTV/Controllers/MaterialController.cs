@@ -42,56 +42,29 @@ namespace AsturianuTV.Controllers
             {
                 if (materialViewModel.FilePath != null)
                 {
-                    var path = "/Files/Materials/" + Guid.NewGuid() + materialViewModel.FilePath.FileName;
-                    await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    var material = new Material
                     {
-                        await materialViewModel.FilePath.CopyToAsync(fileStream);
-                    }
+                        FilePath = materialViewModel.FilePath
+                    };
 
-                    var material = _mapper.Map<Material>(materialViewModel);
-                    material.FilePath = path;
-                    material.ContentType = materialViewModel.FilePath.ContentType;
                     await _materialRepository.AddAsync(material);
                 }
             }
-            else
-                NotFound();
-
-            return RedirectToAction("Index", "Material");
-        }
-
-        [HttpGet]
-        [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int? id, CancellationToken cancellationToken)
-        {
-            if (id != null)
-            {
-                var material = await _materialRepository
-                    .Read()
-                    .AsNoTracking()
-                    .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
-
-                if (material != null)
-                    return View(material);
-            }
-
-            return NotFound();
+            return RedirectToAction("Materials", "Admin");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete([FromRoute] int? id, CancellationToken cancellationToken)
+        public async Task<IActionResult> Delete(int? id, CancellationToken cancellationToken)
         {
             if (id != null)
             {
-                var material = await _materialRepository
-                    .Read()
-                    .AsNoTracking()
+                var material = await _materialRepository.Read()
                     .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
                 if (material != null)
                 {
                     await _materialRepository.DeleteAsync(material);
-                    return RedirectToAction("Index", "Material");
+                    return RedirectToAction("Materials", "Admin");
                 }
             }
             return NotFound();

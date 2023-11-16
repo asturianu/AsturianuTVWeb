@@ -1,3 +1,41 @@
-﻿@{
+﻿@model List<AsturianuTV.Infrastructure.Data.Models.Material>
+@{
     Layout = "_AdminLayout";
 }
+
+<div class="admin-content-block">
+    <div class="admin-content-block-top">
+        <h2 class="admin-content-block-title">Match</h2>
+        <a asp-controller="Material" asp-action="Create">
+            Create new material
+        </a>
+    </div>
+    <table id="tableId" class="table">
+        <thead>
+            <tr>
+                <th>Material name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img class="material-img" src="@item.FilePath" alt="Alternate Text" />
+                    </td>
+                    <td class="table-actions">
+                        <form asp-controller="Material"
+                              asp-action="Delete"
+                              method="post">
+                            <input type="hidden" name="Id" value="@item.Id" />
+                            <button class="table-action" type="submit" name="delete">
+                                <img class="table-action-img" src="/assets/icons8-мусор (1).svg" alt="Alternate Text" />
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
