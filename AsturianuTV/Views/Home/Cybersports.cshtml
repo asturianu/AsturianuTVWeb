@@ -1,16 +1,43 @@
-﻿@{
+﻿@model List<AsturianuTV.Infrastructure.Data.Models.ContentNews.News>
+@{
     Layout = "_Layout";
 }
 
-<div>
-    <h2>News</h2>
-    <h2>Leagues</h2>
-    <h2>Teams</h2>
+<div class="navigarion-menu">
+    <a asp-controller="Home" asp-action="Cybersports" class="navigation-button active">NEWS</a>
+    <a asp-controller="Home" asp-action="Leagues" class="navigation-button">LEAGUES</a>
+    <a asp-controller="Home" asp-action="LeaguesTimeline" class="navigation-button">LEAGUES TIMELINE</a>
+    <a asp-controller="Home" asp-action="Teams" class="navigation-button">TEAMS</a>
 </div>
+<div class="news-contrainer">
+    <h1>
+        This is the news section, read and stay up to date with cyber sporting events
+    </h1>
+    <div class="news-wrapper">
+        <div class="main-news-block">
+            @foreach (var item in Model)
+            {
+                <div class="news-block">
+                    <h2 class="title-news">
+                        <a asp-controller="News" asp-action="Details" asp-route-id="@item.Id">@item.Title</a>
+                    </h2>
+                    <div class="new-img-block">
+                        @foreach (var img in item.NewsMaterials)
+                        {
+                            <img src="@img.Material.FilePath" alt="Alternate Text" />
+                        }
+                    </div>
+                    <div class="news-tag-block">
+                        @foreach (var tag in item.NewsTags)
+                        {
+                            <p>@tag.Tag.Name</p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="">
 
-<div>
-    <h2>Timeline</h2>
-    <a asp-controller="Home" asp-action="Players">Players</a>
-    <a asp-controller="Home" asp-action="Leagues">Leagues</a>
+        </div>
+    </div>
 </div>
-

@@ -1,11 +1,7 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Rubik:wght@500&display=swap');
 
 body {
-    background: black;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: url(../assets/rosh-background.jpg);
-    background-size: auto;
+    background-color: #14171d;
 }
 
 @font-face {

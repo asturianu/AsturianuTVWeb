@@ -1,0 +1,58 @@
+﻿@model List<AsturianuTV.Infrastructure.Data.Models.Cybersports.League>
+@{
+    Layout = "_Layout";
+}
+
+<div class="navigarion-menu">
+    <a asp-controller="Home" asp-action="Cybersports" class="navigation-button">NEWS</a>
+    <a asp-controller="Home" asp-action="Leagues" class="navigation-button">LEAGUES</a>
+    <a asp-controller="Home" asp-action="LeaguesTimeline" class="navigation-button active">LEAGUES TIMELINE</a>
+    <a asp-controller="Home" asp-action="Teams" class="navigation-button">TEAMS</a>
+</div>
+
+<div class="timeline-block">
+    <div id='calendar'></div>
+</div>
+
+@section LeaguesScripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'resourceTimelineMonth',
+                schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+                resources: @Html.Raw(ViewBag.Resources),
+                events: @Html.Raw(ViewBag.Events),
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'resourceTimelineDay, resourceTimelineWeek, resourceTimelineMonth, resourceTimelineYear'
+                },
+                initialView: 'resourceTimelineMonth',
+                views: {
+                    resourceTimelineDay: {
+                        type: 'resourceTimeline',
+                        duration: { days: 1 },
+                        buttonText: 'day'
+                    },
+                    resourceTimelineWeek: {
+                        type: 'resourceTimeline',
+                        duration: { weeks: 1 },
+                        buttonText: 'week'
+                    },
+                    resourceTimelineMonth: {
+                        type: 'resourceTimeline',
+                        duration: { months: 1 },
+                        buttonText: 'month'
+                    },
+                    resourceTimelineYear: {
+                        type: 'resourceTimeline',
+                        duration: { years: 1 },
+                        buttonText: 'year'
+                    }
+                }
+            });
+            calendar.render();
+        });
+    </script>
+}

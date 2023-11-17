@@ -32,6 +32,18 @@ namespace AsturianuTV.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Details (int id)
+        {
+            var legue = await _legueRepository.Read()
+                 .AsNoTracking()
+                 .Include(x => x.LeagueTeams)
+                 .Include(x => x.Matches)
+                 .SingleOrDefaultAsync(x => x.Id == id);
+
+            return View(legue);
+        }
+
         [HttpGet]
         public IActionResult Create() => View();
 
@@ -70,7 +82,9 @@ namespace AsturianuTV.Controllers
                 .Include(x => x.LeagueTeams)
                 .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
-            return View(legue);
+            var result = _mapper.Map<UpdateLeagueViewModel>(legue);
+
+            return View(result);
         }
 
         [HttpPost]
@@ -83,28 +97,31 @@ namespace AsturianuTV.Controllers
                 var league = await _legueRepository.Read()
                     .FirstOrDefaultAsync(x => x.Id == updateLegueViewModel.Id, cancellationToken);
 
-                _mapper.Map(league, updateLegueViewModel);
+                _mapper.Map(updateLegueViewModel, league);
 
                 await _legueRepository.UpdateAsync(league);
 
-                var teamLeagues = await _leagueTeamRepository.Read()
-                    .Where(x => x.LeagueId == league.Id)
-                    .ToListAsync(cancellationToken);
-
-                await _leagueTeamRepository.DeleteRangeAsync(teamLeagues, cancellationToken);
-
-                var listOfLeagueTeams = new List<LeagueTeam>();
-
-                foreach (var item in updateLegueViewModel.TeamIds)
+                if (updateLegueViewModel.TeamIds != null)
                 {
-                    listOfLeagueTeams.Add(new LeagueTeam
-                    {
-                        TeamId = item,
-                        LeagueId = league.Id
-                    });
-                }
+                    var teamLeagues = await _leagueTeamRepository.Read()
+                        .Where(x => x.LeagueId == league.Id)
+                        .ToListAsync(cancellationToken);
 
-                await _leagueTeamRepository.AddRangeAsync(listOfLeagueTeams);
+                    await _leagueTeamRepository.DeleteRangeAsync(teamLeagues, cancellationToken);
+
+                    var listOfLeagueTeams = new List<LeagueTeam>();
+
+                    foreach (var item in updateLegueViewModel.TeamIds)
+                    {
+                        listOfLeagueTeams.Add(new LeagueTeam
+                        {
+                            TeamId = item,
+                            LeagueId = league.Id
+                        });
+                    }
+
+                    await _leagueTeamRepository.AddRangeAsync(listOfLeagueTeams);
+                }
             }
 
             else { NotFound(); }

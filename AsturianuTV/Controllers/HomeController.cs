@@ -39,9 +39,17 @@ namespace AsturianuTV.Controllers
             return View();
         }
 
-        public IActionResult Cybersports()
+        public async Task<IActionResult> Cybersports()
         {
-            return View();
+            var news = await _newsRepository.Read()
+                .Include(x => x.NewsMaterials)
+                    .ThenInclude(x => x.Material)
+                .Include(x => x.NewsTags)
+                    .ThenInclude(x => x.Tag)
+                .OrderByDescending(x => x.Id)
+                .ToListAsync();
+
+            return View(news);
         }
 
         [HttpGet]
@@ -71,7 +79,9 @@ namespace AsturianuTV.Controllers
         [HttpGet]
         public async Task<IActionResult> Leagues()
         {
-            var leagues = await _leagueRepository.Read().ToListAsync();
+            var leagues = await _leagueRepository.Read()
+                .OrderByDescending(x => x.EndDate)
+                .ToListAsync();
 
             var resources = leagues.Select(l => new {
                 id = l.Id.ToString(),
@@ -89,7 +99,34 @@ namespace AsturianuTV.Controllers
             ViewBag.Resources = JsonConvert.SerializeObject(resources);
             ViewBag.Events = JsonConvert.SerializeObject(events);
             ViewBag.CurrentAction = "Leagues";
-            return View();
+            return View(leagues);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> LeaguesTimeline()
+        {
+            var leagues = await _leagueRepository.Read()
+                .OrderByDescending(x => x.EndDate)
+                .ToListAsync();
+
+            var resources = leagues.Select(l => new {
+                id = l.Id.ToString(),
+                title = l.Name
+            }).ToList();
+
+            var events = leagues.Select(l => new {
+                resourceId = l.Id.ToString(),
+                title = l.Name,
+                start = l.StartDate.ToString("O"),
+                end = l.EndDate.ToString("O"),
+                allDay = false
+            }).ToList();
+
+            ViewBag.Resources = JsonConvert.SerializeObject(resources);
+            ViewBag.Events = JsonConvert.SerializeObject(events);
+            ViewBag.CurrentAction = "Leagues";
+            return View(leagues);
         }
 
         [HttpGet]

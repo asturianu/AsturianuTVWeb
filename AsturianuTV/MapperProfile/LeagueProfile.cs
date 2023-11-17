@@ -16,6 +16,8 @@ namespace AsturianuTV.MapperProfile
             CreateMap<UpdateLeagueViewModel, League>()
                 .ForMember(dest => dest.News, opt => opt.Ignore())
                 .ForMember(dest => dest.LeagueTeams, opt => opt.Ignore());
+
+            CreateMap<League, UpdateLeagueViewModel>();
         }
     }
 }
