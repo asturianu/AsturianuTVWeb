@@ -1099,9 +1099,34 @@ ul > li {
 
 .statistic-profile-info {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 20px;
     background-color: #242a37;
     margin: 15px;
+}
+
+.statistic-profile-info-main-stats > p {
+    color: #B5B5B5;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.statistic-profile-info-main-stats > p > span.pername {
+    color: aquamarine;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.statistic-profile-info-main-stats > p > span.ranktier {
+    color: red;
+}
+
+.statistic-profile-info-main-stats > p > span.sub {
+    color: green;
+}
+
+.statistic-profile-info-main-stats > p > span.nosub {
+    color: red;
 }
 
 .statistic-block-heroes {
@@ -1492,4 +1517,189 @@ ul > li {
 .league-price > p {
     color: white;
     margin-bottom: 10px;
+}
+
+.dota-match-wrapper {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.dota-match-block {
+    display: flex;
+    justify-content: space-between;
+}
+
+.team-block {
+    width: 100%;
+}
+
+.items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.items-row {
+    display: flex;
+    gap: 10px;
+}
+
+.neutral-item {
+    justify-self: end
+}
+
+.item-hero > img {
+    width: 88px;
+    height: 64px;
+}
+
+.total-value-block {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 25px;
+    margin: 20px 0;
+}
+
+.total-value > p {
+    color: #B5B5B5;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.heroe-card > h2 {
+    color: aliceblue;
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.heroe-card > a > img {
+    display: block;
+    width: 100%;
+}
+
+.kda > p {
+    color: green;
+}
+
+.heroe-kda > p {
+    color: red;
+}
+
+.creeps > p {
+    color: dodgerblue;
+}
+
+.heroe-damage > p {
+    color: yellow;
+}
+
+.gold > p {
+    color: orangered;
+}
+
+.exp > p {
+    color: aqua;
+}
+
+.gold > p > span,
+.exp > p > span,
+.kda > p > span,
+.heroe-kda > p > span,
+.heroe-damage > p > span,
+.creeps > p > span {
+    color: #B5B5B5;
+}
+
+.heroe-card {
+    background-color: #2d3641;
+    margin: 20px;
+    padding: 20px;
+}
+
+.win-title {
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.win-tile.green {
+    color: green;
+}
+
+.win-tile.red {
+    color: red;
+}
+
+.score {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.score > h3 {
+    color: #B5B5B5;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.score-block {
+    display: flex;
+    gap: 40px;
+}
+
+.radiant-score {
+    color: green;
+    font-size: 50px; 
+}
+
+.dire-score {
+    color: red;
+    font-size: 50px;
+}
+
+.team-block > h2 {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    color: #B5B5B5;
+}   
+
+#hereosId > thead > tr > th,
+#hereosId > tbody > tr > td,
+#matchesId > thead > tr > th,
+#matchesId > tbody > tr > td {
+    color: #B5B5B5;
+}
+#matchesId > tbody > tr > td > a{
+    color: orange;
+}
+.dataTables_filter {
+    margin: 10px;
+}
+.dataTables_filter > label {
+    color: #B5B5B5;
+}
+
+.radiant-win {
+    color: green;
+}
+
+.dire-win {
+    color: red;
+}
+
+.statistic-matches-main,
+.statistic-block-heroes-main,
+.statistic-profile-info {
+    padding: 15px;
+}
+
+td > span.hidden {
+    display: none;
 }

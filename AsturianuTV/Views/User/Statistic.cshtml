@@ -3,6 +3,7 @@
 @{
     Layout = "_Layout";
     var url = "https://api.opendota.com";
+    int duration;
 }
 
 <div class="statistic-container">
@@ -13,10 +14,19 @@
                     <img src="@Model.OpenDotaGeneralInfoUser.Profile.Avatarfull" alt="Alternate Text" />
                 </div>
                 <div class="statistic-profile-info-main-stats">
-                    <p>@Model.OpenDotaGeneralInfoUser.Profile.Personaname</p>
-                    <p>@Model.OpenDotaGeneralInfoUser.Profile.Loccountrycode</p>
-                    <p>@Model.OpenDotaGeneralInfoUser.Profile.Steamid</p>
-                    <p>@Model.OpenDotaGeneralInfoUser.Profile.Plus</p>
+                    <p>User name: <span class="pername">@Model.OpenDotaGeneralInfoUser.Profile.Personaname</span></p>
+                    <p>Location: <span class="locationname">@Model.OpenDotaGeneralInfoUser.Profile.Loccountrycode</span></p>
+                    <p>Steam id: <span class="stemid">@Model.OpenDotaGeneralInfoUser.Profile.Steamid</span></p>
+                    <p>Rank tier: <span class="ranktier">@Model.OpenDotaGeneralInfoUser.Rank_Tier</span></p>
+                    @if (Model.OpenDotaGeneralInfoUser.Profile.Plus)
+                    {
+                        <p>Dota plus status: <span class="sub">You are dota plus subscriber</span></p>
+                    }
+                    else
+                    {
+                        <p>Dota plus status: <span class="nosub">You do not plus</span></p>
+                    }
+
                 </div>
             </div>
             <div class="statistic-block-heroes">
@@ -53,9 +63,8 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Win</th>
-                                <th>Kills</th>
-                                <th>Deaths</th>
-                                <th>Assists</th>
+                                <th>KDA</th>
+                                <th>Duration</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -65,10 +74,23 @@
                                     <td>
                                         <a asp-controller="User" asp-action="CheckMatch" asp-route-id="@item.Match_Id">@item.Character.Name</a>
                                     </td>
-                                    <td>@item.Radiant_Win</td>
-                                    <td>@item.Kills</td>
-                                    <td>@item.Deaths</td>
-                                    <td>@item.Assists</td>
+                                    <td>
+                                        @if (@item.Radiant_Win)
+                                        {
+                                            <span class="radiant-win">Win</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="dire-win">Lose</span>
+                                        }
+                                    </td>
+                                    <td>@item.Kills / @item.Deaths / @item.Assists</td>
+                                    <td>
+                                        <span class="hidden">
+                                            @(int.TryParse(item.Duration, out duration))
+                                        </span>
+                                        @(duration/60) minutes
+                                    </td>
                                 </tr>
                             }
                         </tbody>

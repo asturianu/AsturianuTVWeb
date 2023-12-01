@@ -1,6 +1,299 @@
 ﻿@model AsturianuTV.Dto.OpenDotaSync.OpenDotaMatch.OpenDotaMatch
-@{ 
+@{
     Layout = "_Layout";
+    string url = "https://api.opendota.com";
 }
 
-<p>@Model.match_id</p>
+<div class="dota-match-container">
+    <div class="dota-match-wrapper">
+        @if (Model.radiant_win)
+        {
+            <h3 class="win-title green">Radiant win this game!</h3>
+        } 
+        else
+        {
+            <h3 class="win-title red">Dire win this game!</h3>
+        }
+        <div class="score">
+            <h3>Duration: @(Model.duration/60) minutes</h3>
+            <div class="score-block">
+                <h3 class="radiant-score">@Model.radiant_score</h3>
+                <h3 class="dire-score">@Model.dire_score</h3>
+            </div>
+        </div>
+        <div class="dota-match-block">
+            <div class="team-block">
+                <h2>Radiant team</h2>
+                @foreach (var match in Model.fteam.Values)
+                {
+                    <div class="heroe-card">
+                        <h2>@match.heroe.Name</h2>
+                        <a asp-controller="Character" asp-action="Details" asp-route-id="@match.heroe.Id">
+                            <img src="@url@match.heroe.ImagePath" />
+                        </a>
+                        <div class="total-value-block">
+                            <div class="gold total-value">
+                                <p><span>GPM: </span>@match.gold_per_min</p>
+                                <p><span>Gold: </span>@match.gold</p>
+                                <p><span>Gold spent: </span>@match.gold_spent</p>
+                            </div>
+                            <div class="kda total-value">
+                                <p><span>KDA: </span>@match.kda</p>
+                                <p><span>Total gold: </span>@match.total_gold</p>
+                                <p><span>Net worth: </span>@match.net_worth</p>
+                            </div>
+                            <div class="heroe-kda total-value">
+                                <p><span>Kills: </span>@match.kills</p>
+                                <p><span>Assists: </span>@match.assists</p>
+                                <p><span>Deaths: </span>@match.deaths</p>
+                            </div>
+                        </div>
+                        <div class="total-value-block">
+                            <div class="exp total-value">
+                                <p><span>EXPM: </span>@match.xp_per_min</p>
+                                <p><span>Total exp: </span>@match.total_xp</p>
+                            </div>
+                            <div class="creeps total-value">
+                                <p><span>Last hits: </span>@match.last_hits</p>
+                                <p><span>Denies: </span>@match.denies</p>
+                            </div>
+                            <div class="heroe-damage total-value">
+                                <p><span>Damage: </span>@match.hero_damage</p>
+                                <p><span>Healing: </span>@match.hero_healing</p>
+                            </div>
+                        </div>
+
+                        <div class="items">
+                            <div class="items-row">
+                                @if (match.item_0 != null && match.item_0obj != null)
+                                {
+                                    <div class="item-hero">
+                                        <img src="@url@match.item_0obj.ImagePath" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item-hero">
+                                        <img />
+                                    </div>
+                                }
+                                @if (match.item_1 != null && match.item_1obj != null)
+                                {
+                                    <div class="item-hero">
+                                        <img src="@url@match.item_1obj.ImagePath" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item-hero">
+                                        <img />
+                                    </div>
+                                }
+                                @if (match.item_2 != null && match.item_2obj != null)
+                                {
+                                    <div class="item-hero">
+                                        <img src="@url@match.item_2obj.ImagePath" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item-hero">
+                                        <img />
+                                    </div>
+                                }
+                            </div>
+                            <div class="items-row">
+                                @if (match.item_3 != null && match.item_3obj != null)
+                                {
+                                    <div class="item-hero">
+                                        <img src="@url@match.item_3obj.ImagePath" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item-hero">
+                                        <img />
+                                    </div>
+                                }
+                                @if (match.item_4 != null && match.item_4obj != null)
+                                {
+                                    <div class="item-hero">
+                                        <img src="@url@match.item_4obj.ImagePath" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item-hero">
+                                        <img />
+                                    </div>
+                                }
+                                @if (match.item_5 != null && match.item_5obj != null)
+                                {
+                                    <div class="item-hero">
+                                        <img src="@url@match.item_5obj.ImagePath" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item-hero">
+                                        <img />
+                                    </div>
+                                }
+                            </div>
+                            <div class="neutral-item">
+                                @if (match.item_neutral != null && match.item_neutral_obj != null)
+                                {
+                                    <div class="item-hero">
+                                        <img src="@url@match.item_neutral_obj.ImagePath" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item-hero">
+                                        <img />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="team-block">
+                <h2>Dire team</h2>
+                @foreach (var match in Model.steam.Values)
+                {
+                    <div class="heroe-card">
+                        <h2>@match.heroe.Name</h2>
+                        <a asp-controller="Character" asp-action="Details" asp-route-id="@match.heroe.Id">
+                            <img src="@url@match.heroe.ImagePath" />
+                        </a>
+                        <div class="total-value-block">
+                            <div class="gold total-value">
+                                <p><span>GPM: </span>@match.gold_per_min</p>
+                                <p><span>Gold: </span>@match.gold</p>
+                                <p><span>Gold spent: </span>@match.gold_spent</p>
+                            </div>
+                            <div class="kda total-value">
+                                <p><span>KDA: </span>@match.kda</p>
+                                <p><span>Total gold: </span>@match.total_gold</p>
+                                <p><span>Net worth: </span>@match.net_worth</p>
+                            </div>
+                            <div class="heroe-kda total-value">
+                                <p><span>Kills: </span>@match.kills</p>
+                                <p><span>Assists: </span>@match.assists</p>
+                                <p><span>Deaths: </span>@match.deaths</p>
+                            </div>
+                        </div>
+                        <div class="total-value-block">
+                            <div class="exp total-value">
+                                <p><span>EXPM: </span>@match.xp_per_min</p>
+                                <p><span>Total exp: </span>@match.total_xp</p>
+                            </div>
+                            <div class="creeps total-value">
+                                <p><span>Last hits: </span>@match.last_hits</p>
+                                <p><span>Denies: </span>@match.denies</p>
+                            </div>
+                            <div class="heroe-damage total-value">
+                                <p><span>Damage: </span>@match.hero_damage</p>
+                                <p><span>Healing: </span>@match.hero_healing</p>
+                            </div>
+                        </div>
+
+                        <div class="items">
+                            <div class="items-row">
+                                @if (match.item_0 != null && match.item_0obj != null)
+                                {
+                                    <div class="item-hero">
+                                        <img src="@url@match.item_0obj.ImagePath" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item-hero">
+                                        <img />
+                                    </div>
+                                }
+                                @if (match.item_1 != null && match.item_1obj != null)
+                                {
+                                    <div class="item-hero">
+                                        <img src="@url@match.item_1obj.ImagePath" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item-hero">
+                                        <img />
+                                    </div>
+                                }
+                                @if (match.item_2 != null && match.item_2obj != null)
+                                {
+                                    <div class="item-hero">
+                                        <img src="@url@match.item_2obj.ImagePath" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item-hero">
+                                        <img />
+                                    </div>
+                                }
+                            </div>
+                            <div class="items-row">
+                                @if (match.item_3 != null && match.item_3obj != null)
+                                {
+                                    <div class="item-hero">
+                                        <img src="@url@match.item_3obj.ImagePath" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item-hero">
+                                        <img />
+                                    </div>
+                                }
+                                @if (match.item_4 != null && match.item_4obj != null)
+                                {
+                                    <div class="item-hero">
+                                        <img src="@url@match.item_4obj.ImagePath" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item-hero">
+                                        <img />
+                                    </div>
+                                }
+                                @if (match.item_5 != null && match.item_5obj != null)
+                                {
+                                    <div class="item-hero">
+                                        <img src="@url@match.item_5obj.ImagePath" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item-hero">
+                                        <img />
+                                    </div>
+                                }
+                            </div>
+                            <div class="neutral-item">
+                                @if (match.item_neutral != null && match.item_neutral_obj != null)
+                                {
+                                    <div class="item-hero">
+                                        <img src="@url@match.item_neutral_obj.ImagePath" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item-hero">
+                                        <img />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
